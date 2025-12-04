@@ -1,0 +1,124 @@
+.countdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+.countdown__bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.countdown__wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  z-index: 2;
+}
+@media screen and (min-width: 990px) {
+  .countdown__wrapper {
+    flex-direction: row;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .countdown__wrapper {
+    gap: 12.2rem;
+  }
+}
+.countdown__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 35rem;
+  width: 100%;
+}
+@media screen and (min-width: 1200px) {
+  .countdown__content {
+    max-width: 38rem;
+  }
+}
+.countdown__content .section-header {
+  margin-bottom: 0;
+}
+.countdown__content a:not(:first-child) {
+  margin-top: 3.2rem;
+}
+.countdown__text:not(:first-child) {
+  margin-top: 1.2rem;
+}
+.countdown__main {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-height: 18.6rem;
+  z-index: 3;
+}
+@media screen and (min-width: 576px) {
+  .countdown__main {
+    width: 80%;
+  }
+}
+@media screen and (min-width: 990px) {
+  .countdown__main {
+    width: 100%;
+  }
+}
+.countdown__block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  aspect-ratio: 1/0.89;
+  border-left: 1px solid rgb(var(--color-border));
+}
+.countdown__block:last-child {
+  border-right: 1px solid rgb(var(--color-border));
+}
+@media screen and (max-width: calc(576px - 1px)) {
+  .countdown__block .h1 {
+    font-size: calc(var(--font-heading-h1-scale) * 3.2rem);
+  }
+}
+.countdown__block_num {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-weight: var(--font-heading-weight);
+}
+.countdown .countdown_block_days,
+.countdown .countdown_block_hours,
+.countdown .countdown_block_minutes,
+.countdown .countdown_block_seconds {
+  margin: 0;
+  font-feature-settings: "tnum" on, "lnum" on;
+}
+.countdown__end-info {
+  position: relative;
+  display: none;
+  flex-grow: 1;
+  margin: 0 auto;
+  width: 100%;
+  text-align: left;
+  z-index: 3;
+}
+@media screen and (min-width: 990px) {
+  .countdown__end-info {
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (min-width: 1200px) {
+  .countdown__end-info {
+    width: auto;
+    text-align: center;
+  }
+}
+.countdown__end-info h3,
+.countdown__end-info p {
+  margin: 0;
+  color: rgb(var(--color-foreground-title));
+}

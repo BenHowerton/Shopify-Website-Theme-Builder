@@ -1,0 +1,19 @@
+.discounts {
+  font-size: 1.2rem;
+  color: rgb(var(--color-foreground-secondary));
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.discounts__discount {
+  display: flex;
+  align-items: center;
+  line-height: 120%;
+}
+
+.discounts__discount > .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.4rem;
+}

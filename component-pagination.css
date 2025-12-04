@@ -1,0 +1,81 @@
+.pagination-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+}
+@media screen and (min-width: 990px) {
+  .pagination-wrapper {
+    margin-top: 4.8rem;
+  }
+}
+@media screen and (min-width: 1360px) {
+  .pagination-wrapper {
+    margin-top: 7.2rem;
+  }
+}
+.pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.pagination__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  min-height: 2.4rem;
+  min-width: 2.4rem;
+  font-size: 1.4rem;
+  font-family: var(--font-button-family);
+  font-weight: var(--font-button-weight);
+  font-style: var(--font-button-style);
+  color: rgb(var(--color-foreground-secondary));
+  text-decoration: none;
+  border: none;
+  transition: color var(--duration-default);
+}
+.pagination__item:not(.pagination__item--current):hover, .pagination__item:focus {
+  color: rgb(var(--color-foreground));
+}
+.pagination__item--current {
+  color: rgb(var(--color-foreground));
+}
+.pagination__item:not(.pagination__item--current):hover {
+  color: rgb(var(--color-foreground));
+}
+.pagination__list:hover .pagination__item-arrow{ background-color:rgb(var(--color-foreground-secondary)); }
+.pagination__item-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 50%;
+  background-color: rgb(var(--color-foreground));
+  color:  rgb(var(--color-background-secondary));
+  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.06);
+}
+.pagination__item-arrow svg {
+  width: 0.8rem;
+  height: 1.4rem;
+  transition: transform var(--duration-default);
+}
+.pagination__item--prev {
+  margin-right: 0.8rem;
+}
+.pagination__item--prev:hover svg {
+  transform: translateX(-0.3rem);
+}
+.pagination__item--next {
+  margin-left: 0.8rem;
+}
+.pagination__item--next svg {
+  transform: rotate(180deg);
+}
+.pagination__item--next:hover svg {
+  transform: rotate(180deg) translateX(-0.3rem);
+}

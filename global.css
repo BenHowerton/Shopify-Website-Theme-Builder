@@ -1,0 +1,77 @@
+img { max-width: 100%; }
+.section-title { 
+    margin: 0;
+}
+.rich-text__heading span,
+.section-title span {
+    font-style: italic;
+    font-family: var(--font-heading-family-second);
+    font-weight: var(--font-heading-weight-semi);
+}
+.section-description , .section-description p {
+    font-size: calc(var(--font-body-scale) * 1.4rem);
+    font-family: var(--font-body-family);
+    line-height: var(--font-body-line-height);
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--font-body-letter-spacing);
+    color: rgb(var(--color-foreground-secondary));
+    margin: 0;
+}
+.section-description-lg, .section-description-lg p {
+    font-size: calc(var(--font-body-scale) * 1.6rem);
+    font-family: var(--font-body-family);
+    line-height: var(--font-body-line-height);
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--font-body-letter-spacing);
+    color: rgb(var(--color-foreground-secondary));
+    margin: 0;
+}
+.section-description-sm, .section-description-sm p {
+    font-size: calc(var(--font-body-scale) * 1.2rem);
+    font-family: var(--font-body-family);
+    line-height: var(--font-body-line-height);
+    font-weight: var(--font-body-weight);
+    letter-spacing: var(--font-body-letter-spacing);
+    color: rgb(var(--color-foreground-secondary));
+    margin: 0;
+}
+@media only screen and (min-width: 750px) {
+    .section-description , .section-description p {
+        font-size: calc(var(--font-body-scale) * 1.6rem);
+    }
+    .section-description-lg, .section-description-lg p {
+        font-size: calc(var(--font-body-scale) * 2rem);
+    }
+    .section-description-sm, .section-description-sm p {
+        font-size: calc(var(--font-body-scale) * 1.4rem);
+    }
+}
+.section-heading-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/*-------------------swiper button css---------*/
+.shopify-section .btn-swiper::after {display: none;}
+.shopify-section .swiper-button {
+    top: 30%;
+    position: absolute;
+    bottom: auto;
+    width: auto;
+    height: auto;
+    padding: 2rem 3.2rem;
+    box-shadow: none!important;
+    transform: translate(0, 30%);
+}
+.shopify-section .swiper-button.swiper-button-prev {
+    left: 0;
+}
+.shopify-section .swiper-button.swiper-button-next {
+    right: 0;
+}
+@media screen and (max-width: 749px) {
+    .global-heading.container{
+        padding-left:0; padding-right:0; 
+    }
+    .shopify-section .btn-swiper {display: none !important;}
+}

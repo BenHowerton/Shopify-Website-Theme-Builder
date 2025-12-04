@@ -1,0 +1,201 @@
+@keyframes scaleSection {
+  0% {
+    height: 100%;
+    width: 100%;
+  }
+  20% {
+    height: 45%;
+    width: 45%;
+    border-radius: var(--border-radius-main);
+    overflow: hidden;
+  }
+  100% {
+    height: 45%;
+    width: 45%;
+    border-radius: var(--border-radius-main);
+    overflow: hidden;
+  }
+}
+@keyframes headingOpacity {
+  0% {
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.5;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.section-header__title,
+.section-header__subtitle {
+  max-width: 93.2rem;
+}
+
+@media (min-width: 750px) {
+  .image-banner-container.animation {
+    display: flex;
+    height: 200vh;
+  }
+  .image-banner-container.animation .image-banner {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+  }
+  .image-banner-container.animation .image-banner__wrapper {
+    min-height: unset;
+    width: unset;
+    justify-content: center;
+  }
+}
+@media (min-width: 750px) and (min-width: 750px) {
+  .image-banner-container.animation .image-banner__wrapper {
+    width: 50%;
+    flex-grow: 1;
+  }
+}
+@media (min-width: 750px) {
+  .image-banner-container.animation .image-banner__media {
+    height: 50vh;
+  }
+}
+@media (min-width: 750px) and (min-width: 750px) {
+  .image-banner-container.animation .image-banner__media {
+    height: 100vh;
+  }
+}
+@media (min-width: 750px) {
+  .image-banner-container.animation .image-banner__container {
+    transition: border-radius 0.5s;
+    border-radius: 0;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+@media (min-width: 750px) and (min-width: 750px) {
+  .image-banner-container.animation .image-banner__container svg {
+    flex-grow: 1;
+  }
+}
+@media (min-width: 750px) {
+  .image-banner-container.animation .image-banner__heading {
+    top: unset;
+    transform: translateX(-50%);
+    max-width: 40rem;
+    opacity: 1;
+  }
+}
+@media (min-width: 750px) and (min-width: 750px) {
+  .image-banner-container.animation .image-banner__heading {
+    opacity: 0;
+  }
+}
+@media (min-width: 750px) and (min-width: 1200px) {
+  .image-banner-container.animation .image-banner__heading {
+    max-width: 56.2rem;
+  }
+}
+
+.image-banner {
+  background: unset;
+  display: flex;
+  align-items: center;
+}
+.image-banner .section-header__title {
+  max-width: 88.8rem;
+}
+.image-banner__container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+@media (min-width: 750px) {
+  .image-banner__container {
+    flex-direction: row;
+  }
+}
+.image-banner__heading {
+  position: absolute;
+  max-width: 56.2rem;
+  text-align: center;
+  left: 50%;
+  opacity: 1;
+  background: transparent;
+  transform: translateX(-50%);
+  color: rgb(var(--color-foreground));
+  z-index: 3;
+}
+.image-banner__wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  flex-direction: column-reverse;
+}
+.image-banner__wrapper.container {
+  overflow: hidden;
+  border-radius: var(--border-radius-main);
+  padding: 0;
+}
+.image-banner__promo {
+  display: flex;
+  width: 100%;
+}
+.image-banner__promo .column {
+  position: relative;
+  flex: 1;
+  max-width: 50%;
+}
+.image-banner.large .image-banner__media {
+  height: 100vh;
+}
+.image-banner.adapt .image-banner__media {
+  padding-bottom: var(--aspect-ratio-adapt);
+}
+.image-banner__media {
+  aspect-ratio: var(--aspect-ratio-image);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.image-banner__media.adaptive {
+  aspect-ratio: auto;
+}
+.image-banner__media.placeholder {
+  background-color: rgba(var(--color-background));
+}
+.color-background-1 .image-banner__media.placeholder {
+  background-color: rgba(var(--color-background-secondary));
+}
+.image-banner .image-banner__media.placeholder {
+  background-color: rgba(var(--color-background), 0.94);
+}
+.image-banner.color-background-1 .image-banner__media.placeholder {
+  background-color: rgba(var(--color-background-secondary), 0.94);
+}
+.image-banner__media svg,
+.image-banner__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.image-banner__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: rgb(var(--color-overlay));
+  transition: opacity var(--duration-default);
+}

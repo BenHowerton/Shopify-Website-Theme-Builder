@@ -1,0 +1,177 @@
+.template-page-b2b-registration .container.breadcrumbs-wrapper,
+.form-wrapper {
+   max-width: 436px;
+   margin: 0 auto; 
+   padding: 0;
+}
+.template-page-b2b-registration .breadcrumbs-wrapper .breadcrumb { justify-content: center;}
+.custom-page-form.spaced-section { padding-top: 4rem; }
+.page-form-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 2.4rem;
+}
+.form-container {
+  width: 100%;
+}
+
+.business-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.business-form .field label {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.business-form .field input,
+.business-form .field select,
+.business-form .field textarea,
+.business-form .field .selected-option {
+  width: 100%;
+  padding: 13px 24px;
+  border: 1px solid rgb(var(--color-border-input));
+  border-radius: var(--border-radius-button);
+  background-color: rgb(var(--color-background-input));
+  font-family: var(--font-body-family);
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: var(--font-button-letter-spacing);
+  outline: none;
+  cursor: pointer;
+}
+
+.business-form .name-group {
+  display: flex;
+  gap: 16px;
+}
+
+.business-form .name-group div {
+    flex: 1;
+}
+
+.business-form .field textarea {
+  min-height: 60px;
+  resize: none;
+}
+
+.business-form .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.business-form .checkbox input[type="checkbox"] {
+    height: 20px;
+    width: 20px;
+    border-radius: var(--border-radius-button);
+    background-color: #E6E6E6;
+    appearance: none;
+    margin: 0;
+    position: relative;
+    cursor: pointer;
+}
+.business-form .checkbox input[type="checkbox"]:checked {
+  background-color: #000;
+  border-color: #000;
+}
+
+.business-form .checkbox input[type=checkbox]:checked:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.625 7.4375L6.125 10.9375L11.375 3.0625" stroke="%23FFFFFC" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center center;
+    background-size: contain;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+.form-success-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+.success-content p {
+  margin: 8px 0 0 0;
+}
+
+.custom-dropdown{
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 50%;
+  background-color: rgb(var(--color-background-input));
+  width: 100%;
+  z-index: 5;
+  max-height: 400px;
+  overflow-x: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s, opacity 0.3s, top 0.3s;
+  padding: 20px;
+}
+
+.custom-dropdown.active .dropdown-options {
+  opacity: 1;
+  visibility: visible;
+  top: 100%;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 15px;
+  z-index: 1;
+  top: calc(50% - 5px);
+  font-size: 0;
+  pointer-events: none;
+  transition: 0.5s all;
+}
+
+.custom-dropdown.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-options .option {
+  cursor: pointer;
+}
+
+.error-message {
+  font-size: 10px;
+  font-weight: 500;
+  display: none;
+  align-items: center;
+  gap: 5px;
+  color: red;
+}
+
+.fieldset.name-group .error-message {
+  margin-top: 16px;
+}
+
+span.error-icon {
+  display: inline-block;
+  height: 12px;
+}
+
+span.error-icon svg {
+  height: 12px;
+}

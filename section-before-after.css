@@ -1,0 +1,327 @@
+.before-after__border-top {
+  border-top: 0.1rem solid rgb(var(--color-border));
+}
+.before-after__border-bottom {
+  border-bottom: 0.1rem solid rgb(var(--color-border));
+}
+.before-after__default {
+  display: flex;
+  gap: 0.5rem;
+  border-radius: 0.4rem;
+}
+.before-after__default svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+@media screen and (max-width: calc(990px - 1px)) {
+  .before-after__default svg {
+    height: 25rem;
+  }
+}
+.before-after__box {
+  display: flex;
+  justify-content: space-between;
+  gap: 12.9rem;
+}
+.before-after__box .before-after__slide {
+  border-radius: var(--border-radius-main);
+}
+@media screen and (max-width: calc(1200px - 1px)) {
+  .before-after__box {
+    gap: 3rem;
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 1201px) {
+  .before-after__box {
+    min-height: 54rem;
+  }
+}
+.before-after__content {
+  display: flex;
+  flex-direction: column;
+  width: 53.3%;
+}
+.before-after__content .section-header {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+@media screen and (min-width: 1200px) {
+  .before-after__content .section-header {
+    margin-top: 8.2rem;
+  }
+}
+@media screen and (max-width: calc(1200px - 1px)) {
+  .before-after__content {
+    width: 100%;
+    max-width: 70rem;
+  }
+}
+.before-after__content-true {
+  flex: 1 66.5%;
+}
+@media screen and (max-width: calc(1200px - 1px)) {
+  .before-after__content-true {
+    width: 100%;
+  }
+}
+.before-after__content-true .divider {
+  color: white;
+}
+.before-after__content-false {
+  width: 100%;
+}
+.before-after .title-wrapper {
+  margin-bottom: 0.8rem;
+}
+.before-after .before-after__description {
+  margin-top: 2.4rem;
+}
+.before-after__text {
+  width: 100%;
+  margin: 0;
+  letter-spacing: -0.03rem;
+}
+@media screen and (min-width: 1200px) {
+  .before-after__text {
+    max-width: 40.8rem;
+  }
+}
+.before-after__default {
+  display: flex;
+  gap: 0.5rem;
+}
+@media screen and (min-width: 1200px) {
+  .before-after__default {
+    height: 100%;
+  }
+}
+.before-after__button {
+  margin-top: 2.4rem;
+  min-width: 19.4rem;
+  min-height: 5.8rem;
+}
+@media screen and (min-width: 1200px) {
+  .before-after__button {
+    margin-top: 3.2rem;
+  }
+}
+.before-after img-comparison-slider.rendered {
+  border-radius: var(--border-radius-main);
+  outline: none;
+  width: 100%;
+  height: 100%;
+  color: rgb(var(--color-background));
+}
+.before-after img-comparison-slider.rendered span {
+  color: rgb(var(--color-foreground));
+}
+.before-after img-comparison-slider.rendered svg path {
+  color: rgb(var(--color-foreground));
+}
+.before-after__figure {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.before-after__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.before-after__figure_text {
+  position: absolute;
+  max-width: 22rem;
+  word-wrap: break-word;
+  line-height: initial;
+}
+.before-after__figure_text--left {
+  left: 2.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.before-after__figure_text--right {
+  right: 2.4rem;
+  bottom: 50%;
+  transform: translateY(50%);
+}
+.before-after__figure_text .before_text {
+  font-size: 1.4rem;
+  margin-top: 0.4rem;
+  letter-spacing: -0.02rem;
+}
+.before-after__figure_text span {
+  font-family: var(--font-button-family);
+  text-transform: var(--font-button-text-transform);
+  color: var(--color-foreground);
+}
+.before-after .icon-handle .icon-handle_line1,
+.before-after .icon-handle .icon-handle_line2 {
+  transition: var(--duration-default);
+}
+.before-after .icon-handle:hover .icon-handle_line1 {
+  transform: translateX(-1.5px);
+  transition: var(--duration-default);
+}
+.before-after .icon-handle:hover .icon-handle_line2 {
+  transform: translateX(1.5px);
+  transition: var(--duration-default);
+}
+.before-after.before-after--full .before-after__slide {
+  width: 100%;
+}
+.before-after.before-after--full .before-after__box {
+  max-height: 30rem;
+  min-height: 30rem;
+}
+.before-after.before-after--full .before-after__box .before-after__figure img {
+  max-height: 30rem;
+  min-height: 30rem;
+}
+@media screen and (min-width: 576px) {
+  .before-after.before-after--full .before-after__box {
+    max-height: 25rem;
+  }
+  .before-after.before-after--full .before-after__box .before-after__figure img {
+    max-height: 25rem;
+  }
+}
+@media screen and (min-width: 750px) {
+  .before-after.before-after--full .before-after__box {
+    max-height: 35rem;
+  }
+  .before-after.before-after--full .before-after__box .before-after__figure img {
+    max-height: 35rem;
+  }
+}
+@media screen and (min-width: 990px) {
+  .before-after.before-after--full .before-after__box {
+    max-height: 45rem;
+  }
+  .before-after.before-after--full .before-after__box .before-after__figure img {
+    max-height: 45rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .before-after.before-after--full .before-after__box {
+    max-height: 55rem;
+  }
+  .before-after.before-after--full .before-after__box .before-after__figure img {
+    max-height: 55rem;
+  }
+}
+@media screen and (min-width: 1360px) {
+  .before-after.before-after--full .before-after__box {
+    max-height: 65rem;
+  }
+  .before-after.before-after--full .before-after__box .before-after__figure img {
+    max-height: 65rem;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .before-after.before-after--full .before-after__box {
+    max-height: 75rem;
+  }
+  .before-after.before-after--full .before-after__box .before-after__figure img {
+    max-height: 75rem;
+  }
+}
+.before-after.before-after--full .before-after__top_content {
+  margin-bottom: 1.9rem;
+}
+.before-after.before-after--full .before-after__top_content .before-after__text {
+  width: 100%;
+  margin: 0;
+}
+@media screen and (min-width: 1200px) {
+  .before-after.before-after--full .before-after__top_content .before-after__text {
+    max-width: 75rem;
+  }
+}
+@media screen and (min-width: 1201px) {
+  .before-after.before-after--simple .before-after__figure {
+    display: block !important;
+  }
+  .before-after.before-after--simple .before-after__figure img {
+    position: absolute;
+  }
+}
+@media screen and (max-width: calc(1200px - 1px)) {
+  .before-after.before-after--simple .before-after__slide {
+    max-height: 65rem;
+    min-height: 65rem;
+  }
+  .before-after.before-after--simple .before-after__slide .before-after__figure img {
+    max-height: 65rem;
+    min-height: 65rem;
+  }
+}
+@media screen and (max-width: calc(990px - 1px)) {
+  .before-after.before-after--simple .before-after__slide {
+    max-height: 55rem;
+    min-height: 55rem;
+  }
+  .before-after.before-after--simple .before-after__slide .before-after__figure img {
+    max-height: 55rem;
+    min-height: 55rem;
+  }
+}
+@media screen and (max-width: calc(750px - 1px)) {
+  .before-after.before-after--simple .before-after__slide {
+    max-height: 45rem;
+    min-height: 45rem;
+  }
+  .before-after.before-after--simple .before-after__slide .before-after__figure img {
+    max-height: 45rem;
+    min-height: 45rem;
+  }
+}
+@media screen and (max-width: calc(576px - 1px)) {
+  .before-after.before-after--simple .before-after__slide {
+    max-height: 30rem;
+    min-height: 30rem;
+  }
+  .before-after.before-after--simple .before-after__slide .before-after__figure img {
+    max-height: 30rem;
+    min-height: 30rem;
+  }
+}
+@media screen and (max-width: calc(750px - 1px)) {
+  .before-after .icon-handle {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.no-js img-comparison-slider {
+  visibility: visible;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.no-js img-comparison-slider [slot=second] {
+  display: block;
+}
+@media (max-width: 1200px) {
+  .no-js img-comparison-slider [slot=second] {
+    display: block;
+  }
+}
+.no-js .icon-handle {
+  position: absolute;
+  left: 48%;
+  top: 48%;
+}
+.no-js .before-after__figure {
+  width: 50%;
+  order: 1;
+}
+@media (max-width: 1200px) {
+  .no-js .before-after__figure {
+    height: auto;
+  }
+}

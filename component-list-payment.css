@@ -1,0 +1,26 @@
+.list-payment {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+}
+
+.list-payment__item {
+  align-items: center;
+  display: flex;
+  height: 2.4rem;
+  width: 4rem;
+  border-radius: 6px;
+}
+.list-payment__item svg {
+  object-fit: cover;
+  height: 2.4rem;
+  width: 4rem;
+}
+.list-payment__item .icon--full-color {
+  width: 4rem;
+  height: 2.4rem;
+  border-radius: 6px;
+}

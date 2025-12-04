@@ -1,0 +1,118 @@
+.price-wrapper {
+  margin-top: 0.8rem;
+}
+
+.price {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  line-height: 1.3;
+  color: rgb(var(--color-foreground));
+  font-weight: var(--font-subtitle-weight);
+  font-family: var(--font-subtitle-family);
+}
+
+.price.price--unavailable {
+  visibility: hidden;
+}
+
+.price--end {
+  justify-content: flex-end;
+}
+
+.price dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.price dd {
+  margin: 0;
+}
+
+.price dd:not(:last-child) {
+  margin: 0 0.8rem 0 0;
+}
+
+.product .price dd {
+  margin: 0 0.8rem 0 0;
+}
+
+.price .price__last:last-of-type {
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .price {
+    margin-bottom: 0;
+  }
+}
+.price--large {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  letter-spacing: 0.13rem;
+}
+
+.price--product {
+  font-size: 1.2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .price--large {
+    font-size: 1.8rem;
+  }
+  .price--product {
+    font-size: 1.4rem;
+  }
+}
+.price--sold-out .price__availability,
+.price__regular {
+  display: block;
+}
+
+.price__sale,
+.price__availability,
+.price--on-sale .price__regular,
+.price--on-sale .price__availability,
+.price--no-compare .price__compare {
+  display: none;
+}
+
+.price--on-sale .price__sale {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.price__sale dd {
+  display: flex;
+  align-items: center;
+}
+
+.price--center {
+  display: flex;
+  justify-content: center;
+}
+
+.price--on-sale .price-item--regular {
+  text-decoration: line-through;
+  color: rgb(var(--color-card-price-old));
+  text-decoration-color: rgb(var(--color-card-price-old));
+  font-size: calc(var(--font-text-card-scale) * 1.4rem);
+}
+
+.price__sale .price-item--sale {
+  font-size: calc(var(--font-text-card-scale) * 1.4rem);
+  color: rgb(var(--color-card-price-new));
+}
+
+.unit-price {
+  font-size: 1.1rem;
+  letter-spacing: 0.04rem;
+  line-height: 1.2;
+  margin-top: 0.2rem;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.8);
+}

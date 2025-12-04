@@ -1,0 +1,34 @@
+.list-menu--right {
+  right: 0;
+}
+
+.list-menu--disclosure {
+  position: absolute;
+  left: auto;
+  min-width: max-content;
+  max-width: 30rem;
+  background-color: rgb(var(--color-background-secondary));
+}
+
+.list-menu--disclosure .list-menu--disclosure {
+  left: 100%;
+}
+
+.list-menu--disclosure .list-menu--disclosure:before {
+  content: none;
+}
+
+.list-menu--disclosure:focus {
+  outline: none;
+}
+
+.footer .list-menu__item {
+  transition: color var(--duration-default), text-decoration var(--duration-default);
+}
+
+.list-menu--disclosure.localization-selector {
+  max-height: 18rem;
+  overflow: auto;
+  width: 10rem;
+  padding: 0.5rem;
+}

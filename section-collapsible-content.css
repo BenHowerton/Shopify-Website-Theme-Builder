@@ -1,0 +1,159 @@
+.collapsible-content * {
+  box-sizing: border-box;
+}
+.collapsible-content .collapsible-content__wrapper .section-header__title {
+  word-wrap: break-word;
+}
+.collapsible-content__wrapper {
+  width: 100%;
+  display: flex;
+}
+.collapsible-content__wrapper > div {
+  flex: 1;
+  width: 50%;
+}
+.collapsible-content__wrapper > div h2 {
+  margin: 0;
+  padding-right: 2rem;
+}
+.collapsible-content__wrapper .faq-button-container {
+  margin-top: 2.8rem;
+}
+@media screen and (max-width: calc(990px - 1px)) {
+  .collapsible-content__wrapper {
+    flex-direction: column;
+  }
+  .collapsible-content__wrapper > div {
+    width: 100%;
+  }
+  .collapsible-content__wrapper h2 {
+    text-align: left;
+    padding-right: 0;
+  }
+}
+.collapsible-content__wrapper.column-direction {
+  flex-direction: column;
+}
+.collapsible-content__wrapper.column-direction > div {
+  margin: 0 auto;
+}
+.collapsible-content__wrapper.column-direction h2 {
+  text-align: center;
+}
+.collapsible-content__wrapper.column-direction .section-header__subtitle {
+  margin: 0 auto;
+  width: fit-content;
+}
+.collapsible-content__wrapper.column-direction .collapsible-content-main-container {
+  width: 100%;
+  max-width: 66.2rem;
+}
+.collapsible-content__wrapper.column-direction .collapsible-content-main-container .faq-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.collapsible-content__item {
+  border-bottom: 0.1rem solid rgba(var(--color-border));
+  transition: opacity var(--duration-default);
+}
+@media screen and (min-width: 1200px) {
+  .collapsible-content__item--opacity {
+    opacity: 0.5;
+  }
+}
+.collapsible-content__item:first-child {
+  border-top: 0.1rem solid rgba(var(--color-border));
+}
+.collapsible-content__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 2rem 0;
+  cursor: pointer;
+}
+.collapsible-content__toggle-group {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  max-width: calc(100% - 4.6rem);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.collapsible-content__toggle:focus, .collapsible-content__toggle:focus-visible, .collapsible-content__toggle:focus-within {
+  outline-offset: -0.2rem;
+}
+.collapsible-content__question {
+  margin: 0;
+  transition: var(--duration-default);
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-body-family);
+  word-wrap: break-word;
+  width: 100%;
+}
+.collapsible-content .collapsible-content__item.active .collapsible-content__toggle {
+  padding: 2rem 0;
+}
+.collapsible-content__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.collapsible-content__icon .icon-minus {
+  display: none;
+}
+.no-js .collapsible-content__icon .icon-minus {
+  display: block;
+}
+.collapsible-content__icon .icon-plus {
+  display: block;
+}
+.no-js .collapsible-content__icon .icon-plus {
+  display: none;
+}
+.active .collapsible-content__icon .icon-minus {
+  display: block;
+}
+.active .collapsible-content__icon .icon-plus {
+  display: none;
+}
+.collapsible-content__icon svg {
+  transition: transform var(--duration-default);
+}
+.collapsible-content__answer {
+  display: none;
+  padding: 0;
+  padding-bottom: 4rem;
+  letter-spacing: -0.16px;
+}
+.collapsible-content__answer-inner {
+  padding-right: 10.5rem;
+  word-wrap: break-word;
+  /* font-size: calc(var(--font-body-scale) * 1rem); */
+  color: rgb(var(--color-foreground-secondary));
+  margin: 0;
+}
+.collapsible-content__answer-inner p {
+  margin: 0;
+  color: rgb(var(--color-foreground-secondary));
+}
+@media screen and (max-width: calc(990px - 1px)) {
+  .collapsible-content__answer-inner {
+    padding-right: 5.5rem;
+  }
+}
+.no-js .collapsible-content__answer {
+  display: block;
+}
+.collapsible-content .section-header__title {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+}

@@ -1,0 +1,31 @@
+.totals {
+  display: flex;
+}
+
+.totals > * {
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.totals * {
+  line-height: 120%;
+}
+
+.totals > * + * {
+  margin-left: 0.5rem;
+}
+
+.totals__subtotal-value {
+  color: rgba(var(--color-foreground));
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 140%;
+  margin: 0;
+}
+@media screen and (max-width: 989px) {
+  .totals__subtotal-value {
+    font-size: 1.5rem;
+  }
+}

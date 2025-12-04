@@ -1,0 +1,106 @@
+.promo-block {
+  position: relative;
+  display: flex;
+  flex: 1;
+  max-width: 33.3333333333%;
+  background-color: rgb(var(--color-header-background));
+}
+.promo-block_after::after {
+  content: "";
+  display: block;
+  width: 0;
+  padding-bottom: 86.129753915%;
+}
+.promo-block:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  right: -0.1rem;
+  display: block;
+  height: 100%;
+  width: 0.1rem;
+  background-color: rgb(var(--color-border));
+}
+.promo-block__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.4rem;
+  width: 100%;
+}
+.promo-block__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(var(--color-overlay));
+  overflow: hidden;
+  z-index: 2;
+  opacity: var(--opacity);
+  transition: opacity var(--duration-default);
+}
+.promo-block:hover .promo-block__heading.hover-effect span {
+  transform: translateX(2.4rem);
+}
+.promo-block:hover .promo-block__heading.hover-effect::before {
+  background-color: rgb(var(--color-foreground));
+}
+.promo-block__heading {
+  position: relative;
+  z-index: 3;
+  margin: 0;
+  pointer-events: none;
+  text-transform: var(--font-heading-text-transform);
+}
+.promo-block__heading.hover-effect {
+  padding-right: 2.4rem;
+}
+.promo-block__heading.hover-effect span {
+  display: block;
+  transition: transform var(--duration-default);
+}
+.promo-block__heading.hover-effect::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0rem;
+  display: block;
+  width: 1.4rem;
+  height: 1.4rem;
+  transform: translateY(-50%);
+  border-radius: 100%;
+  background-color: transparent;
+  transition: background-color var(--duration-default);
+}
+.promo-block__image {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  overflow: hidden;
+}
+.promo-block__image img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: relative;
+  z-index: 1;
+}
+.promo-block__button {
+  position: relative;
+  z-index: 3;
+  flex-shrink: 0;
+  max-width: 50%;
+}
+.promo-block__link-overlay:empty {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: all;
+  z-index: 2;
+}

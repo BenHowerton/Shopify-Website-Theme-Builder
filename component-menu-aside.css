@@ -1,0 +1,268 @@
+.aside-menu {
+  --top-height: 19rem;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  transition: opacity var(--duration-default) ease, transform var(--duration-default) ease;
+  pointer-events: none;
+  transition: visibility var(--duration-default) ease;
+  visibility: hidden;
+  display: none;
+}
+.aside-menu--open {
+  pointer-events: all;
+  visibility: visible;
+}
+.aside-menu--open .aside-menu__wrapper {
+  opacity: 1;
+}
+.aside-menu__wrapper {
+  background-color: rgb(var(--color-background-secondary));
+  box-shadow: 0rem 3rem 4rem 0rem rgba(0, 0, 0, 0.16);
+  width: 100vw;
+  width: 100dvw;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2.4rem;
+  padding-bottom: 2.4rem;
+  opacity: 0;
+  transition: opacity var(--duration-default) ease;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  height: 100dvh;
+  overflow: auto;
+}
+.aside-menu__wrapper::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.aside-menu__wrapper::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-border));
+  border-radius: 2rem;
+}
+@media screen and (min-width: 1200px) {
+  .aside-menu {
+    display: block;
+  }
+}
+.no-js .aside-menu {
+  display: none;
+}
+.aside-menu__toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  cursor: pointer;
+  padding: 0 !important;
+  flex-shrink: 0;
+}
+.aside-menu__toggle + .header__inline-menu {
+  margin-left: -0.6rem;
+}
+.aside-menu__toggle .icon-menu {
+  color: rgb(var(--color-foreground));
+}
+.aside-menu__toggle--close-btn {
+  gap: 0.4rem;
+  width: auto;
+  height: auto;
+  font-size: 1.2rem;
+  font-family: var(--font-button-family);
+  font-weight: var(--font-button-weight);
+  font-style: var(--font-button-style);
+  text-transform: var(--font-button-text-transform);
+  letter-spacing: var(--font-button-letter-spacing);
+}
+.aside-menu__toggle .icon-close {
+  width: 3.6rem;
+  height: 3.6rem;
+  padding: 0.7rem;
+  color: rgb(var(--color-foreground));
+}
+.aside-menu__toggle span {
+  font-size: 1.2rem;
+  font-family: var(--font-header-menu-family);
+  font-style: var(--font-header-menu-style);
+  font-weight: var(--font-header-menu-weight);
+  text-transform: var(--font-header-menu-text-transform);
+  color: rgb(var(--color-foreground));
+}
+.aside-menu__toggle:hover {
+  opacity: 0.7;
+}
+.aside-menu__container {
+  display: flex;
+  align-items: flex-start;
+  gap: 3.2rem;
+  margin-top: 13rem;
+}
+.aside-menu__menus {
+  display: flex;
+  gap: 6.4rem;
+}
+.aside-menu__menus > .aside-menu__list {
+  max-width: 22rem;
+  max-height: calc(100vh - var(--top-height));
+  overflow-y: auto;
+  margin-top: -0.6rem !important;
+}
+.aside-menu__menus + .aside-menu__promo-blocks {
+  margin-left: auto;
+}
+.aside-menu__list details[open] > summary > .icon-arrow {
+  transform: rotate(90deg);
+}
+.aside-menu__list::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.aside-menu__list::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-border));
+  border-radius: 2rem;
+}
+.aside-menu__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 0.6rem 0;
+  padding-right: 0;
+}
+.aside-menu__item .icon-arrow {
+  width: 0.8rem;
+  height: auto;
+  margin-right: 0.6rem;
+  color: rgb(var(--color-foreground));
+  transform: rotate(-90deg);
+  flex-shrink: 0;
+}
+.aside-menu__submenu .aside-menu__item {
+  padding-left: 2rem;
+}
+.aside-menu__submenu .aside-menu__item--grandchild {
+  padding-left: 4rem;
+}
+.aside-menu__link {
+  position: relative;
+  text-decoration: none;
+  color: rgb(var(--color-foreground));
+  transition: opacity var(--duration-default);
+  word-break: break-word;
+}
+@media screen and (min-width: 990px) {
+  .aside-menu__link:hover {
+    opacity: 0.5;
+  }
+}
+.aside-menu__submenu {
+  transition: transform var(--duration-default) ease, visibility var(--duration-default) ease;
+  visibility: hidden;
+}
+details[open] > .aside-menu__submenu {
+  visibility: visible;
+}
+.aside-menu__column {
+  max-height: calc(100vh - var(--top-height));
+  overflow-y: auto;
+}
+.aside-menu__column::-webkit-scrollbar {
+  width: 0.4rem;
+}
+.aside-menu__column::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-border));
+  border-radius: 2rem;
+}
+.aside-menu__list_small {
+  width: 14rem;
+  margin-top: -0.6rem !important;
+}
+.aside-menu__list_small .aside-menu__item .icon-arrow {
+  width: 0.5rem;
+  transition: opacity var(--duration-default);
+}
+.aside-menu__list_small .aside-menu__item .icon-arrow:hover {
+  opacity: 0.5;
+}
+.aside-menu__promo-blocks {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.6rem;
+  flex: 1;
+  max-width: 88.8rem;
+}
+.aside-menu__promo-block {
+  position: relative;
+  display: flex;
+  border-radius: var(--border-radius-main);
+  overflow: hidden;
+  flex: 1;
+}
+.aside-menu__promo-block::before {
+  content: "";
+  display: block;
+  width: 0;
+  padding-bottom: 77.9816513761%;
+}
+.aside-menu__promo-block::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(var(--color-overlay), var(--overlay-opacity));
+}
+.aside-menu__promo-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 2.4rem;
+  width: 100%;
+}
+.aside-menu__promo-heading {
+  margin: 0;
+}
+.aside-menu__promo-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.aside-menu__promo-button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity var(--duration-default);
+}
+.aside-menu__promo-button .icon {
+  transform: rotate(-90deg);
+}
+.aside-menu__promo-button[disabled] {
+  opacity: 0.5;
+}
+.aside-menu__promo-button:not([disabled]):hover {
+  opacity: 0.5;
+}
+.aside-menu__promo-button_overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.aside-menu__social {
+  margin-top: 1.8rem !important;
+  margin-bottom: 1.8rem !important;
+}

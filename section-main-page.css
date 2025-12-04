@@ -1,0 +1,25 @@
+.main-page .page-title {
+  margin-top: 0;
+}
+.main-page .main-page-title {
+  margin: 0;
+}
+.main-page .page-header + .rte {
+  margin-top: 2.4rem;
+}
+
+.page-placeholder-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.page-placeholder {
+  width: 52.5rem;
+  height: 52.5rem;
+}
+ .template-page-store-locator .main-page .page-header{ margin-bottom:6.4rem; margin-top:3.2rem;   }
+/* .template-page-store-locator .main-page .main-page-title{  font-size: calc(var(--font-heading-h3-scale) * 2.8rem);  font-weight: var(--font-body-weight); } */
+@media screen and (max-width:767px){
+.template-page-store-locator .main-page .page-header{ margin-bottom:3.6rem; margin-top:2rem;   }
+ .template-page-store-locator .main-page .main-page-title{ font-size: calc(var(--font-heading-h3-scale) * 3.5rem); }
+}
