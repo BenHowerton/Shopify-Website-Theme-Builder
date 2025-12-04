@@ -1,0 +1,262 @@
+{{ 'img-comparison.css' | asset_url | stylesheet_tag }}
+{{ 'section-before-after.css' | asset_url | stylesheet_tag }}
+
+<script src='{{ 'img-comparison.js' | asset_url }}' defer='defer'></script>
+
+{% style %}
+	{% render 'section-margin' %}
+	{% render 'section-padding' %}
+{% endstyle %}
+
+<section class='before-after {% if section.settings.section_type == 'full' %}before-after--full{% else %}before-after--simple{% endif %}'>
+	{% assign content = false %}
+	<div class='container'>
+		<div class='section-{{ section.id }}-padding {% if section.settings.border_top %}before-after__border-top{% endif %} {% if section.settings.border_bottom %}before-after__border-bottom{% endif %}'>
+			<div class='before-after__box'>
+				{%- if section.settings.section_heading != blank
+					or section.settings.subheading != blank
+					or section.settings.text != blank
+				%}
+					{% assign content = true %}
+					<div class='before-after__content'>
+						{%
+							render 'section-header',
+							section_heading: section.settings.section_heading,
+							section_subheading: section.settings.subheading,
+							section_heading_size: section.settings.section_heading_size,
+							dot: section.settings.dot,
+						%}
+						{%- if section.settings.text != blank -%}
+							<div class='before-after__description'>
+								<p class='before-after__text'>{{ section.settings.text }}</p>
+							</div>
+						{%- endif -%}
+					</div>
+				{%- endif -%}
+				<div class='before-after__slide before-after__content-{{ content }} color-{{ section.settings.color_scheme }}'>
+					{%- if section.settings.image_before != blank
+						and section.settings.image_after != blank
+					-%}
+						<img-comparison-slider>
+							<figure class='before-after__figure' slot='first'>
+								{{
+									section.settings.image_before
+									| image_url: width: 1790
+									| image_tag: loading: 'lazy', widths: '553, 895, 1790'
+								}}
+								<figcaption class='before-after__figure_text before-after__figure_text--left'>
+									{%- if section.settings.before_heading != blank -%}
+										<span>
+											{{ section.settings.before_heading }}
+										</span>
+									{%- endif -%}
+								</figcaption>
+							</figure>
+							<figure class='before-after__figure' slot='second'>
+								{{
+									section.settings.image_after
+									| image_url: width: 1790
+									| image_tag: loading: 'lazy', widths: '553, 895, 1790'
+								}}
+								<figcaption class='before-after__figure_text before-after__figure_text--right'>
+									{%- if section.settings.after_heading != blank -%}
+										<span>
+											{{ section.settings.after_heading }}
+										</span>
+									{%- endif -%}
+								</figcaption>
+							</figure>
+							{% render 'icon-handle' %}
+						</img-comparison-slider>
+					{%- else -%}
+						<div class='before-after__default'>
+							{{
+								'product-apparel-1'
+								| placeholder_svg_tag: 'placeholder-svg placeholder'
+							}}
+							{{
+								'product-apparel-2'
+								| placeholder_svg_tag: 'placeholder-svg placeholder'
+							}}
+						</div>
+					{%- endif -%}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% schema %}
+{
+	"name": "t:sections.before-after.name",
+	"tag": "section",
+	"class": "before-after-section",
+	"enabled_on": {
+		"templates": ["*"]
+	},
+	"settings": [
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"default": "background-1",
+			"label": "t:sections.all.color_scheme.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.section-header.label"
+		},
+		{
+			"type": "text",
+			"id": "section_heading",
+			"default": "Some heading for this section",
+			"label": "t:sections.all.section-header.heading.label"
+		},
+		{
+			"type": "select",
+			"id": "section_heading_size",
+			"options": [
+				{
+					"value": "h4",
+					"label": "t:sections.all.heading_size.options__4.label"
+				},
+				{
+					"value": "h3",
+					"label": "t:sections.all.heading_size.options__1.label"
+				},
+				{
+					"value": "h2",
+					"label": "t:sections.all.heading_size.options__2.label"
+				},
+				{
+					"value": "h1",
+					"label": "t:sections.all.heading_size.options__3.label"
+				}
+			],
+			"default": "h1",
+			"label": "t:sections.all.heading_size.label"
+		},
+		{
+			"type": "text",
+			"id": "subheading",
+			"default": "Some Subheading",
+			"label": "t:sections.all.section-header.subheading.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "dot",
+			"default": true,
+			"label": "t:sections.all.section-header.dot.label"
+		},
+		{
+			"type": "textarea",
+			"id": "text",
+			"default": "Enter a brief description or message for this section. This text will help convey important information to your users.",
+			"label": "t:sections.before-after.settings.text.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.before-after.settings.before.content"
+		},
+		{
+			"type": "image_picker",
+			"id": "image_before",
+			"label": "t:sections.before-after.settings.image_before.label",
+			"info": "t:sections.before-after.settings.image_before.info"
+		},
+		{
+			"type": "text",
+			"id": "before_heading",
+			"default": "Before",
+			"label": "t:sections.before-after.settings.title.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.before-after.settings.after.content"
+		},
+		{
+			"type": "image_picker",
+			"id": "image_after",
+			"label": "t:sections.before-after.settings.image_after.label",
+			"info": "t:sections.before-after.settings.image_before.info"
+		},
+		{
+			"type": "text",
+			"id": "after_heading",
+			"default": "After",
+			"label": "t:sections.before-after.settings.title.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.section-margin.header.content"
+		},
+		{
+			"type": "select",
+			"id": "margin_top",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_top.label"
+		},
+		{
+			"type": "select",
+			"id": "margin_bottom",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_bottom.label"
+		}
+	],
+	"presets": [
+		{
+			"name": "t:sections.before-after.presets.name"
+		}
+	]
+}
+{% endschema %}

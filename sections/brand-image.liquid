@@ -1,0 +1,245 @@
+{{ 'section-brand.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+	{% render 'section-margin' %}
+{%- endstyle -%}
+
+<div class='brand container'>
+	{% render 'section-header',
+		section_heading: section.settings.section_heading,
+		section_subheading: section.settings.subheading,
+		section_heading_size: section.settings.section_heading_size,
+		dot: section.settings.dot,
+		line: section.settings.line
+	%}
+
+	<div class='brand__wrapper'>
+		<ul class='brand-list '>
+			{%- for block in section.blocks -%}
+				<li
+					class='brand-list__item {% if section.settings.column_alignment == 'center' %} center{% endif %}'
+					{{ block.shopify_attributes }}
+				>
+					{%- if block.settings.image != blank -%}
+						{%- assign image_size_2x = block.settings.image_width
+							| times: 2
+							| at_most: 5760
+						-%}
+						<img
+							srcset='{{ block.settings.image | image_url: width: block.settings.image_width }}, {{ block.settings.image | image_url: width: image_size_2x }} 2x'
+							src='{{ block.settings.image | image_url: width: 400 }}'
+							alt='{{ block.settings.image.alt | escape }}'
+							loading='lazy'
+							width='{{ block.settings.image.width }}'
+							height='{{ block.settings.image.height }}'
+							class='brand__image header__heading-logo {% if block.settings.image_dark == blank %} header__heading-logo-single {% endif %}'
+							style='width: {{ block.settings.image_width }}px;'
+						>
+						<img
+							srcset='{{ block.settings.image_dark | image_url: width: block.settings.image_width }}, {{ block.settings.image_dark | image_url: width: image_size_2x }} 2x'
+							src='{{ block.settings.image_dark | image_url: width: 400 }}'
+							alt='{{ block.settings.image_dark.alt | escape }}'
+							loading='lazy'
+							width='{{ block.settings.image_dark.width }}'
+							height='{{ block.settings.image_dark.height }}'
+							class='brand__image header__heading-logo--overlay'
+							style='width: {{ block.settings.image_width }}px;'
+						>
+					{%- elsif block.settings.image == blank
+						and block.settings.title == blank
+					-%}
+						<h3>Brand</h3>
+					{%- endif -%}
+				</li>
+			{%- endfor -%}
+		</ul>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "t:sections.brand-image.name",
+	"class": "spaced-section",
+	"tag": "section",
+	"enabled_on": {
+		"templates": ["*"]
+	},
+	"settings": [
+		{
+			"type": "header",
+			"content": "t:sections.all.section-header.label"
+		},
+		{
+			"type": "text",
+			"id": "section_heading",
+			"default": "Some heading for this section",
+			"label": "t:sections.all.section-header.heading.label"
+		},
+		{
+			"type": "select",
+			"id": "section_heading_size",
+			"options": [
+				{
+					"value": "h4",
+					"label": "t:sections.all.heading_size.options__4.label"
+				},
+				{
+					"value": "h3",
+					"label": "t:sections.all.heading_size.options__1.label"
+				},
+				{
+					"value": "h2",
+					"label": "t:sections.all.heading_size.options__2.label"
+				},
+				{
+					"value": "h1",
+					"label": "t:sections.all.heading_size.options__3.label"
+				}
+			],
+			"default": "h3",
+			"label": "t:sections.all.heading_size.label"
+		},
+		{
+			"type": "text",
+			"id": "subheading",
+			"default": "Some Subheading",
+			"label": "t:sections.all.section-header.subheading.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "dot",
+			"default": true,
+			"label": "t:sections.all.section-header.dot.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "line",
+			"default": true,
+			"label": "t:sections.all.section-header.line.label",
+			"info": "t:sections.all.section-header.line.info"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.section-margin.header.content"
+		},
+		{
+			"type": "select",
+			"id": "margin_top",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_top.label"
+		},
+		{
+			"type": "select",
+			"id": "margin_bottom",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_bottom.label"
+		}
+	],
+	"blocks": [
+		{
+			"type": "column",
+			"name": "t:sections.brand-image.blocks.column.name",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "t:sections.brand-image.blocks.column.settings.image.label"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_dark",
+					"label": "t:sections.brand-image.blocks.column.settings.image_dark.label",
+					"info": "t:sections.brand-image.blocks.column.settings.image_dark.info"
+				},
+				{
+					"type": "range",
+					"id": "image_width",
+					"min": 50,
+					"max": 250,
+					"step": 5,
+					"unit": "px",
+					"label": "t:sections.brand-image.blocks.column.settings.image_width.label",
+					"default": 140
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "t:sections.brand-image.presets.name",
+			"blocks": [
+				{
+					"type": "column"
+				},
+				{
+					"type": "column"
+				},
+				{
+					"type": "column"
+				},
+				{
+					"type": "column"
+				},
+				{
+					"type": "column"
+				},
+				{
+					"type": "column"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

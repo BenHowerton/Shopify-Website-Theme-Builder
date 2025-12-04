@@ -1,0 +1,261 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+<div class='customer account'>
+	<div class='container'>
+		<div class='page-header'>
+			<div class='page-header__inner'>
+				<div class='customer__top'>
+					<h1 class='main-page-title page-title title--page {{section.settings.section_heading_size}}'>
+						{{ 'customer.account.title' | t }}
+					</h1>
+					<a
+						class='title-link button--routing'
+						href='{{ routes.account_logout_url }}'
+					>
+						<span>{{ 'customer.log_out' | t }}</span>
+
+						<svg
+							width='6'
+							height='9'
+							viewBox='0 0 6 9'
+							fill='none'
+							xmlns='http://www.w3.org/2000/svg'
+						>
+							<path d="M1.25 8.25L4.75 4.75L1.25 1.25" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class='account__wrapper{% if customer.orders.size == 0 %} empty-order{% endif %} {% if customer.orders.size > 0 %} account__wrapper--between{% endif %}'>
+			<div class='account__left{% if customer.orders.size > 0 %} account__left--table{% endif %}'>
+				<h4 class='account__subtitle h3{% if  customer.orders.size == 0 %} account__subtitle--hidden{% endif %}'>
+					{{ 'customer.orders.title' | t }}
+				</h4>
+
+				{% paginate customer.orders by 20 %}
+					{%- if customer.orders.size > 0 -%}
+						<div class='order-table'>
+							<div class='visually-hidden'>
+								{{ 'customer.orders.title' | t }}
+							</div>
+							<div class='row thead'>
+								<div id='ColumnOrder'>
+									{{ 'customer.orders.order_number' | t }}
+								</div>
+								<div id='ColumnDate'>{{ 'customer.orders.date' | t }}</div>
+								<div id='ColumnPayment'>
+									{{ 'customer.orders.payment_status' | t }}
+								</div>
+								<div id='ColumnFulfillment'>
+									{{ 'customer.orders.fulfillment_status' | t }}
+								</div>
+								<div id='ColumnTotal'>{{ 'customer.orders.total' | t }}</div>
+							</div>
+							{%- for order in customer.orders -%}
+								<a
+									class='row tbody'
+									href='{{ order.customer_url }}'
+									aria-label='{{ 'customer.orders.order_number_link' | t: number: order.name }}'
+								>
+									<span
+										id='RowOrder'
+										data-label='{{ 'customer.orders.order_number' | t }}'
+									>
+										{{ order.name }}
+									</span>
+									<span data-label='{{ 'customer.orders.date' | t }}'>
+										{{ order.created_at | time_tag: format: 'date' }}
+									</span>
+									<span data-label='{{ 'customer.orders.payment_status' | t }}'>
+										{{ order.financial_status_label }}
+									</span>
+									<span data-label='{{ 'customer.orders.fulfillment_status' | t }}'>
+										{{ order.fulfillment_status_label }}
+									</span>
+									<span data-label='{{ 'customer.orders.total' | t }}'>
+										{{ order.total_price | money_with_currency }}
+									</span>
+								</a>
+							{%- endfor -%}
+						</div>
+					{%- else -%}
+						<div class='account-none'>
+							<div class='account-none__wrapper'>
+								<div class='account-none__content'>
+									<h6 class='h3'>
+										{{ 'customer.account.empty_order_heading' | t }}
+									</h6>
+									<div class='account-none__text'>
+										{{ 'customer.account.empty_order_text' | t }}
+									</div>
+								</div>
+								<a
+									href='{{ routes.collections_url | sort_by: 'best-selling' }}'
+									class='button button--{{section.settings.button_style}} account-none__button{% if section.settings.button_dot %} dot_active{% endif %}'
+									data-button-text='{{ 'customer.account.account_button_shop' | t }}'
+								>
+									<span>{{ 'customer.account.account_button_shop' | t }}</span>
+								</a>
+							</div>
+						</div>
+					{%- endif -%}
+
+					{%- if paginate.pages > 1 -%}
+						{% render 'pagination', paginate: paginate %}
+					{%- endif -%}
+				{% endpaginate %}
+			</div>
+			<div class='account__right'>
+				{%- if customer.addresses_count > 0 -%}
+					<div class='account-address-wrapper'>
+						<h4 class='account__subtitle h3 '>
+							{{ 'customer.account.details' | t }}
+						</h4>
+						<div class='account-address'>
+							<ul class='account-address__list account-address__default list-unstyled'>
+								{%- if customer.default_address.name != blank -%}
+									<li class='account-address__item account-address__item-name h4'>
+										{{ customer.default_address.name }}
+									</li>
+								{%- endif -%}
+
+								{%- if customer.default_address != blank -%}
+									<li>
+										{%- if customer.default_address.street != blank -%}
+											<span class='account-address__item'>
+												{{- customer.default_address.street -}}
+											</span>
+										{%- endif -%}
+
+										{%- if customer.default_address.company != blank -%}
+											<span class='account-address__item'>
+												{{- customer.default_address.company -}}
+											</span>
+										{%- endif -%}
+
+										{%- if customer.default_address.city != blank -%}
+											<span class='account-address__item'>
+												{{- customer.default_address.city -}}
+											</span>
+										{%- endif -%}
+
+										{%- if customer.default_address.zip != blank -%}
+											<span class='account-address__item'>
+												{{- customer.default_address.zip -}}
+											</span>
+										{%- endif -%}
+
+										{%- if customer.default_address.phone != blank -%}
+											<span class='account-address__item'>
+												{{- customer.default_address.phone -}}
+											</span>
+										{%- endif -%}
+
+										{%- if customer.default_address.country != blank -%}
+											<span class='account-address__item'>
+												{{- customer.default_address.country -}}
+											</span>
+										{%- endif -%}
+									</li>
+								{%- endif -%}
+							</ul>
+							<a
+								class='button button--{{section.settings.button_style}}  account-address__link {% if section.settings.button_dot %}dot_active{% endif %}'
+								href='{{ routes.account_addresses_url }}'
+								data-button-text='{{ 'customer.account.view_addresses' | t: addresses_count: customer.addresses_count }}'
+							>
+								<span>
+									{{-
+										'customer.account.view_addresses'
+										| t: addresses_count: customer.addresses_count
+									-}}
+								</span>
+							</a>
+						</div>
+					</div>
+				{%- else -%}
+					<div class='account-none empty-address'>
+						<div class='account-none__wrapper'>
+							<div class='account-none__content'>
+								<h6 class='h3'>
+									{{ 'customer.account.empty_address_heading' | t }}
+								</h6>
+								<div class='account-none__text'>
+									{{ 'customer.account.empty_address_text' | t }}
+								</div>
+							</div>
+							<a
+								href='{{ routes.account_addresses_url }}'
+								class='button button--{{section.settings.button_style}} button--primary-size account-none__button {% if section.settings.button_dot %}dot_active{% endif %}'
+								data-button-text='{{ 'customer.addresses.add_new' | t }}'
+							>
+								<span>{{ 'customer.addresses.add_new' | t }}</span>
+							</a>
+						</div>
+					</div>
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "t:sections.main-account.name",
+	"class": "spaced-section",
+	"settings": [
+		{
+			"type": "header",
+			"content": "t:sections.all.section-header.label"
+		},
+		{
+			"type": "select",
+			"id": "section_heading_size",
+			"options": [
+				{
+					"value": "h2",
+					"label": "t:sections.all.heading_size.options__2.label"
+				},
+				{
+					"value": "h1",
+					"label": "t:sections.all.heading_size.options__3.label"
+				}
+			],
+			"default": "h1",
+			"label": "t:sections.all.heading_size.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.button.header_button.content"
+		},
+		{
+			"type": "select",
+			"id": "button_style",
+			"options": [
+				{
+					"value": "primary",
+					"label": "t:sections.all.button.button_style.options__1.label"
+				},
+				{
+					"value": "secondary",
+					"label": "t:sections.all.button.button_style.options__2.label"
+				},
+				{
+					"value": "tertiary",
+					"label": "t:sections.all.button.button_style.options__3.label"
+				}
+			],
+			"default": "primary",
+			"label": "t:sections.all.button.button_style.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "button_dot",
+			"default": false,
+			"label": "t:sections.all.button.button_dot.label"
+		}
+	]
+}
+{% endschema %}

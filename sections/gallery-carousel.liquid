@@ -1,0 +1,277 @@
+{{ 'section-gallery-carousel.css' | asset_url | stylesheet_tag }}
+<script src='{{ 'gallery-carousel.js' | asset_url }}' defer='defer'></script>
+
+{% liquid
+	assign slideshow_speed = section.settings.slideshow_speed
+%}
+
+{%- style -%}
+	{% render 'section-margin' %}
+{%- endstyle -%}
+
+<div
+	class='gallery-carousel'
+	data-speed='{{ slideshow_speed }}'
+>
+	<div class='container'>
+		{% render 'section-header',
+			section_heading: section.settings.section_heading,
+			section_subheading: section.settings.subheading,
+			section_heading_size: section.settings.section_heading_size,
+			dot: section.settings.dot,
+			line: section.settings.line
+		%}
+	</div>
+	<div class='gallery-carousel__swiper swiper-container'>
+		<div class='gallery-carousel__slide_wrapper swiper-wrapper'>
+			{% for block in section.blocks %}
+				<div class='gallery-carousel__slide swiper-slide'>
+					<div
+						class='gallery-carousel__slide_img {% if section.settings.image_ratio == 'auto' %}adapt{% endif %}' style="aspect-ratio: {{ section.settings.image_ratio }};"
+					>
+						{%- if block.settings.slide_img != blank -%}
+							{%- assign widths = '360, 535, 720, 940, 1070, 1200, 1500, 1780, 2000, 2400, 2800, 3200' -%}
+							{%- capture sizes -%}
+						(min-width: 1200px) calc((100vw - 128px)), calc((100vw - 40px))
+					{%- endcapture -%}
+							{{
+								block.settings.slide_img
+								| image_url: width: block.settings.slide_img.width
+								| image_tag: loading: 'lazy', sizes: sizes, widths: widths
+							}}
+						{%- else -%}
+							{{ 'hero-apparel-1' | placeholder_svg_tag }}
+						{%- endif -%}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% if section.settings.stop_btn %}
+		<div class='container'>
+			<div class='gallery-carousel_stop'>
+				{% render 'icon-play' %}
+				{% render 'icon-stop' %}
+			</div>
+		</div>
+	{% endif %}
+</div>
+
+{% schema %}
+{
+	"name": "t:sections.gallery-carousel.name",
+	"tag": "section",
+	"class": "gallery-carousel",
+	"enabled_on": {
+		"templates": ["*"]
+	},
+	"settings": [
+		{
+			"type": "header",
+			"content": "t:sections.all.section-header.label"
+		},
+		{
+			"type": "text",
+			"id": "section_heading",
+			"default": "Some heading for this section",
+			"label": "t:sections.all.section-header.heading.label"
+		},
+		{
+			"type": "select",
+			"id": "section_heading_size",
+			"options": [
+				{
+					"value": "h4",
+					"label": "t:sections.all.heading_size.options__4.label"
+				},
+				{
+					"value": "h3",
+					"label": "t:sections.all.heading_size.options__1.label"
+				},
+				{
+					"value": "h2",
+					"label": "t:sections.all.heading_size.options__2.label"
+				},
+				{
+					"value": "h1",
+					"label": "t:sections.all.heading_size.options__3.label"
+				}
+			],
+			"default": "h3",
+			"label": "t:sections.all.heading_size.label"
+		},
+		{
+			"type": "text",
+			"id": "subheading",
+			"default": "Some Subheading",
+			"label": "t:sections.all.section-header.subheading.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "dot",
+			"default": true,
+			"label": "t:sections.all.section-header.dot.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "line",
+			"default": true,
+			"label": "t:sections.all.section-header.line.label",
+			"info": "t:sections.all.section-header.line.info"
+		},
+		{
+			"type": "select",
+			"id": "image_ratio",
+			"default": "3/2",
+			"label": "t:sections.all.image.aspect_ratio.label",
+			"options": [
+				{
+					"value": "1/1",
+					"label": "t:sections.all.image.aspect_ratio.options__1.label"
+				},
+				{
+					"value": "3/2",
+					"label": "t:sections.all.image.aspect_ratio.options__2.label"
+				},
+				{
+					"value": "3/4",
+					"label": "t:sections.all.image.aspect_ratio.options__3.label"
+				},
+				{
+					"value": "4/3",
+					"label": "t:sections.all.image.aspect_ratio.options__4.label"
+				},
+				{
+					"value": "16/9",
+					"label": "t:sections.all.image.aspect_ratio.options__5.label"
+				},
+				{
+					"value": "21/9",
+					"label": "t:sections.all.image.aspect_ratio.options__6.label"
+				},
+				{
+					"value": "auto",
+					"label": "t:sections.all.image.aspect_ratio.options__7.label"
+				}
+			]
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.slider_options.header.content"
+		},
+		{
+			"type": "range",
+			"id": "slideshow_speed",
+			"min": 1,
+			"max": 20,
+			"step": 1,
+			"default": 6,
+			"unit": "s",
+			"label": "t:sections.all.slider_options.speed.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "stop_btn",
+			"default": true,
+			"label": "t:sections.gallery-carousel.settings.slideshow_stop_btn.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.section-margin.header.content"
+		},
+		{
+			"type": "select",
+			"id": "margin_top",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_top.label"
+		},
+		{
+			"type": "select",
+			"id": "margin_bottom",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_bottom.label"
+		}
+	],
+	"blocks": [
+		{
+			"type": "carousel_slide",
+			"name": "t:sections.gallery-carousel.blocks.carousel_slide.name",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "slide_img",
+					"label": "t:sections.gallery-carousel.blocks.carousel_slide.settings.slide_img.label"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "t:sections.gallery-carousel.presets.name",
+			"blocks": [
+				{
+					"type": "carousel_slide"
+				},
+				{
+					"type": "carousel_slide"
+				},
+				{
+					"type": "carousel_slide"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

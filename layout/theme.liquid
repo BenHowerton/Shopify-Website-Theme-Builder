@@ -1,0 +1,673 @@
+<!doctype html>
+<html
+	class='no-js'
+	lang='{{ request.locale.iso_code }}'
+	data-scheme='{{ settings.color_scheme }}'
+>
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<meta name='viewport' content='width=device-width,initial-scale=1'>
+		<meta name='theme-color' content=''>
+		<link rel='canonical' href='{{ canonical_url }}'>
+		<link rel='preconnect' href='https://cdn.shopify.com' crossorigin>
+
+		{%- if settings.favicon != blank -%}
+			<link
+				rel='icon'
+				type='image/png'
+				href='{{ settings.favicon | image_url: width: 32, height: 32 }}'
+			>
+		{%- endif -%}
+
+		{%- unless settings.type_header_font.system? -%}
+			<link rel='preconnect' href='https://fonts.shopifycdn.com' crossorigin>
+		{%- endunless -%}
+
+		<title>{{ page_title }}</title>
+
+		{% if page_description %}
+			<meta name='description' content='{{ page_description | escape }}'>
+		{% endif %}
+
+		{% render 'meta-tags' %}
+
+		<script src='{{ 'constants.js' | asset_url }}' defer='defer'></script>
+		<script src='{{ 'pubsub.js' | asset_url }}' defer='defer'></script>
+		<script src='{{ 'global.js' | asset_url }}' defer='defer'></script>
+		{%- if settings.quickview_show
+			or settings.add_to_cart_enabled
+			or settings.show_on_mobile
+		-%}
+			<script src='{{ 'quick-add.js' | asset_url }}' defer='defer'></script>
+			<script src='{{ 'product-form.js' | asset_url }}' defer='defer'></script>
+		{% endif %}
+
+		<script>
+			function calculateScrollbarWidth() {
+				const scrollbarWidth =
+					window.innerWidth - document.documentElement.clientWidth
+				document.documentElement.style.setProperty(
+					'--scrollbar-width',
+					scrollbarWidth + 'px'
+				)
+			}
+
+			function calculateVh() {
+				let vh = window.innerHeight * 0.01
+				document.documentElement.style.setProperty('--vh', `${vh}px`)
+			}
+
+			window.addEventListener('load', calculateScrollbarWidth)
+			window.addEventListener('resize', calculateScrollbarWidth)
+
+			window.addEventListener('load', calculateVh)
+			window.addEventListener('resize', calculateVh)
+
+			{% if template.name == "product" %}
+				{%- assign has_tag = product.tags | has: 'system_initial_stand' -%}
+				{%- if product.price < 1 and has_tag -%}
+					window.location = '{{  routes.root_url }}';
+				{%- endif -%}
+			{% elsif request.page_type == 'cart' and settings.cart_type == 'drawer' %}
+				window.location = '{{  routes.root_url }}?cart-drawer=true';
+			{%- endif -%}
+		</script>
+
+		{{ content_for_header }}
+
+		{%- liquid
+			assign body_font_light = settings.type_body_font | font_modify: 'weight', '300'
+			assign body_font_regular = settings.type_body_font | font_modify: 'weight', '400'
+			assign body_font_medium = settings.type_body_font | font_modify: 'weight', '500'
+			assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+			assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+			assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+			assign heading_font_regular = settings.type_header_font | font_modify: 'weight', '400'
+			assign heading_font_medium = settings.type_header_font | font_modify: 'weight', '500'
+			assign section_heading_font_regular = settings.type_section_header_font | font_modify: 'weight', '400'
+			assign section_heading_font_medium = settings.type_section_header_font | font_modify: 'weight', '500'
+			assign heading_font_italic = settings.type_header_font | font_modify: 'style', 'italic'
+		%}
+
+		{% style %}
+			{% comment %} For the custom code {% endcomment %}
+
+			{%- assign custom_font_true = settings.custom_fonts -%}
+			{%- unless custom_font_true -%}
+
+				{{ settings.type_body_font | font_face: font_display: 'swap' }}
+				{{ settings.type_header_font | font_face: font_display: 'swap' }}
+				{{ settings.type_section_header_font | font_face: font_display: 'swap' }}
+				{{ settings.type_subtitle_font | font_face: font_display: 'swap' }}
+				{{ settings.type_button_font | font_face: font_display: 'swap' }}
+				{{ settings.type_header_font_card | font_face: font_display: 'swap' }}
+				{{ settings.type_text_font_card | font_face: font_display: 'swap' }}
+				{{ settings.type_header_menu_font | font_face: font_display: 'swap' }}
+				{{ settings.type_footer_menu_font | font_face: font_display: 'swap' }}
+				{{ settings.type_popups_heading_font | font_face: font_display: 'swap' }}
+				{{ settings.type_popups_text_font | font_face: font_display: 'swap' }}
+				{{ body_font_light | font_face: font_display: 'swap' }}
+				{{ body_font_regular | font_face: font_display: 'swap' }}
+				{{ body_font_medium | font_face: font_display: 'swap' }}
+				{{ body_font_bold | font_face: font_display: 'swap' }}
+				{{ body_font_italic | font_face: font_display: 'swap' }}
+				{{ heading_font_regular | font_face: font_display: 'swap' }}
+				{{ heading_font_medium | font_face: font_display: 'swap' }}
+				{{ section_heading_font_regular | font_face: font_display: 'swap' }}
+				{{ section_heading_font_medium | font_face: font_display: 'swap' }}
+				{{ heading_font_italic | font_face: font_display: 'swap' }}
+				{{ body_font_bold_italic | font_face: font_display: 'swap' }}
+
+			{% comment %} For the custom code {% endcomment %}
+			{% else %}
+				{% comment %} Add Font face style links here {% endcomment %}
+				@font-face {
+					font-family: 'Script MT';
+					src: url('https://cdn.shopify.com/s/files/1/0726/4950/7005/files/ScriptMTBold.woff2?v=1761826053') format('woff2'),
+						url('https://cdn.shopify.com/s/files/1/0726/4950/7005/files/ScriptMTBold.woff2?v=1761826053') format('woff');
+					font-weight: bold;
+					font-style: normal;
+					font-display: swap;
+				}
+				@font-face {
+					font-family: 'Swis721 BT';
+					src: url('https://cdn.shopify.com/s/files/1/0726/4950/7005/files/Swiss721BT-Bold.woff2?v=1761826052') format('woff2'),
+						url('https://cdn.shopify.com/s/files/1/0726/4950/7005/files/Swiss721BT-Bold.woff?v=1761826052') format('woff');
+					font-weight: bold;
+					font-style: normal;
+					font-display: swap;
+				}
+				@font-face {
+					font-family: 'Swis721 BT';
+					src: url('https://cdn.shopify.com/s/files/1/0726/4950/7005/files/Swiss721BT-Roman.woff2?v=1761826053') format('woff2'),
+						url('https://cdn.shopify.com/s/files/1/0726/4950/7005/files/Swiss721BT-Roman.woff?v=1761826052') format('woff');
+					font-weight: normal;
+					font-style: normal;
+					font-display: swap;
+				}
+
+			{% endunless %}
+
+			{% for scheme in settings.color_schemes -%}
+			  {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
+			  {% if forloop.index == 1 -%}
+			    :root,
+			  {%- endif %}
+			  [data-scheme=light] .color-{{ scheme.id }} {
+			    --color-background: {{ scheme.settings.colors_background_1.red }},{{ scheme.settings.colors_background_1.green }},{{ scheme.settings.colors_background_1.blue }};
+			    --color-background-secondary: {{ scheme.settings.colors_background_2.red }},{{ scheme.settings.colors_background_2.green }},{{ scheme.settings.colors_background_2.blue }};
+			    --color-background-tertiary: {{ scheme.settings.colors_background_3.red }},{{ scheme.settings.colors_background_3.green }},{{ scheme.settings.colors_background_3.blue }};
+			    {% if scheme.settings.background_gradient != empty %}
+			      --gradient-background: {{ scheme.settings.background_gradient }};
+			    {% else %}
+			      --gradient-background: {{ scheme.settings.colors_background_1 }};
+			    {% endif %}
+			    --color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+			    --color-foreground-secondary: {{ scheme.settings.colors_secondary_text.red }}, {{ scheme.settings.colors_secondary_text.green }}, {{ scheme.settings.colors_secondary_text.blue }};
+			    --color-foreground-tertiary: {{ scheme.settings.colors_tertiary_text.red }}, {{ scheme.settings.colors_tertiary_text.green }}, {{ scheme.settings.colors_tertiary_text.blue }};
+			    --color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+
+			    --color-button-text: {{ scheme.settings.colors_solid_button_labels.red }}, {{ scheme.settings.colors_solid_button_labels.green }}, {{ scheme.settings.colors_solid_button_labels.blue }};
+			    --color-button-text-hover: {{ scheme.settings.colors_solid_button_labels_hover.red }}, {{ scheme.settings.colors_solid_button_labels_hover.green }}, {{ scheme.settings.colors_solid_button_labels_hover.blue }};
+			    --color-button: {{ scheme.settings.colors_solid_button_background.red }}, {{ scheme.settings.colors_solid_button_background.green }}, {{ scheme.settings.colors_solid_button_background.blue }};
+			    --color-button-hover: {{ scheme.settings.colors_solid_button_background_hover.red }}, {{ scheme.settings.colors_solid_button_background_hover.green }}, {{ scheme.settings.colors_solid_button_background_hover.blue }};
+
+					--color-button-secondary-background: {{ scheme.settings.colors_secondary_button_background.red }}, {{ scheme.settings.colors_secondary_button_background.green }}, {{ scheme.settings.colors_secondary_button_background.blue }};
+			    --color-button-secondary-background-hover: {{ scheme.settings.colors_secondary_button_background_hover.red }}, {{ scheme.settings.colors_secondary_button_background_hover.green }}, {{ scheme.settings.colors_secondary_button_background_hover.blue }};
+
+			    --color-button-secondary-text: {{ scheme.settings.colors_secondary_button_labels.red }}, {{ scheme.settings.colors_secondary_button_labels.green }}, {{ scheme.settings.colors_secondary_button_labels.blue }};
+			    --color-button-secondary-text-hover: {{ scheme.settings.colors_secondary_button_labels_hover.red }}, {{ scheme.settings.colors_secondary_button_labels_hover.green }}, {{ scheme.settings.colors_secondary_button_labels_hover.blue }};
+
+			    --color-button-tertiary-text: {{ scheme.settings.colors_tertiary_button_labels.red }}, {{ scheme.settings.colors_tertiary_button_labels.green }}, {{ scheme.settings.colors_tertiary_button_labels.blue }};
+			    --color-button-tertiary-text-hover: {{ scheme.settings.colors_tertiary_button_labels_hover.red }}, {{ scheme.settings.colors_tertiary_button_labels_hover.green }}, {{ scheme.settings.colors_tertiary_button_labels_hover.blue }};
+
+					   --color-button-tertiary-background: {{ scheme.settings.colors_tertiary_button_background.red }}, {{ scheme.settings.colors_tertiary_button_background.green }}, {{ scheme.settings.colors_tertiary_button_background.blue }};
+			    --color-button-tertiary-background-hover: {{ scheme.settings.colors_tertiary_button_background_hover.red }}, {{ scheme.settings.colors_tertiary_button_background_hover.green }}, {{ scheme.settings.colors_tertiary_button_background_hover.blue }};
+
+					   --color-button-tertiary-border: {{ scheme.settings.colors_tertiary_button_border.red }}, {{ scheme.settings.colors_tertiary_button_border.green }}, {{ scheme.settings.colors_tertiary_button_border.blue }};
+			    --color-button-tertiary-border-hover: {{ scheme.settings.colors_tertiary_button_border_hover.red }}, {{ scheme.settings.colors_tertiary_button_border_hover.green }}, {{ scheme.settings.colors_tertiary_button_border_hover.blue }};
+
+					--color-card-price-new: {{ scheme.settings.card_new_price_color.red }}, {{ scheme.settings.card_new_price_color.green }}, {{ scheme.settings.card_new_price_color.blue }};
+			       --color-card-price-old: {{ scheme.settings.card_old_price_color.red }}, {{ scheme.settings.card_old_price_color.green }}, {{ scheme.settings.card_old_price_color.blue }};
+						 --color-card-image-bg: {{ scheme.settings.card_img_bg_color.red }}, {{ scheme.settings.card_img_bg_color.green }}, {{ scheme.settings.card_img_bg_color.blue }};
+
+					--colors_marker_background: {{ scheme.settings.colors_marker_background.red }}, {{	scheme.settings.colors_marker_background.green }}, {{ scheme.settings.colors_marker_background.blue }};
+					--color-accent: {{ scheme.settings.colors_accent.red }}, {{ scheme.settings.colors_accent.green }}, {{ scheme.settings.colors_accent.blue }};
+			    --color-overlay: {{ scheme.settings.colors_background_overlay.red }}, {{ scheme.settings.colors_background_overlay.green }}, {{ scheme.settings.colors_background_overlay.blue }};
+			    --color-border-input: {{ scheme.settings.colors_input_border.red }}, {{ scheme.settings.colors_input_border.green }}, {{ scheme.settings.colors_input_border.blue }};
+			    --color-border-input-hover: {{ scheme.settings.colors_input_hover_border.red }}, {{ scheme.settings.colors_input_hover_border.green }}, {{ scheme.settings.colors_input_hover_border.blue }};
+			    --color-background-input: {{ scheme.settings.colors_input_background.red }}, {{ scheme.settings.colors_input_background.green }}, {{ scheme.settings.colors_input_background.blue }};
+			    --color-background-input-hover: {{ scheme.settings.colors_input_hover_background.red }}, {{ scheme.settings.colors_input_hover_background.green }}, {{ scheme.settings.colors_input_hover_background.blue }};
+			    --color-border: {{ scheme.settings.color_border.red }}, {{ scheme.settings.color_border.green }}, {{ scheme.settings.color_border.blue }};
+			    --color-badge-background: {{ scheme.settings.colors_badge_background.red }}, {{ scheme.settings.colors_badge_background.green }}, {{ scheme.settings.colors_badge_background.blue }};
+			    --color-badge-text: {{ scheme.settings.colors_badge_labels.red }}, {{ scheme.settings.colors_badge_labels.green }}, {{ scheme.settings.colors_badge_labels.blue }};
+			  }
+			  @media (prefers-color-scheme: light) {
+			    {% if forloop.index == 1 -%}
+			      :root,
+			    {%- endif %}
+			    [data-scheme=auto] .color-{{ scheme.id }} {
+			      --color-background: {{ scheme.settings.colors_background_1.red }},{{ scheme.settings.colors_background_1.green }},{{ scheme.settings.colors_background_1.blue }};
+			      --color-background-secondary: {{ scheme.settings.colors_background_2.red }},{{ scheme.settings.colors_background_2.green }},{{ scheme.settings.colors_background_2.blue }};
+			      --color-background-tertiary: {{ scheme.settings.colors_background_3.red }},{{ scheme.settings.colors_background_3.green }},{{ scheme.settings.colors_background_3.blue }};
+			      {% if scheme.settings.background_gradient != empty %}
+			        --gradient-background: {{ scheme.settings.background_gradient }};
+			      {% else %}
+			        --gradient-background: {{ scheme.settings.colors_background_1 }};
+			      {% endif %}
+			      --color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+			      --color-foreground-secondary: {{ scheme.settings.colors_secondary_text.red }}, {{ scheme.settings.colors_secondary_text.green }}, {{ scheme.settings.colors_secondary_text.blue }};
+			      --color-foreground-tertiary: {{ scheme.settings.colors_tertiary_text.red }}, {{ scheme.settings.colors_tertiary_text.green }}, {{ scheme.settings.colors_tertiary_text.blue }};
+			      --color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+
+			      --color-button-text: {{ scheme.settings.colors_solid_button_labels.red }}, {{ scheme.settings.colors_solid_button_labels.green }}, {{ scheme.settings.colors_solid_button_labels.blue }};
+			      --color-button-text-hover: {{ scheme.settings.colors_solid_button_labels_hover.red }}, {{ scheme.settings.colors_solid_button_labels_hover.green }}, {{ scheme.settings.colors_solid_button_labels_hover.blue }};
+			      --color-button: {{ scheme.settings.colors_solid_button_background.red }}, {{ scheme.settings.colors_solid_button_background.green }}, {{ scheme.settings.colors_solid_button_background.blue }};
+			      --color-button-hover: {{ scheme.settings.colors_solid_button_background_hover.red }}, {{ scheme.settings.colors_solid_button_background_hover.green }}, {{ scheme.settings.colors_solid_button_background_hover.blue }};
+
+			      --color-button-secondary-background: {{ scheme.settings.colors_secondary_button_background.red }}, {{ scheme.settings.colors_secondary_button_background.green }}, {{ scheme.settings.colors_secondary_button_background.blue }};
+			    	--color-button-secondary-background-hover: {{ scheme.settings.colors_secondary_button_background_hover.red }}, {{ scheme.settings.colors_secondary_button_background_hover.green }}, {{ scheme.settings.colors_secondary_button_background_hover.blue }};
+
+						--color-button-secondary-text: {{ scheme.settings.colors_secondary_button_labels.red }}, {{ scheme.settings.colors_secondary_button_labels.green }}, {{ scheme.settings.colors_secondary_button_labels.blue }};
+			      --color-button-secondary-text-hover: {{ scheme.settings.colors_secondary_button_labels_hover.red }}, {{ scheme.settings.colors_secondary_button_labels_hover.green }}, {{ scheme.settings.colors_secondary_button_labels_hover.blue }};
+
+			      --color-button-tertiary-text: {{ scheme.settings.colors_tertiary_button_labels.red }}, {{ scheme.settings.colors_tertiary_button_labels.green }}, {{ scheme.settings.colors_tertiary_button_labels.blue }};
+			      --color-button-tertiary-text-hover: {{ scheme.settings.colors_tertiary_button_labels_hover.red }}, {{ scheme.settings.colors_tertiary_button_labels_hover.green }}, {{ scheme.settings.colors_tertiary_button_labels_hover.blue }};
+
+						--color-button-tertiary-background: {{ scheme.settings.colors_tertiary_button_background.red }}, {{ scheme.settings.colors_tertiary_button_background.green }}, {{ scheme.settings.colors_tertiary_button_background.blue }};
+			    	--color-button-tertiary-background-hover: {{ scheme.settings.colors_tertiary_button_background_hover.red }}, {{ scheme.settings.colors_tertiary_button_background_hover.green }}, {{ scheme.settings.colors_tertiary_button_background_hover.blue }};
+
+						--color-button-tertiary-border: {{ scheme.settings.colors_tertiary_button_border.red }}, {{ scheme.settings.colors_tertiary_button_border.green }}, {{ scheme.settings.colors_tertiary_button_border.blue }};
+			    	--color-button-tertiary-border-hover: {{ scheme.settings.colors_tertiary_button_border_hover.red }}, {{ scheme.settings.colors_tertiary_button_border_hover.green }}, {{ scheme.settings.colors_tertiary_button_border_hover.blue }};
+
+						--color-card-price-new: {{ scheme.settings.card_new_price_color.red }}, {{ scheme.settings.card_new_price_color.green }}, {{ scheme.settings.card_new_price_color.blue }};
+			       	--color-card-price-old: {{ scheme.settings.card_old_price_color.red }}, {{ scheme.settings.card_old_price_color.green }}, {{ scheme.settings.card_old_price_color.blue }};
+							--color-card-image-bg: {{ scheme.settings.card_img_bg_color.red }}, {{ scheme.settings.card_img_bg_color.green }}, {{ scheme.settings.card_img_bg_color.blue }};
+
+						--colors_marker_background: {{ scheme.settings.colors_marker_background.red }}, {{scheme.settings.colors_marker_background.green }}, {{ scheme.settings.colors_marker_background.blue }};
+						--color-accent: {{ scheme.settings.colors_accent.red }}, {{ scheme.settings.colors_accent.green }}, {{ scheme.settings.colors_accent.blue }};
+			      --color-overlay: {{ scheme.settings.colors_background_overlay.red }}, {{ scheme.settings.colors_background_overlay.green }}, {{ scheme.settings.colors_background_overlay.blue }};
+			      --color-border-input: {{ scheme.settings.colors_input_border.red }}, {{ scheme.settings.colors_input_border.green }}, {{ scheme.settings.colors_input_border.blue }};
+			      --color-border-input-hover: {{ scheme.settings.colors_input_hover_border.red }}, {{ scheme.settings.colors_input_hover_border.green }}, {{ scheme.settings.colors_input_hover_border.blue }};
+			      --color-background-input: {{ scheme.settings.colors_input_background.red }}, {{ scheme.settings.colors_input_background.green }}, {{ scheme.settings.colors_input_background.blue }};
+			      --color-background-input-hover: {{ scheme.settings.colors_input_hover_background.red }}, {{ scheme.settings.colors_input_hover_background.green }}, {{ scheme.settings.colors_input_hover_background.blue }};
+			      --color-border: {{ scheme.settings.color_border.red }}, {{ scheme.settings.color_border.green }}, {{ scheme.settings.color_border.blue }};
+			      --color-badge-background: {{ scheme.settings.colors_badge_background.red }}, {{ scheme.settings.colors_badge_background.green }}, {{ scheme.settings.colors_badge_background.blue }};
+			      --color-badge-text: {{ scheme.settings.colors_badge_labels.red }}, {{ scheme.settings.colors_badge_labels.green }}, {{ scheme.settings.colors_badge_labels.blue }};
+			    }
+			  }
+			{% endfor %}
+
+			{{ scheme_classes | prepend: 'body' }} {
+			  color: rgba(var(--color-foreground));
+			  background-color: rgb(var(--color-background));
+			}
+
+			:root {
+			  --announcement-height: 40px;
+			  --header-height: 90px;
+			  --breadcrumbs-height: 0px;
+			  --scrollbar-width: 0px;
+			  --vh: 1vh;
+
+			  --spaced-section: 5rem;
+
+			  --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+			  --font-body-style: {{ settings.type_body_font.style }};
+			  --font-body-weight: {{ settings.type_body_font.weight }};
+
+			  --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+			  --font-body-line-height: {{ settings.type_body_line_height }};
+			  --font-body-letter-spacing: {{ settings.type_body_letter_spacing | divided_by: 10.0 }}em;
+
+			  --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+			  --font-heading-style: {{ settings.type_header_font.style }};
+			  --font-heading-weight: {{ settings.type_header_font.weight }};
+			  --font-heading-letter-spacing: {{ settings.type_header_letter_spacing | divided_by: 10.0 }}em;
+			  --font-heading-line-height: {{ settings.type_header_line_height }};
+			  --font-heading-text-transform: {{ settings.type_header_text_transform }};
+
+			  --font-subtitle-family: {{ settings.type_subtitle_font.family }}, {{ settings.type_subtitle_font.fallback_families }};
+			  --font-subtitle-style: {{ settings.type_subtitle_font.style }};
+			  --font-subtitle-weight: {{ settings.type_subtitle_font.weight }};
+			  --font-subtitle-text-transform: {{ settings.subtitle_text_transform }};
+			  --font-subtitle-scale: {{ settings.subtitle_scale | divided_by: 100.0 }};
+
+			  --font-heading-h1-scale: {{ settings.heading_h1_scale | divided_by: 100.0 }};
+			  --font-heading-h2-scale: {{ settings.heading_h2_scale | divided_by: 100.0 }};
+			  --font-heading-h3-scale: {{ settings.heading_h3_scale | divided_by: 100.0 }};
+			  --font-heading-h4-scale: {{ settings.heading_h4_scale | divided_by: 100.0 }};
+			  --font-heading-h5-scale: {{ settings.heading_h5_scale | divided_by: 100.0 }};
+			  --font-heading-h6-scale: {{ settings.heading_h6_scale | divided_by: 100.0 }};
+
+			  --font-heading-card-family: {{ settings.type_header_font_card.family }}, {{ settings.type_header_font_card.fallback_families }};
+			  --font-heading-card-style: {{ settings.type_header_font_card.style }};
+			  --font-heading-card-weight: {{ settings.type_header_font_card.weight }};
+			  --font-text-card-family: {{ settings.type_text_font_card.family }}, {{ settings.type_text_font_card.fallback_families }};
+			  --font-text-card-style: {{ settings.type_text_font_card.style }};
+			  --font-text-card-weight: {{ settings.type_text_font_card.weight }};
+
+			  --font-heading-card-scale: {{ settings.heading_scale_card | divided_by: 100.0 }};
+			  --font-text-card-scale: {{ settings.text_scale_card | divided_by: 100.0 }};
+
+			  --font-button-family: {{ settings.type_button_font.family }}, {{ settings.type_button_font.fallback_families }};
+			  --font-button-style: {{ settings.type_button_font.style }};
+			  --font-button-weight: {{ settings.type_button_font.weight }};
+			  --font-button-text-transform: {{ settings.button_text_transform }};
+			  --font-text-lower:lowercase;
+
+			  --font-button-letter-spacing: -0.007145em;
+			  --font-subtitle-letter-spacing: {{ settings.subtitle_letter_spacing | divided_by: 10.0 }}em;
+			  --font-badge-letter-spacing: -0.007145em;
+			  --font-menu-letter-spacing: -0.007145em;
+			  --font-big-menu-letter-spacing: -0.007145em;
+
+			  --font-header-menu-family: {{ settings.type_header_menu_font.family }}, {{ settings.type_header_menu_font.fallback_families }};
+			  --font-header-menu-style: {{ settings.type_header_menu_font.style }};
+			  --font-header-menu-weight: {{ settings.type_header_menu_font.weight }};
+			  --font-header-menu-text-transform: {{ settings.header_menu_text_transform }};
+
+			  --font-footer-menu-family: {{ settings.type_footer_menu_font.family }}, {{ settings.type_footer_menu_font.fallback_families }};
+			  --font-footer-menu-style: {{ settings.type_footer_menu_font.style }};
+			  --font-footer-menu-weight: {{ settings.type_footer_menu_font.weight }};
+			  --font-footer-link-size: {{ settings.link_size_footer }}px;
+			  --font-footer-bottom-link-size: {{ settings.link_size_footer_bottom }}px;
+
+			  --font-popups-heading-family: {{ settings.type_popups_heading_font.family }}, {{ settings.type_popups_heading_font.fallback_families }};
+			  --font-popups-heading-style: {{ settings.type_popups_heading_font.style }};
+			  --font-popups-heading-weight: {{ settings.type_popups_heading_font.weight }};
+			  --font-popups-text-family: {{ settings.type_popups_text_font.family }}, {{ settings.type_popups_text_font.fallback_families }};
+			  --font-popups-text-style: {{ settings.type_popups_text_font.style }};
+			  --font-popups-text-weight: {{ settings.type_popups_text_font.weight }};
+			  --font-popup-heading-scale: {{ settings.popup_heading_scale | divided_by: 100.0 }};
+			  --font-popup-desc-scale: {{ settings.popup_desc_scale | divided_by: 100.0 }};
+			  --font-popup-text-scale: {{ settings.popup_text_scale | divided_by: 100.0 }};
+			  --font-notification-heading-scale: {{ settings.notification_heading_scale | divided_by: 100.0 }};
+			  --font-notification-text-scale: {{ settings.notification_text_scale | divided_by: 100.0 }};
+
+			  --border-radius-main: {{ settings.main_border_radius }}px;
+			  --border-radius-button: {{ settings.button_border_radius }}px;
+			  --border-radius-badge: {{ settings.badge_border_radius }}px;
+			  --payment-terms-background-color: {{ settings.colors_background_1 }};
+
+			  {%- if custom_font_true -%}
+				{% render 'global-variables' %}
+			  {%- endif -%}
+
+				--font-size-subtitle: 1.4rem;
+				--font-size-card-text: 1.4rem;
+			}
+
+			@media screen and (min-width: 990px) {
+			  :root {
+			   --spaced-section: 12rem;
+			  }
+			}
+
+			*,
+			*::before,
+			*::after {
+			box-sizing: inherit;
+			}
+
+			html {
+			  box-sizing: border-box;
+			  font-size: 10px;
+			  height: 100%;
+			}
+
+			body {
+			  position: relative;
+			  display: flex;
+			  flex-direction: column;
+			  min-height: 100%;
+			  margin: 0;
+			  font-size: calc(var(--font-body-scale) * 1.6rem);
+			  line-height: var(--font-body-line-height);
+			  font-family: var(--font-body-family);
+			  font-style: var(--font-body-style);
+			  font-weight: var(--font-body-weight);
+			  letter-spacing: calc(var(--font-body-letter-spacing) * 0.625);
+			  overflow-x: hidden;
+			}
+
+
+
+			#MainContent {
+			  flex-grow: 1;
+			}
+		{% endstyle %}
+
+		{% render 'color-scheme-vars' %}
+		{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+		{{ 'base.css' | asset_url | stylesheet_tag }}
+		{{ 'global.css' | asset_url | stylesheet_tag }}
+		{%- if settings.enable_reviews_styles -%}
+			{{ 'section-reviews.css' | asset_url | stylesheet_tag }}
+		{%- endif -%}
+		{%- if settings.predictive_search_enabled -%}
+			<link
+				rel='stylesheet'
+				href='{{ 'component-predictive-search.css' | asset_url }}'
+				media='print'
+				onload="this.media='all'"
+			>
+		{%- endif -%}
+
+		{%- unless settings.type_body_font.system? -%}
+			<link
+				rel='preload'
+				as='font'
+				href='{{ settings.type_body_font | font_url }}'
+				type='font/woff2'
+				crossorigin
+			>
+		{%- endunless -%}
+		{%- unless settings.type_header_font.system? -%}
+			<link
+				rel='preload'
+				as='font'
+				href='{{ settings.type_header_font | font_url }}'
+				type='font/woff2'
+				crossorigin
+			>
+		{%- endunless -%}
+
+		<script>
+			document.documentElement.className =
+				document.documentElement.className.replace('no-js', 'js')
+			if (Shopify.designMode) {
+				document.documentElement.classList.add('shopify-design-mode')
+			}
+		</script>
+
+		<script src='{{ 'jquery-3.6.0.js' | asset_url }}' defer='defer'></script>
+		<script
+			src='{{ 'swiper-bundle.min.js' | asset_url }}'
+			defer='defer'
+		></script>
+		<script src='{{ 'product-card.js' | asset_url }}' defer='defer'></script>
+		<script src='{{ 'popup.js' | asset_url }}' defer='defer'></script>
+
+		{% if settings.show_back_to_top %}
+			<script src='{{ 'scroll-top.js' | asset_url }}' defer='defer'></script>
+		{% endif %}
+
+		{% comment %} <script type="appliction/json" class="order-minimi-increment">{{ metaobjects.order_minimi_increment.values | json }}</script> {% endcomment %}
+		<script>
+			let cscoDarkMode = {}
+
+			;(function () {
+				const body = document.querySelector('html[data-scheme]')
+
+				cscoDarkMode = {
+					init: function (e) {
+						this.initMode(e)
+						window
+							.matchMedia('(prefers-color-scheme: dark)')
+							.addListener((e) => {
+								this.initMode(e)
+							})
+
+						window.addEventListener('load', () => {
+							const toggleBtns = document.querySelectorAll(
+								'.header__toggle-scheme'
+							)
+							toggleBtns.forEach((btn) => {
+								btn.addEventListener('click', (e) => {
+									e.preventDefault()
+									if ('auto' === body.getAttribute('data-scheme')) {
+										if (
+											window.matchMedia('(prefers-color-scheme: dark)').matches
+										) {
+											cscoDarkMode.changeScheme('light', true)
+										} else if (
+											window.matchMedia('(prefers-color-scheme: light)').matches
+										) {
+											cscoDarkMode.changeScheme('dark', true)
+										}
+									} else {
+										if ('dark' === body.getAttribute('data-scheme')) {
+											cscoDarkMode.changeScheme('light', true)
+										} else {
+											cscoDarkMode.changeScheme('dark', true)
+										}
+									}
+								})
+							})
+						})
+					},
+					initMode: function (e) {
+						let siteScheme = false
+						switch (
+							'{{ settings.color_scheme }}' // Field. User’s system preference.
+						) {
+							case 'dark':
+								siteScheme = 'dark'
+								break
+							case 'light':
+								siteScheme = 'light'
+								break
+							case 'system':
+								siteScheme = 'auto'
+								break
+						}
+						if ('{{ settings.dark_mode_toggle }}') {
+							// Field. Enable dark/light mode toggle.
+							if ('light' === localStorage.getItem('_color_schema')) {
+								siteScheme = 'light'
+							}
+							if ('dark' === localStorage.getItem('_color_schema')) {
+								siteScheme = 'dark'
+							}
+						}
+						if (siteScheme && siteScheme !== body.getAttribute('data-scheme')) {
+							this.changeScheme(siteScheme, false)
+						}
+					},
+					changeScheme: function (siteScheme, cookie) {
+						body.classList.add('scheme-toggled')
+						body.setAttribute('data-scheme', siteScheme)
+						if (cookie) {
+							localStorage.setItem('_color_schema', siteScheme)
+						}
+						setTimeout(() => {
+							body.classList.remove('scheme-toggled')
+						}, 100)
+					},
+				}
+			})()
+
+			cscoDarkMode.init()
+
+			document.addEventListener('shopify:section:load', function () {
+				setTimeout(() => {
+					cscoDarkMode.init()
+				}, 100)
+			});
+
+			{% comment %} const qty_rules = JSON.parse(document.querySelector('.order-minimi-increment').textContent); {% endcomment %}
+			window.quantity_rules = {};
+			{%- for meta_object in metaobjects.order_minimi_increment.values -%}
+				{%- if meta_object.active == true -%}{%- assign key = meta_object.product_type | downcase -%}
+					window.quantity_rules["{{ key }}"] = {{ meta_object | json }};
+				{%- endif -%}
+			{%- endfor -%}
+			{% comment %} qty_rules.forEach((qty_rule) => {
+				const key = qty_rule.product_type.toLowerCase();
+				window.quantity_rules[key] = qty_rule
+			}); {% endcomment %}
+		</script>		
+
+<script>
+  window.markerConfig = {
+    project: '691506764c211b537c32a60f', 
+    source: 'snippet'
+  };
+
+  !function(e,r,a){if(!e.__Marker){e.__Marker={};var t=[],n={__cs:t};["show","hide","isVisible","capture","cancelCapture","unload","reload","isExtensionInstalled","setReporter","clearReporter","setCustomData","on","off"].forEach(function(e){n[e]=function(){var r=Array.prototype.slice.call(arguments);r.unshift(e),t.push(r)}}),e.Marker=n;var s=r.createElement("script");s.async=1,s.src="https://edge.marker.io/latest/shim.js";var i=r.getElementsByTagName("script")[0];i.parentNode.insertBefore(s,i)}}(window,document);
+</script>
+
+	</head>
+
+	<body class='template-{{ template.name }} template-{{ template | replace: '.', '-' }}'>
+		<a class='skip-to-content-link button visually-hidden' href='#MainContent'>
+			{{ 'accessibility.skip_to_text' | t }}
+		</a>
+		<div class='header__overlay'></div>
+		{% sections 'header-group' %}
+		{% sections 'overlay-group' %}
+		{% render 'breadcrumbs' %}
+
+		<main
+			id='MainContent'
+			class='content-for-layout focus-none background'
+			role='main'
+			tabindex='-1'
+		>
+			{{ content_for_layout }}
+		</main>
+		{% sections 'footer-group' %}
+
+		{% if settings.show_back_to_top %}
+			{% render 'scroll-top' %}
+		{% endif %}
+
+		{%- if settings.enable_aside_menu -%}
+			{%- render 'aside-menu' -%}
+		{%- endif -%}
+
+		{%- if request.page_type != 'cart' and settings.cart_type == 'drawer' -%}
+			{%- render 'cart-drawer' -%}
+		{%- endif -%}
+
+		<ul hidden>
+			<li id='a11y-refresh-page-message'>
+				{{ 'accessibility.refresh_page' | t }}
+			</li>
+		</ul>
+
+		<script>
+			
+			
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      };
+
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t }}`,
+        empty: `{{ 'general.cart.empty_cart' | t }}`,
+        shop_now: `{{ 'customer.account.account_button_shop' | t }}`,
+        collections_url: `{{ routes.collections_url | sort_by: 'best-selling' }}`
+      }
+
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+        unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`
+      }			
+
+      window.quickOrderListStrings = {
+        itemsAdded: `{{ 'sections.quick_order_list.items_added.other' | t: quantity: '[quantity]' }}`,
+        itemAdded: `{{ 'sections.quick_order_list.items_added.one' | t: quantity: '[quantity]' }}`,
+        itemsRemoved: `{{ 'sections.quick_order_list.items_removed.other' | t: quantity: '[quantity]' }}`,
+        itemRemoved: `{{ 'sections.quick_order_list.items_removed.one' | t: quantity: '[quantity]' }}`,
+        viewCart: `{{- 'sections.quick_order_list.view_cart' | t -}}`,
+        each: `{{- 'sections.quick_order_list.each' | t: money: '[money]' }}`,
+        min_error: `{{- 'sections.quick_order_list.min_error' | t: min: '[min]' }}`,
+        max_error: `{{- 'sections.quick_order_list.max_error' | t: max: '[max]' }}`,
+        step_error: `{{- 'sections.quick_order_list.step_error' | t: step: '[step]' }}`,
+      };
+
+      window.theme = {
+        moneyFormat: {{ shop.money_format | json }},
+        quickviewMore: `{{ 'general.card.view__more' | t }}`,
+        reviews: `{{ 'products.product.reviews' | t }}`
+      };
+
+			window.qtyCondition = {
+				count: {{ customer.orders_count | json }},
+				first_time: {% if customer.orders_count > 0 -%}false{% else %}true{% endif %},
+				fristOrderText: 'Your TTT order must include at least <strong>RRR<\/strong> units.',
+				returnOrderText: 'Your TTT order must include at least <strong>RRR<\/strong> units.',
+			}
+
+			{% render 'cart-type-count', window: true -%}			
+		</script>
+
+		{%- if settings.predictive_search_enabled -%}
+			<script src='{{ 'search-form.js' | asset_url }}' defer='defer'></script>
+			<script
+				src='{{ 'predictive-search.js' | asset_url }}'
+				defer='defer'
+			></script>
+		{%- endif -%}
+	</body>
+</html>

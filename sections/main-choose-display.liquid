@@ -1,0 +1,322 @@
+{% comment %}
+  Arcadian Outfitters - Choose Your Display Section
+  Purpose: Clear entry point into Hat Display vs Beanie/Patch Display flows.
+{% endcomment %}
+
+<section class="arcadian-choose-display">
+  <div class="arcadian-choose-display__inner">
+    <header class="arcadian-choose-display__header">
+      {% if section.settings.kicker != blank %}
+        <p class="arcadian-choose-display__kicker">{{ section.settings.kicker }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="arcadian-choose-display__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="arcadian-choose-display__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </header>
+
+    <div class="arcadian-choose-display__grid">
+      {% for block in section.blocks %}
+        {% assign b = block.settings %}
+        <article class="arcadian-choose-display__card">
+          {% if b.image != blank %}
+            <a href="{{ b.primary_link | default: '#' }}" class="arcadian-choose-display__image-link">
+              {{ b.image | image_url: width: 1200 | image_tag:
+                class: 'arcadian-choose-display__image',
+                loading: 'lazy',
+                alt: b.title | escape
+              }}
+            </a>
+          {% endif %}
+
+          <div class="arcadian-choose-display__card-body">
+            {% if b.tag != blank %}
+              <span class="arcadian-choose-display__tag">{{ b.tag }}</span>
+            {% endif %}
+
+            {% if b.title != blank %}
+              <h3 class="arcadian-choose-display__title">
+                {% if b.primary_link != blank %}
+                  <a href="{{ b.primary_link }}">{{ b.title }}</a>
+                {% else %}
+                  {{ b.title }}
+                {% endif %}
+              </h3>
+            {% endif %}
+
+            {% if b.capacity != blank %}
+              <p class="arcadian-choose-display__capacity">{{ b.capacity }}</p>
+            {% endif %}
+
+            {% if b.ideal_store != blank %}
+              <p class="arcadian-choose-display__ideal">{{ b.ideal_store }}</p>
+            {% endif %}
+
+            {% if b.description != blank %}
+              <p class="arcadian-choose-display__description">{{ b.description }}</p>
+            {% endif %}
+
+            <div class="arcadian-choose-display__buttons">
+              {% if b.primary_button_label != blank and b.primary_link != blank %}
+                <a href="{{ b.primary_link }}" class="button button--primary arcadian-choose-display__button">
+                  {{ b.primary_button_label }}
+                </a>
+              {% endif %}
+
+              {% if b.secondary_button_label != blank and b.secondary_link != blank %}
+                <a href="{{ b.secondary_link }}" class="button button--secondary arcadian-choose-display__button arcadian-choose-display__button--secondary">
+                  {{ b.secondary_button_label }}
+                </a>
+              {% endif %}
+            </div>
+
+            {% if b.rules_snippet != blank %}
+              <p class="arcadian-choose-display__rules">{{ b.rules_snippet }}</p>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .arcadian-choose-display {
+    padding: 48px 16px 64px;
+  }
+  @media (min-width: 768px) {
+    .arcadian-choose-display {
+      padding: 64px 40px 80px;
+    }
+  }
+  .arcadian-choose-display__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .arcadian-choose-display__header {
+    max-width: 720px;
+    margin: 0 auto 32px;
+    text-align: left;
+  }
+  .arcadian-choose-display__kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+  .arcadian-choose-display__heading {
+    font-size: 1.9rem;
+    margin: 0 0 8px;
+  }
+  .arcadian-choose-display__subheading {
+    font-size: 0.98rem;
+    max-width: 32rem;
+  }
+  .arcadian-choose-display__grid {
+    margin-top: 8px;
+    display: grid;
+    gap: 24px;
+  }
+  @media (min-width: 900px) {
+    .arcadian-choose-display__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .arcadian-choose-display__card {
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .arcadian-choose-display__image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+  .arcadian-choose-display__card-body {
+    padding: 18px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+  .arcadian-choose-display__tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+  }
+  .arcadian-choose-display__title {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .arcadian-choose-display__title a {
+    text-decoration: none;
+  }
+  .arcadian-choose-display__capacity {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .arcadian-choose-display__ideal {
+    font-size: 0.85rem;
+    opacity: 0.9;
+  }
+  .arcadian-choose-display__description {
+    font-size: 0.9rem;
+  }
+  .arcadian-choose-display__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
+  .arcadian-choose-display__button {
+    text-decoration: none;
+  }
+  .arcadian-choose-display__button--secondary {
+    font-size: 0.85rem;
+  }
+  .arcadian-choose-display__rules {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    margin-top: 4px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Choose your display",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Pick your display"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose your Arcadian display"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Start with the display that fits your space and traffic. Each stand is built by state, includes our guaranteed-sell assortment, and connects into the display builder for easy ordering."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "display_choice",
+      "name": "Display choice",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Label / tag",
+          "default": "Hats"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Hat Display"
+        },
+        {
+          "type": "text",
+          "id": "capacity",
+          "label": "Capacity line",
+          "default": "26 sleeves × 8 hats each = 208 hats."
+        },
+        {
+          "type": "text",
+          "id": "ideal_store",
+          "label": "Ideal for",
+          "default": "Best for c-stores, groceries, and travel centers that want a high-margin impulse hat program in a small footprint."
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Short description",
+          "default": "Our core state-pride hat stand. Built by state with a mix of best sellers and regional stories, ready to drop into your most visible 3–4 square feet."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Display image"
+        },
+        {
+          "type": "url",
+          "id": "primary_link",
+          "label": "Primary link (builder or display page)"
+        },
+        {
+          "type": "text",
+          "id": "primary_button_label",
+          "label": "Primary button label",
+          "default": "Start with Hat Display"
+        },
+        {
+          "type": "url",
+          "id": "secondary_link",
+          "label": "Secondary link (optional, e.g. learn more)"
+        },
+        {
+          "type": "text",
+          "id": "secondary_button_label",
+          "label": "Secondary button label",
+          "default": "View details"
+        },
+        {
+          "type": "text",
+          "id": "rules_snippet",
+          "label": "Rules snippet",
+          "default": "Free stand for qualifying new accounts. Reorders require at least 3 sleeves (24 hats)."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Choose your display",
+      "category": "Arcadian",
+      "blocks": [
+        {
+          "type": "display_choice",
+          "settings": {
+            "tag": "Hats",
+            "title": "Hat Display",
+            "capacity": "26 sleeves × 8 hats each = 208 hats.",
+            "ideal_store": "Ideal for high-traffic c-stores, groceries, and travel stops.",
+            "description": "Our flagship state-pride hat stand for stores that want a proven, high-margin hat program.",
+            "primary_button_label": "Start Hat Display",
+            "rules_snippet": "Free stand for qualifying new accounts. Minimum reorder: 3 sleeves (24 hats)."
+          }
+        },
+        {
+          "type": "display_choice",
+          "settings": {
+            "tag": "Beanies & Patches",
+            "title": "Beanie & Patch Display",
+            "capacity": "10 sleeves of beanies + 12 sleeves of patches.",
+            "ideal_store": "Best for colder climates, mountain towns, and tourist-heavy locations.",
+            "description": "A compact mixed display for beanies and patches that adds seasonal and accessory margin next to your core hat program.",
+            "primary_button_label": "Start Beanie/Patch Display",
+            "rules_snippet": "Minimum reorder: 4 sleeves of beanies and 5 sleeves of patches; stand not free by default."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

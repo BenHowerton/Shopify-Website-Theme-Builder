@@ -1,0 +1,170 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-badge.css' | asset_url | stylesheet_tag }}
+{{ 'component-search.css' | asset_url | stylesheet_tag }}
+{{ 'template-search.css' | asset_url | stylesheet_tag }}
+
+{%- if settings.quickview_show or settings.show_on_mobile or settings.type_color_swatch == 'custom' -%}
+  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+{%- style -%}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+
+{%- if settings.quickview_show or settings.show_on_mobile -%}
+  <link rel="stylesheet" href="{{ 'component-deferred-media.css' | asset_url }}" media="all">
+  <link
+    rel="preload"
+    href="{{ 'quick-add.css' | asset_url }}"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+  >
+{%- endif -%}
+
+<div class="template-404">
+  <div class="container">
+    <div class="page-header {% if section.settings.margin_top != 'no-indent' %} page-header_no-margin {% endif %}">
+      <div class="page-header__inner">
+        <h1 class="main-page-title page-title title--page">
+          {{ 'templates.404.title' | t }}
+        </h1>
+        <p class="search__form-text">
+          {{ 'templates.404.text' | t }}
+        </p>
+      </div>
+    </div>
+    {%- if settings.predictive_search_enabled -%}
+      <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
+    {%- endif -%}
+      {%- if search.performed and search.results_count == 0 and search.filters == empty -%}
+        <div class="search-wrapper">
+      {% endif %}
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search">
+        <div class="field">
+          <input
+            class="search__input field__input" 
+            id="Search-In-Template" 
+            type="search" 
+            name="q" 
+            value="{{ search.terms | escape }}" 
+            placeholder="{{ 'general.search.placeholder' | t }}"
+            {%- if settings.predictive_search_enabled -%}
+              role="combobox"
+              aria-expanded="false"
+              aria-owns="predictive-search-results-list"
+              aria-controls="predictive-search-results-list"
+              aria-haspopup="listbox"
+              aria-autocomplete="list"
+              autocorrect="off"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+            {%- endif -%}
+          >
+          <label class="visually-hidden" for="Search-In-404">{{ 'general.search.search' | t }}</label>
+          <input name="options[prefix]" type="hidden" value="last">
+          <button
+            class="search__button button focus-inset"
+            aria-label="{{ 'general.search.search' | t }}"
+          >
+            {% render 'icon-search' %}
+          </button>
+        </div>
+        {%- if settings.predictive_search_enabled -%}
+          <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search>
+            <div class="predictive-search__loading-state">
+              {% render 'icon-spinner' %}
+            </div>
+          </div>
+          <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+        {%- endif -%}
+      </form>
+      {%- if search.performed and search.results_count == 0 and search.filters == empty -%}
+        </div>
+      {% endif %}
+    {%- if settings.predictive_search_enabled -%}
+      </predictive-search>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "l",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    }
+  ]
+}
+{% endschema %}
+

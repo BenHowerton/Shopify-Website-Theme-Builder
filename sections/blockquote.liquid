@@ -1,0 +1,251 @@
+{{ 'section-blockquote.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+	{% render 'section-margin' %}
+{%- endstyle -%}
+
+<div class='blockquote section-{{ section.id }} background'>
+	<div class='container'>
+		<div class='blockquote__block'>
+			<div class='blockquote-section-header'>
+				{%- if section.settings.section_subheading != blank -%}
+					<span class='section-header__subtitle {{  }} {%- if section.settings.dot -%}section-header__subtitle_dot {% endif %} subheading'>
+						{{ section.settings.section_subheading }}
+					</span>
+				{% endif %}
+				{%- if section.settings.blockquote != blank -%}
+					<span class='blockquote__text  {{  section.settings.section_blockquote_size }} '>
+						{{ section.settings.blockquote }}
+					</span>
+				{%- endif -%}
+			</div>
+			{% if section.settings.author_name != blank %}
+				<div class='blockquote__person-box'>
+					{%- if section.settings.author_image != blank -%}
+						<div class='blockquote__person-img'>
+							{{
+								section.settings.author_image
+								| image_url: width: 120
+								| image_tag:
+									loading: 'lazy',
+									sizes: '(min-width: 270px) 50vw, 100vw',
+									widths: '30, 60, 90, 120, 240'
+							}}
+						</div>
+					{%- endif -%}
+					<div class='blockquote__person-info'>
+						<h6 class='blockquote__person-name large-font'>
+							{{ section.settings.author_name }}
+						</h6>
+						{%- if section.settings.author_position != blank -%}
+							<div class='blockquote__person-position small-font'>
+								{{ section.settings.author_position }}
+							</div>
+						{%- endif -%}
+					</div>
+				</div>
+			{% endif %}
+			{% render 'button',
+				btn_label: section.settings.section_button_label,
+				button_dot: section.settings.button_dot,
+				btn_link: section.settings.section_button_link,
+				btn_style: section.settings.section_button_style,
+				add_classes: 'focus-inset'
+			%}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "t:sections.blockquote.name",
+	"tag": "section",
+	"class": "spaced-section blockquote-section",
+	"enabled_on": {
+		"templates": ["*"]
+	},
+	"settings": [
+		{
+			"type": "header",
+			"content": "t:sections.all.heading.header.content"
+		},
+		{
+			"type": "text",
+			"id": "section_subheading",
+			"default": "About",
+			"label": "t:sections.all.section-header.subheading.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "dot",
+			"default": true,
+			"label": "t:sections.all.section-header.dot.label"
+		},
+		{
+			"type": "inline_richtext",
+			"id": "blockquote",
+			"default": "Some block quote for this section",
+			"label": "t:sections.blockquote.name"
+		},
+		{
+			"type": "select",
+			"id": "section_blockquote_size",
+			"options": [
+				{
+					"value": "h4",
+					"label": "t:sections.all.heading_size.options__4.label"
+				},
+				{
+					"value": "h3",
+					"label": "t:sections.all.heading_size.options__1.label"
+				},
+				{
+					"value": "h2",
+					"label": "t:sections.all.heading_size.options__2.label"
+				},
+				{
+					"value": "h1",
+					"label": "t:sections.all.heading_size.options__3.label"
+				}
+			],
+			"default": "h1",
+			"label": "t:sections.blockquote.settings.section_blockquote_size.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.author.header.content"
+		},
+		{
+			"type": "image_picker",
+			"id": "author_image",
+			"label": "t:sections.all.author.author_image.label"
+		},
+		{
+			"type": "text",
+			"id": "author_name",
+			"label": "t:sections.all.author.author_name.label"
+		},
+		{
+			"type": "text",
+			"id": "author_position",
+			"label": "t:sections.all.author.author_position.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.button.header_button.content"
+		},
+		{
+			"type": "text",
+			"id": "section_button_label",
+			"default": "Read about us",
+			"label": "t:sections.all.button.button_label.label",
+			"info": "t:sections.all.button.button_label.info"
+		},
+		{
+			"type": "url",
+			"id": "section_button_link",
+			"label": "t:sections.all.button.button_link.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "button_dot",
+			"default": true,
+			"label": "t:sections.all.button.button_dot.label"
+		},
+		{
+			"type": "select",
+			"id": "section_button_style",
+			"options": [
+				{
+					"value": "primary",
+					"label": "t:sections.all.button.button_style.options__1.label"
+				},
+				{
+					"value": "secondary",
+					"label": "t:sections.all.button.button_style.options__2.label"
+				},
+				{
+					"value": "tertiary",
+					"label": "t:sections.all.button.button_style.options__3.label"
+				}
+			],
+			"default": "primary",
+			"label": "t:sections.all.button.button_style.label"
+		},
+
+		{
+			"type": "header",
+			"content": "t:sections.all.section-margin.header.content"
+		},
+		{
+			"type": "select",
+			"id": "margin_top",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_top.label"
+		},
+		{
+			"type": "select",
+			"id": "margin_bottom",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_bottom.label"
+		}
+	],
+	"presets": [
+		{
+			"name": "t:sections.blockquote.name"
+		}
+	]
+}
+{% endschema %}

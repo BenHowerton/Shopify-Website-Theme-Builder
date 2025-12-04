@@ -1,0 +1,209 @@
+{{ 'template-giftcard.css' | asset_url | stylesheet_tag }}
+
+<header class="gift-card-header">
+  <div class="container">
+    <a
+      href="{{ routes.root_url }}"
+      class="header__heading-link link link--text focus-inset"
+      aria-label="{{ shop.name }}"
+    >
+      {%- if section.settings.logo != blank -%}
+        {%- assign image_size = section.settings.logo_width | append: 'x' -%}
+        {%- assign image_size_2x = section.settings.logo_width | times: 2 | at_most: 5760 -%}
+        <img
+          srcset="{{ section.settings.logo | image_url: width: image_size }} 1x, {{ section.settings.logo | image_url: width: image_size_2x }} 2x"
+          src="{{ section.settings.logo | image_url: width: image_size }}"
+          class="header__heading-logo"
+          width="{{ section.settings.logo_width }}"
+          height="{{ section.settings.logo.height }}"
+          alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        <span class="h5">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+  </div>
+</header>
+<section class="shopify-section gift-card">
+  <div class="container">
+    <h1 class="gift-card__heading">
+      {{ 'gift_cards.issued.subtext' | t }}
+    </h1>
+    <div class="gift-card__price">
+      <p>
+        {% if settings.currency_code_enabled %}
+          {{ gift_card.initial_value | money_with_currency }}
+        {% else %}
+          {{ gift_card.initial_value | money }}
+        {% endif %}
+      </p>
+      {%- if gift_card.enabled == false or gift_card.expired -%}
+        <p class="gift-card__label badge badge--{{ settings.sold_out_badge_color_scheme }}">
+          {{ 'gift_cards.issued.expired' | t }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    {% if settings.currency_code_enabled %}
+      {%- assign gift_card_balance = gift_card.balance | money_with_currency -%}
+    {% else %}
+      {%- assign gift_card_balance = gift_card.balance | money -%}
+    {% endif %}
+    {%- if gift_card.balance != gift_card.initial_value -%}
+      <p class="gift-card__label caption-large">
+        {{ 'gift_cards.issued.remaining_html' | t: balance: gift_card_balance }}
+      </p>
+    {%- endif -%}
+    <div class="gift-card__image-wrapper color-{{ section.settings.color_scheme }} background">
+      <div class="gift-card__image-wrapper-title">
+        {{ 'gift_cards.issued.card_title' | t }}
+      </div>
+      <div class="gift-card__image-wrapper-price">
+        {% if settings.currency_code_enabled %}
+          {{ gift_card.initial_value | money_with_currency }}
+        {% else %}
+          {{ gift_card.initial_value | money }}
+        {% endif %}
+      </div>
+      <div class="gift-card__image-wrapper-logo">
+        {%- if section.settings.logo_2 != blank -%}
+          {%- assign image_size = section.settings.logo_width_2 | append: 'x' -%}
+          {%- assign image_size_2x = section.settings.logo_width_2 | times: 2 | at_most: 5760 -%}
+          <img
+            srcset="{{ section.settings.logo_2 | image_url: width: image_size }} 1x, {{ section.settings.logo_2 | image_url: width: image_size_2x }} 2x"
+            src="{{ section.settings.logo_2 | image_url: width: image_size }}"
+            class="header__heading-logo"
+            width="{{ section.settings.logo_width_2 }}"
+            height="{{ section.settings.logo_2.height }}"
+            alt="{{ section.settings.logo_2.alt | default: shop.name | escape }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+      <div class="gift-card__image-wrapper-text">
+        {{ 'gift_cards.issued.card_text' | t }}
+      </div>
+    </div>
+    <div
+      class="gift-card__qr-code"
+      data-identifier="{{ gift_card.qr_identifier }}"
+    ></div>
+    <div class="gift-card__information">
+      <div class="field gift-card__field">
+        <input
+          type="text"
+          class="gift-card__number"
+          value="{{ gift_card.code | format_code }}"
+          aria-label="{{ 'gift_cards.issued.gift_card_code' | t }}"
+          readonly
+        >
+        <div class="gift-card__copy-code">
+          <button
+            class="link gift-card__copy-link focus-inset"
+            title="{{ 'gift_cards.issued.copy_code' | t }}"
+          >
+            <span>
+             {% render 'icon-copy' %}
+            </span>
+          </button>
+          <span
+            class="gift-card__copy-success form__message"
+            role="status"
+          ></span>
+          <template>
+            {%- render 'icon-success' -%}
+            {{ 'gift_cards.issued.copy_code_success' | t }}
+          </template>
+        </div>
+      </div>
+      {%- if gift_card.pass_url -%}
+        <a href="{{ gift_card.pass_url }}" class="gift_card__apple-wallet">
+          <img
+            src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+            width="120"
+            height="40"
+            alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}"
+            loading="lazy"
+          >
+        </a>
+      {%- endif -%}
+      <div class="gift-card__buttons no-print">
+        <a
+          href="{{ request.origin }}"
+          class="button image-section__button button--primary-size button--primary focus-inset"
+          target="_blank"
+          rel="noopener"
+          aria-describedby="a11y-new-window-message"
+          data-button-text="{{ 'gift_cards.issued.shop_link' | t }}"
+        >
+          <span>
+            {{ 'gift_cards.issued.shop_link' | t }}
+          </span>
+        </a>
+        <button
+          class="button image-section__button button button--simple focus-inset"
+          onclick="window.print();"
+        >
+          <span>
+            {{ 'gift_cards.issued.print_gift_card' | t }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.gift-card.name",
+  "class": "spaced-section gift-card",
+  "tag": "section",
+  "enabled_on": {
+    "templates": ["gift_card"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.gift-card.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 350,
+      "step": 5,
+      "default": 90,
+      "unit": "px",
+      "label": "t:sections.gift-card.settings.logo_width.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-3",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_2",
+      "label": "t:sections.gift-card.settings.logo_2.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_width_2",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 70,
+      "unit": "px",
+      "label": "t:sections.gift-card.settings.logo_width_2.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.gift-card.name"
+    }
+  ]
+}
+{% endschema %}

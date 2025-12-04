@@ -1,0 +1,501 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+	assign image_ratio = section.settings.image_ratio
+%}
+
+{%- style -%}
+	{% render 'section-margin' %}
+{%- endstyle -%}
+
+<div class="customer login color-background-1">
+	<div class="login__wrapper">
+		<div class="container login__container">
+			{% if settings.enable_breadcrumbs %}
+				<div class="breadcrumbs-wrapper background">
+					<nav
+						id="breadcrumbs"
+						class="breadcrumb"
+						role="navigation"
+						aria-label="breadcrumbs"
+					>
+						<a
+							href="{{ routes.root_url }}"
+							title="{{ 'general.breadcrumbs.home' | t }}"
+							class="focus-inset"
+						>
+							{{- 'general.breadcrumbs.home' | t -}}
+						</a>
+						{% if template contains 'page' %}
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<span>{{ page.title }}</span>
+						{% elsif template == 'cart' %}
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<span>{{ 'templates.cart.cart' | t }}</span>
+						{% elsif template == 'collection' %}
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<span>{{ collection.title }}</span>
+						{% elsif template contains 'product' %}
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							{% if product.collections[0] %}
+								<a href="{{ product.collections[0].url }}" class="focus-inset">
+									{{- product.collections[0].title }}
+								</a>
+								<div class="breadcrumb__delimiter">
+									{% render 'icon-caret' %}
+								</div>
+							{% endif %}
+							<span>{{ product.title }}</span>
+						{% elsif template == 'blog' %}
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							{% if current_tags %}
+								{{ blog.title | link_to: blog.url }}
+								<div class="breadcrumb__delimiter">
+									{% render 'icon-caret' %}
+								</div>
+								<span>{{ current_tags | join: ' + ' }}</span>
+							{% else %}
+								<span>{{ blog.title }}</span>
+							{% endif %}
+						{% elsif template == 'article' %}
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<a
+								href="{{ blog.url }}"
+								title="{{ blog.title }}"
+								class="focus-inset"
+							>
+								{{ blog.title }}
+							</a>
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<span>{{ page_title }}</span>
+						{% elsif template == 'customers/order' %}
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<a href="{{ routes.account_url }}" class="focus-inset">
+								{{- 'customer.account.breadcrumb' | t }}
+							</a>
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<span>{{ 'customer.order.title' | t: name: order.name }}</span>
+						{% elsif template == 'customers/addresses' %}
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<a href="{{ routes.account_url }}" class="focus-inset">
+								{{- 'customer.account.breadcrumb' | t }}
+							</a>
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<span>{{ 'customer.addresses.title' | t }}</span>
+						{% else %}
+							<div class="breadcrumb__delimiter">
+								{% render 'icon-caret' %}
+							</div>
+							<span>{{ page_title }}</span>
+						{% endif %}
+					</nav>
+
+					<script>
+						const calcBreadcrumbs = () => {
+							const breadcrumbs = document.querySelector(
+								'.breadcrumbs-wrapper'
+							);
+							if (breadcrumbs) {
+								const breadcrumbsObserver = new ResizeObserver((entries) => {
+									const breadcrumbsHeight =
+										breadcrumbs.getBoundingClientRect().height;
+									document.documentElement.style.setProperty(
+										'--breadcrumbs-height',
+										`${breadcrumbsHeight}px`
+									);
+								});
+								breadcrumbsObserver.observe(breadcrumbs);
+							}
+						};
+						calcBreadcrumbs();
+
+						document.addEventListener('shopify:section:load', function () {
+							calcBreadcrumbs();
+						});
+					</script>
+				</div>
+			{% endif %}
+
+			<div class="forms-with-image-wrapper">
+				<div class="login__col color-background-1">
+					<div class="login__reset" id="recover">
+						<div class="page-header">
+							<div class="page-header__inner">
+								<h2
+									class="title--page login__title {{section.settings.section_heading_size}}"
+									tabindex="-1"
+								>
+									{{ 'customer.recover_password.title' | t }}
+								</h2>
+								<p>{{ 'customer.recover_password.subtext' | t }}</p>
+							</div>
+						</div>
+						<div>
+							{%- form 'recover_customer_password' -%}
+								{% assign recover_success = form.posted_successfully? %}
+								<div class="field">
+									<input
+										type="email"
+										value=""
+										name="email"
+										id="RecoverEmail"
+										autocorrect="off"
+										autocapitalize="off"
+										autocomplete="email"
+										{% if form.errors %}
+											aria-invalid="true"
+											aria-describedby="RecoverEmail-email-error"
+											autofocus
+										{% endif %}
+										placeholder="example@email.com"
+									>
+									<label for="RecoverEmail">
+										{{- 'customer.login_page.email' | t -}}
+									</label>
+								</div>
+
+								<div class="login__buttons">
+									<button
+										class="button button--{{section.settings.button_style}} {% if section.settings.button_dot %}dot_active{% endif %} login__sign-in focus-inset"
+										data-button-text="{{ 'customer.login_page.submit' | t }}"
+									>
+										<span>{{ 'customer.login_page.submit' | t }}</span>
+									</button>
+
+									<a
+										class="button button--tertiary login__sign-in anchor focus-inset"
+										href="#login"
+									>
+										<span>{{ 'customer.login_page.cancel' | t }}</span>
+									</a>
+								</div>
+							{%- endform -%}
+						</div>
+					</div>
+
+					<div class="login__form" id="login">
+						<div class="page-header">
+							<div class="page-header__inner">
+								<h1
+									class="title--page login__title {{section.settings.section_heading_size}}"
+									tabindex="-1"
+								>
+									{{ 'customer.login_page.welcome' | t }}
+								</h1>
+
+								{% if section.settings.text != blank %}
+									<div class="page-header__text richtext__content">
+										{{ section.settings.text }}
+									</div>
+								{% endif %}
+								{%- if recover_success == true -%}
+									<h3
+										class="form__message"
+										tabindex="-1"
+										autofocus
+									>
+										{{ 'customer.recover_password.success' | t }}
+									</h3>
+								{%- endif -%}
+							</div>
+						</div>
+						{%- form 'customer_login', novalidate: 'novalidate' -%}
+							<div class="field login__field login__field-email">
+								<input
+									type="email"
+									name="customer[email]"
+									class="field__input"
+									id="CustomerEmail"
+									autocomplete="email"
+									autocorrect="off"
+									autocapitalize="off"
+									required
+									{% if form.errors contains 'form' %}
+										aria-invalid="true"
+										aria-describedby="LoginForm-email-error"
+									{% endif %}
+									placeholder="example@email.com"
+								>
+								<label for="CustomerEmail">
+									{{- 'customer.login_page.email' | t -}}
+								</label>
+							</div>
+							{% unless template.name == 'register' %}
+								{{ form.errors | default_errors }}
+							{% endunless %}
+
+							{%- if form.password_needed -%}
+								<div class="field field--pass login__field">
+									<div class="button-pass-visibility">
+										{% render 'icon-eye' %}
+										{% render 'icon-eye-close' %}
+									</div>
+									<input
+										type="password"
+										value=""
+										name="customer[password]"
+										class="field__input"
+										id="CustomerPassword"
+										autocomplete="current-password"
+										{% if form.errors contains 'form' %}
+											aria-invalid="true"
+										{% endif %}
+										required
+										placeholder="{{ 'customer.login_page.password_placeholder' | t }}"
+									>
+									<label for="CustomerPassword">
+										{{- 'customer.login_page.password' | t -}}
+									</label>
+								</div>
+								{% unless template.name == 'register' %}
+									{{ form.errors | default_errors }}
+								{% endunless %}
+								<a
+									href="#recover"
+									class="anchor button login__forgot-password focus-inset"
+								>
+									<span>{{ 'customer.login_page.forgot_password' | t }}</span>
+								</a>
+							{%- endif -%}
+
+							<div class="login__buttons">
+								<button
+									class="button button--{{section.settings.button_style}} {% if section.settings.button_dot %}dot_active{% endif %} login__sign-in focus-inset"
+									data-button-text="{{ 'customer.login_page.title' | t }}"
+								>
+									<span>{{ 'customer.login_page.title' | t }}</span>
+								</button>
+
+								<div class="login__create-acc">
+									<span>{{ 'customer.login_page.new_customer' | t }}</span>
+									<a
+										href="{{ routes.account_register_url }}"
+										class="button--routing focus-inset"
+									>
+										<span>{{ 'customer.login_page.create_account' | t }}</span>
+									</a>
+								</div>
+							</div>
+						{%- endform -%}
+					</div>
+
+					{%- if shop.checkout.guest_login -%}
+						<div class="login__guest">
+							<div class="login__title">
+								{{ 'customer.login_page.guest_title' | t }}
+							</div>
+
+							{%- form 'guest_login' -%}
+								<button
+									class="button button--primary button--primary-size focus-inset"
+									data-button-text="{{ 'customer.login_page.guest_continue' | t }}"
+								>
+									<span>{{ 'customer.login_page.guest_continue' | t }}</span>
+								</button>
+							{%- endform -%}
+						</div>
+					{%- endif -%}
+				</div>
+
+				{% style %}
+					#shopify-section-{{ section.id }} .login__image {
+					  {% if image_ratio != 'adapt' %}
+					    --aspect-ratio: {{ image_ratio }};
+					  {% elsif image_ratio == 'adapt' and section.settings.image != blank %}
+					    --aspect-ratio: {{ section.settings.image.aspect_ratio }};
+
+					  {% endif %}
+					}
+				{% endstyle %}
+
+				{% if section.settings.image != blank %}
+					{% capture sizes %}
+   					(min-width: 750px) 600px, 
+   					calc(100vw - 20px)
+					{% endcapture %}
+					<div class="login__image {{ image_ratio }}">
+						{{
+							section.settings.image
+							| image_url: width: section.settings.image.width
+							| image_tag:
+								loading: 'lazy',
+								widths: '375, 550, 720, 940, 1100',
+								sizes: sizes
+						}}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	window.onload = () => {
+		typeof PasswordViewer !== 'undefined' && new PasswordViewer();
+	};
+</script>
+
+{% schema %}
+{
+	"name": "t:sections.main-login.name",
+	"tag": "section",
+	"class": "spaced-section login-section",
+	"settings": [
+		{
+			"type": "select",
+			"id": "section_heading_size",
+			"options": [
+				{
+					"value": "h2",
+					"label": "t:sections.all.heading_size.options__2.label"
+				},
+				{
+					"value": "h1",
+					"label": "t:sections.all.heading_size.options__3.label"
+				}
+			],
+			"default": "h2",
+			"label": "t:sections.all.heading_size.label"
+		},
+		{
+			"type": "inline_richtext",
+			"id": "text",
+			"default": "Some Text",
+			"label": "t:sections.all.text.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.image.header.content"
+		},
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "t:sections.all.image.label"
+		},
+		{
+			"type": "select",
+			"id": "image_ratio",
+			"default": "16/9",
+			"label": "t:sections.all.image.aspect_ratio.label",
+			"options": [
+				{
+					"value": "1/1",
+					"label": "t:sections.all.image.aspect_ratio.options__1.label"
+				},
+				{
+					"value": "3/2",
+					"label": "t:sections.all.image.aspect_ratio.options__2.label"
+				},
+				{
+					"value": "3/4",
+					"label": "t:sections.all.image.aspect_ratio.options__3.label"
+				},
+				{
+					"value": "4/3",
+					"label": "t:sections.all.image.aspect_ratio.options__4.label"
+				},
+				{
+					"value": "16/9",
+					"label": "t:sections.all.image.aspect_ratio.options__5.label"
+				},
+				{
+					"value": "21/9",
+					"label": "t:sections.all.image.aspect_ratio.options__6.label"
+				},
+				{
+					"value": "adapt",
+					"label": "t:sections.all.image.aspect_ratio.options__7.label"
+				}
+			]
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.button.header_button.content"
+		},
+		{
+			"type": "select",
+			"id": "button_style",
+			"options": [
+				{
+					"value": "primary",
+					"label": "t:sections.all.button.button_style.options__1.label"
+				},
+				{
+					"value": "secondary",
+					"label": "t:sections.all.button.button_style.options__2.label"
+				},
+				{
+					"value": "tertiary",
+					"label": "t:sections.all.button.button_style.options__3.label"
+				}
+			],
+			"default": "secondary",
+			"label": "t:sections.all.button.button_style.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "button_dot",
+			"default": false,
+			"label": "t:sections.all.button.button_dot.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.section-margin.header.content"
+		},
+		{
+			"type": "select",
+			"id": "margin_bottom",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_bottom.label"
+		}
+	]
+}
+{% endschema %}

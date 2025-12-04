@@ -1,0 +1,221 @@
+{% comment %}
+  Arcadian Outfitters - About Us main section
+{% endcomment %}
+
+<section class="arcadian-about">
+  <div class="arcadian-about__inner">
+    <header class="arcadian-about__header">
+      {% if section.settings.kicker != blank %}
+        <p class="arcadian-about__kicker">{{ section.settings.kicker }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="arcadian-about__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.lead_copy != blank %}
+        <div class="arcadian-about__lead">
+          {{ section.settings.lead_copy }}
+        </div>
+      {% endif %}
+    </header>
+
+    <div class="arcadian-about__grid">
+      <div class="arcadian-about__story">
+        {% if section.settings.body_copy != blank %}
+          <div class="arcadian-about__body">
+            {{ section.settings.body_copy }}
+          </div>
+        {% endif %}
+      </div>
+
+      <aside class="arcadian-about__sidebar">
+        <div class="arcadian-about__card">
+          <h2 class="arcadian-about__card-title">{{ section.settings.mission_heading }}</h2>
+          <p class="arcadian-about__card-text">{{ section.settings.mission_body }}</p>
+        </div>
+
+        <div class="arcadian-about__card">
+          <h2 class="arcadian-about__card-title">{{ section.settings.vision_heading }}</h2>
+          <p class="arcadian-about__card-text">{{ section.settings.vision_body }}</p>
+        </div>
+
+        <div class="arcadian-about__card">
+          <h2 class="arcadian-about__card-title">{{ section.settings.promise_heading }}</h2>
+          <ul class="arcadian-about__promise-list">
+            {% if section.settings.promise_1 != blank %}
+              <li>{{ section.settings.promise_1 }}</li>
+            {% endif %}
+            {% if section.settings.promise_2 != blank %}
+              <li>{{ section.settings.promise_2 }}</li>
+            {% endif %}
+            {% if section.settings.promise_3 != blank %}
+              <li>{{ section.settings.promise_3 }}</li>
+            {% endif %}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .arcadian-about {
+    padding: 56px 16px 80px;
+  }
+  @media (min-width: 768px) {
+    .arcadian-about {
+      padding: 72px 40px 96px;
+    }
+  }
+  .arcadian-about__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .arcadian-about__header {
+    max-width: 720px;
+    margin-bottom: 32px;
+  }
+  .arcadian-about__kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+  .arcadian-about__heading {
+    font-size: clamp(2rem, 3vw + 1rem, 2.6rem);
+    margin: 0 0 12px;
+  }
+  .arcadian-about__lead p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.95;
+  }
+  .arcadian-about__grid {
+    display: grid;
+    gap: 32px;
+  }
+  @media (min-width: 900px) {
+    .arcadian-about__grid {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      align-items: flex-start;
+    }
+  }
+  .arcadian-about__body p {
+    margin: 0 0 10px;
+    font-size: 0.96rem;
+  }
+  .arcadian-about__sidebar {
+    display: grid;
+    gap: 16px;
+  }
+  .arcadian-about__card {
+    border-radius: 16px;
+    padding: 16px 18px;
+    border: 1px solid rgba(0,0,0,0.06);
+    background: rgba(0,0,0,0.015);
+  }
+  .arcadian-about__card-title {
+    font-size: 1rem;
+    margin: 0 0 6px;
+  }
+  .arcadian-about__card-text {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  .arcadian-about__promise-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.9rem;
+  }
+  .arcadian-about__promise-list li {
+    margin-bottom: 4px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "About Arcadian - main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "About Arcadian Outfitters"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Love Where You Live."
+    },
+    {
+      "type": "richtext",
+      "id": "lead_copy",
+      "label": "Lead intro",
+      "default": "<p>Arcadian Outfitters crafts goods that help people feel proud of where they are from and connected to the places and beliefs that shape them.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "body_copy",
+      "label": "Main body copy",
+      "default": "<p>We believe every community deserves to be celebrated, from small towns and mountain passes to coastal plains and city streets.</p><p>We partner with local retailers across the country to bring regional identity to life through high-quality, state-specific apparel. Every product we make is designed to tell a story about where you belong and what you stand for.</p><p>We guarantee our products will sell. If a particular style is not moving, we replace it at no cost. Our goal is simple: take the uncertainty out of wholesale and help every retailer succeed.</p>"
+    },
+    {
+      "type": "text",
+      "id": "mission_heading",
+      "label": "Mission heading",
+      "default": "Mission"
+    },
+    {
+      "type": "textarea",
+      "id": "mission_body",
+      "label": "Mission body",
+      "default": "We craft goods that help people feel proud of where they are from and connected to the places and beliefs that shape them."
+    },
+    {
+      "type": "text",
+      "id": "vision_heading",
+      "label": "Vision heading",
+      "default": "Vision"
+    },
+    {
+      "type": "textarea",
+      "id": "vision_body",
+      "label": "Vision body",
+      "default": "To build a nationwide culture of pride, connection, and belonging through apparel that celebrates every community. We aim to be the most trusted brand in regional identity by creating meaning, honoring craftsmanship, and building real partnerships with the retailers who help tell these stories."
+    },
+    {
+      "type": "text",
+      "id": "promise_heading",
+      "label": "Promise heading",
+      "default": "Our Promise"
+    },
+    {
+      "type": "text",
+      "id": "promise_1",
+      "label": "Promise line 1",
+      "default": "Guaranteed sales: if it does not sell, we replace it."
+    },
+    {
+      "type": "text",
+      "id": "promise_2",
+      "label": "Promise line 2",
+      "default": "Authentic craftsmanship: we care about every stitch."
+    },
+    {
+      "type": "text",
+      "id": "promise_3",
+      "label": "Promise line 3",
+      "default": "Partnership over transaction: your success is ours."
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Arcadian - main",
+      "category": "Arcadian"
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,334 @@
+{{ 'section-image-collage.css' | asset_url | stylesheet_tag }}
+<script src='{{ 'image-collage.js' | asset_url }}' defer='defer'></script>
+
+{% liquid
+	assign slideshow_speed = section.settings.slideshow_speed
+%}
+
+{%- style -%}
+	{% render 'section-margin' %}
+{%- endstyle -%}
+
+<section
+	class='image-collage'
+	data-id='shopify-section-{{ section.id }}'
+	data-speed='{{ slideshow_speed }}'
+>
+	<div class='container'>
+		<div class='image-collage__wrapper section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}'>
+			<div class='image-collage__content'>
+				{%- if section.settings['image-collage_heading'] != blank -%}
+					<h2 class='image-collage__heading h1'>
+						{{ section.settings['image-collage_heading'] }}
+					</h2>
+				{%- endif -%}
+				<div class='image-collage__info'>
+					{%- if section.settings.text != blank -%}
+						<p class='image-collage__info-descr'>{{ section.settings.text }}</p>
+					{%- endif -%}
+					<div class='image-collage__info-wrapper'>
+						{%- if section.settings.author_name != blank -%}
+							<div class='image-collage__info-avatar-block'>
+								{%- if section.settings.image != blank -%}
+									<div class='image-collage__info-img'>
+										{%- assign widths = '100, 200' -%}
+										{%- capture sizes -%}
+											(min-width: 1200px) calc((100vw - 128px)), calc((100vw - 40px))
+										{%- endcapture -%}
+										{{
+											section.settings.image
+											| image_url: width: section.settings.image.width
+											| image_tag: loading: 'lazy', sizes: sizes, widths: widths
+										}}
+										</div>
+									{%- endif -%}
+								<div class='image-collage__info-texts'>
+									{% if section.settings.author_name != blank %}
+										<span class='image-collage__author font-weight-medium'>
+											{{ section.settings.author_name }}
+										</span>
+									{% endif %}
+									{% if section.settings.followers != blank %}
+										<span class='image-collage__followers'>
+											{{ section.settings.followers }}
+										</span>
+									{% endif %}
+								</div>
+							</div>
+						{%- endif -%}
+						{% render 'button',
+							btn_label: section.settings.button_label,
+							btn_link: section.settings.button_link,
+							btn_style: section.settings.button_style,
+							button_dot: section.settings.button_dot,
+							add_classes: 'focus-inset'
+						%}
+					</div>
+				</div>
+			</div>
+			{% if section.blocks.size >= 1 %}
+				<div class='image-collage__swiper swiper-container'>
+					<div class='image-collage_lide_wrapper swiper-wrapper'>
+						{% for block in section.blocks %}
+							<div class='image-collage__slide swiper-slide'>
+								<div
+									class='image-collage__slide_img {% if section.settings.image_ratio == 'auto' %}adapt{% endif %}' style="aspect-ratio: {{ section.settings.image_ratio }}">
+									{%- if block.settings.slide_img != blank -%}
+										{%- assign widths = '360, 535, 720, 940, 1070, 1200, 1500, 1780, 2000, 2400, 2800, 3200' -%}
+										{%- capture sizes -%}
+										(min-width: 1200px) calc((100vw - 128px)), calc((100vw - 40px))
+									{%- endcapture -%}
+										{{
+											block.settings.slide_img
+											| image_url: width: block.settings.slide_img.width
+											| image_tag: loading: 'lazy', sizes: sizes, widths: widths
+										}}
+									{%- else -%}
+										{{ 'hero-apparel-1' | placeholder_svg_tag }}
+									{%- endif -%}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+	"name": "t:sections.image-collage.name",
+	"tag": "section",
+	"class": "image-collage-section",
+	"enabled_on": {
+		"templates": ["*"]
+	},
+	"settings": [
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"default": "background-1",
+			"label": "t:sections.all.color_scheme.label"
+		},
+		{
+			"type": "text",
+			"id": "image-collage_heading",
+			"default": "Some heading for this section",
+			"label": "t:sections.image-collage.settings.image-collage_heading.label"
+		},
+		{
+			"type": "inline_richtext",
+			"id": "text",
+			"default": "Some text for this section",
+			"label": "t:sections.image-collage.settings.image-collage_descr.label"
+		},
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "t:sections.image-collage.settings.image-collage_img.label"
+		},
+		{
+			"type": "select",
+			"id": "image_ratio",
+			"default": "1/1",
+			"label": "t:sections.all.image.aspect_ratio.label",
+			"options": [
+				{
+					"value": "1/1",
+					"label": "t:sections.all.image.aspect_ratio.options__1.label"
+				},
+				{
+					"value": "3/2",
+					"label": "t:sections.all.image.aspect_ratio.options__2.label"
+				},
+				{
+					"value": "3/4",
+					"label": "t:sections.all.image.aspect_ratio.options__3.label"
+				},
+				{
+					"value": "4/3",
+					"label": "t:sections.all.image.aspect_ratio.options__4.label"
+				},
+				{
+					"value": "16/9",
+					"label": "t:sections.all.image.aspect_ratio.options__5.label"
+				},
+				{
+					"value": "21/9",
+					"label": "t:sections.all.image.aspect_ratio.options__6.label"
+				},
+				{
+					"value": "auto",
+					"label": "t:sections.all.image.aspect_ratio.options__7.label"
+				}
+			]
+		},
+		{
+			"type": "text",
+			"id": "author_name",
+			"default": "Author Name",
+			"label": "t:sections.image-collage.settings.image-collage_name.label"
+		},
+		{
+			"type": "text",
+			"id": "followers",
+			"default": "Description",
+			"label": "t:sections.image-collage.settings.image-collage_followers.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.button.header_button.content"
+		},
+		{
+			"type": "text",
+			"id": "button_label",
+			"default": "Shop Now",
+			"label": "t:sections.all.button.button_label.label",
+			"info": "t:sections.all.button.button_label.info"
+		},
+		{
+			"type": "url",
+			"id": "button_link",
+			"label": "t:sections.all.button.button_link.label"
+		},
+		{
+			"type": "checkbox",
+			"id": "button_dot",
+			"default": true,
+			"label": "t:sections.all.button.button_dot.label"
+		},
+		{
+			"type": "select",
+			"id": "button_style",
+			"options": [
+				{
+					"value": "primary",
+					"label": "t:sections.all.button.button_style.options__1.label"
+				},
+				{
+					"value": "secondary",
+					"label": "t:sections.all.button.button_style.options__2.label"
+				},
+				{
+					"value": "tertiary",
+					"label": "t:sections.all.button.button_style.options__3.label"
+				}
+			],
+			"default": "primary",
+			"label": "t:sections.all.button.button_style.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.slider_options.header.content"
+		},
+		{
+			"type": "range",
+			"id": "slideshow_speed",
+			"min": 1,
+			"max": 6,
+			"step": 0.1,
+			"default": 6,
+			"unit": "s",
+			"label": "t:sections.all.slider_options.speed.label"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.all.section-margin.header.content"
+		},
+		{
+			"type": "select",
+			"id": "margin_top",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_top.label"
+		},
+		{
+			"type": "select",
+			"id": "margin_bottom",
+			"options": [
+				{
+					"value": "no-indent",
+					"label": "t:sections.all.section-margin.options__1.label"
+				},
+				{
+					"value": "xs",
+					"label": "t:sections.all.section-margin.options__2.label"
+				},
+				{
+					"value": "s",
+					"label": "t:sections.all.section-margin.options__3.label"
+				},
+				{
+					"value": "m",
+					"label": "t:sections.all.section-margin.options__4.label"
+				},
+				{
+					"value": "l",
+					"label": "t:sections.all.section-margin.options__5.label"
+				},
+				{
+					"value": "xl",
+					"label": "t:sections.all.section-margin.options__6.label"
+				}
+			],
+			"default": "s",
+			"label": "t:sections.all.section-margin.margin_bottom.label"
+		}
+	],
+	"blocks": [
+		{
+			"type": "image",
+			"name": "t:sections.image-collage.blocks.image-collage_slide.name",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "slide_img",
+					"label": "t:sections.image-collage.blocks.image-collage_slide.settings.slide_img.label"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "t:sections.image-collage.presets.name",
+			"blocks": [
+				{
+					"type": "image"
+				},
+				{
+					"type": "image"
+				},
+				{
+					"type": "image"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,102 @@
+<style>
+  :root {
+  	--announcement-height: {{ section.settings.height_mobile }}px;
+  }
+
+  @media screen and (min-width: 765px) {
+  	:root {
+  	--announcement-height: {{ section.settings.height }}px;
+  }
+  }
+</style>
+
+<script src="{{ 'ann-bar.js' | asset_url }}" defer="defer"></script>
+
+<div
+  class="announcement-bar color-{{ section.settings.color_scheme }} background"
+  role="region"
+  aria-label="{{ 'sections.header.announcement' | t }}"
+>
+  {%- if section.settings.text != blank -%}
+    <div class="announcement-bar__message">
+      <div class="announcement-bar__message-inner">
+        <div class="announcement-bar__text">
+          {{ section.settings.text }}
+        </div>
+        {% if section.settings.button_label != blank %}
+            <a
+              {% if section.settings.button_link != blank %}
+                href="{{ section.settings.button_link }}"
+              {% else %}
+                disabled
+              {% endif %}
+              class="announcement-bar__button button--arrow"
+            >
+              {{ section.settings.button_label }}
+              {% render 'icon-caret' %}
+            </a>
+          {% endif %}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.name",
+  "class": "section-announcement",
+  "settings": [
+    {
+      "type": "range",
+      "id": "height",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "label": "t:sections.announcement-bar.settings.height.label"
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "label": "t:sections.announcement-bar.settings.height_mobile.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-3",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "default": "For example, a test of the announcement of some news",
+      "label": "t:sections.announcement-bar.settings.text.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.button.header_button.content"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Shop Now",
+      "label": "t:sections.all.button.button_label.label",
+      "info": "t:sections.all.button.button_label.info"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.all.button.button_link.label"
+    }
+  ],
+  "default": {
+    "settings": {
+      "text": "For example, a test of the announcement of some news"
+    }
+  }
+}
+{% endschema %}

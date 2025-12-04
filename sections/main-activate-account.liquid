@@ -1,0 +1,89 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+<div class='customer activate'>
+	<div class='container activate__container'>
+		<div class='activate__outer'>
+			<div class='page-header'>
+				<div class='page-header__inner'>
+					<h1 class='main-page-title page-title title--page'>
+						{{ 'customer.activate_account.title' | t }}
+					</h1>
+					<p class='activate__subtitle'>
+						{{ 'customer.activate_account.subtext' | t }}
+					</p>
+				</div>
+			</div>
+
+			{%- form 'activate_customer_password' -%}
+				<div class='field'>
+					<input
+						type='password'
+						name='customer[password]'
+						id='password'
+						autocomplete='new-password'
+						placeholder='{{ 'customer.activate_account.password' | t }}'
+						{% if form.errors contains 'password' %}
+							aria-invalid='true' aria-describedby='password-error'
+						{% endif %}
+					>
+					<label for='password'>
+						{{ 'customer.activate_account.password' | t }}
+					</label>
+				</div>
+				{%- if form.errors contains 'password' -%}
+					<small id='password-error' class='form__message'>
+						{{ form.errors.translated_fields.password | capitalize }}
+						{{ form.errors.messages.password }}
+					</small>
+				{%- endif -%}
+
+				<div class='field'>
+					<input
+						type='password'
+						name='customer[password_confirmation]'
+						id='password_confirmation'
+						autocomplete='new-password'
+						placeholder='{{ 'customer.activate_account.password_confirm' | t }}'
+						{% if form.errors contains 'password' %}
+							aria-invalid='true' aria-describedby='password_confirmation-error'
+						{% endif %}
+					>
+					<label for='password_confirmation'>
+						{{ 'customer.activate_account.password_confirm' | t }}
+					</label>
+				</div>
+				{%- if form.errors contains 'password_confirmation' -%}
+					<small id='password_confirmation-error' class='form__message'>
+						{{
+							form.errors.translated_fields.password_confirmation
+							| capitalize
+						}}
+						{{ form.errors.messages.password_confirmation }}
+					</small>
+				{%- endif -%}
+
+				<div class='activate__buttons'>
+					<button
+						class='button button--primary button--primary-size focus-inset'
+						data-button-text='{{ btn_label | escape }}'
+					>
+						<span>{{ 'customer.activate_account.submit' | t }}</span>
+					</button>
+					<button
+						name='decline'
+						class='button button--primary-size focus-inset'
+					>
+						<span>{{ 'customer.activate_account.cancel' | t }}</span>
+					</button>
+				</div>
+			{%- endform -%}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "t:sections.main-activate-account.name",
+	"class": "spaced-section"
+}
+{% endschema %}
