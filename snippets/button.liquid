@@ -1,0 +1,21 @@
+{% if btn_label != blank %}
+	<a
+		{% if btn_link != blank %}
+			href='{{ btn_link }}'
+			data-button-text='{{ btn_label | escape }}'
+		{% endif %}
+		class='
+			button button--{{ btn_style }}
+			{% if add_classes != blank %}{{ add_classes }}{% endif %}
+			{% if button_dot %}dot_active{% endif %}
+		'
+		{% if btn_link == blank %}
+			aria-disabled='true'
+		{% endif %}
+		aria-label='{{ btn_label | escape }}'
+	>
+		<span>
+			{{ btn_label | escape }}
+		</span>
+	</a>
+{% endif %}

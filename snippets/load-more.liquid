@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="{{ 'component-pagination.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-pagination.css' | asset_url | stylesheet_tag }}</noscript>
+
+<input type="hidden" value="{{ next_url }}" data-next-url>
+<input type="hidden" value="{{ count_pages }}" data-total-pages>
+<input type="hidden" value="{{ current_page }}" data-current-page>
+<div class="{{ class | default: 'pagination-wrapper' }} no-js-block">
+  <button
+    class="button button--{{- settings.load_more_button_style }} button--primary-size js-load-more focus-inset"
+    data-button-text="{{ 'products.load_more.label' | t }}"
+    aria-label="{{ 'products.load_more.label' | t }}"
+  >
+    <span>
+      {{ 'products.load_more.label' | t }}
+    </span>
+    {%- render 'icon-spinner' -%}
+  </button>
+</div>

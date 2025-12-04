@@ -1,0 +1,23 @@
+<div class="promo-menu">
+  {% if heading != blank %}
+    <span class="promo-menu__heading h5">
+      {{- heading -}}
+    </span>
+  {% endif %}
+  <ul class="promo-menu__list list-unstyled" role="list">
+    {%- for link in menu.links -%}
+      <li class="promo-menu__item">
+        <a
+          href="{{ link.url }}"
+          {% if link.type == 'http_link' and settings.open_new_tab %}
+            target="_blank"
+          {% endif %}
+          class="promo-menu__link"
+          aria-label="{{ link.title }}"
+        >
+          <span>{{ link.title }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

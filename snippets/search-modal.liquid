@@ -1,0 +1,79 @@
+{% for block in blocks %}
+  {% if block.type == 'search_promo' and block.settings.enable_search_promo %}
+    {% if block.settings.show_links_block or block.settings.show_products_block %}
+      <div class="search__modal">
+        <div class="search__container container">
+          <div class="search__inner">
+            {% if block.settings.show_links_block %}
+              <div class="search__promo-links-block">
+                {%- if block.settings.links_label != blank -%}
+                  <span class="search__promo-subheading section-header__subtitle subheading _section-header__subtitle_dot">
+                    {{ block.settings.links_label }}
+                  </span>
+                {%- endif -%}
+                <div class="search__promo-links">
+                  {% for i in (1..6) -%}
+                    {% assign name_setting_link = 'link_' | append: i %}
+                    {% assign name_setting_label = 'link_label_' | append: i %}
+                    {%- if block.settings[name_setting_label] != blank -%}
+                      <a
+                        {% if block.settings[name_setting_link] != blank -%}
+                          href="{{ block.settings[name_setting_link] }}"
+                        {% else %}
+                          disabled
+                        {%- endif %} 
+                        class="search__promo-link"
+                      >
+                        {{ block.settings[name_setting_label] }}
+                      </a>
+                    {%- endif -%}
+                  {%- endfor %}
+                </div>
+              </div>
+            {% endif %}
+
+            {% if block.settings.show_products_block %}
+              <div class="search__promo-products-block">
+                {%- if block.settings.products_label != blank -%}
+                  <span class="search__promo-subheading section-header__subtitle subheading _section-header__subtitle_dot">
+                    {{ block.settings.products_label }}
+                  </span>
+                {%- endif -%}
+                {%- if block.settings.product_list != blank -%}
+                  <div class="search__promo-products">
+                    {% for item in block.settings.product_list %}
+                      {% render 'product-card',
+                        product_card_product: item,
+                        media_size: settings.search_media_size,
+                        media_fit: settings.search_media_fit,
+                        show_secondary_image: settings.search_show_secondary_image,
+                        show_vendor: settings.search_show_vendor,
+                        show_desc: settings.search_show_desc,
+                        show_collection_name: settings.search_show_collection,
+                        show_sku: false,
+                        has_search: true
+                      %}
+                    {% endfor %}
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.button_label != blank -%}
+                  <a
+                    {% if block.settings.button_link != blank -%}
+                      href="{{ block.settings.button_link }}"
+                    {% else %}
+                      disabled
+                    {%- endif %} 
+                    class="search__products-link button--arrow"
+                  >
+                    {{ block.settings.button_label }}
+                    {% render 'icon-caret' %}
+                  </a>
+                {%- endif -%}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+{% endfor %}

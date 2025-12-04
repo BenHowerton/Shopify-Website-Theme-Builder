@@ -1,0 +1,92 @@
+{% if cart.item_count > 0 -%}
+  {%- assign cart_type_count = blank -%}
+  {%- assign cart_handle = blank -%}
+  {%- assign json_obj = blank -%}  
+  {%- assign type_obj = blank -%}				
+  {%- assign alredy_add = blank -%}
+  {%- for item in cart.items -%}
+    {%- liquid
+      assign main_last = forloop.last
+    -%}
+    {%- assign cart_pro = item.product -%}
+    {%- assign cart_pro_t = cart_pro.type | downcase -%}
+    {%- capture cart_type_count -%}{{ cart_type_count }}{{ cart_pro.handle }}_{{ item.quantity }}_{{ cart_pro_t }}{% unless forloop.last %},{% endunless %}{% endcapture %}
+    {%- capture cart_handle -%}{{ cart_handle }}{{ cart_pro.handle }}{% unless forloop.last %},{% endunless %}{% endcapture %}
+    {%- if cart_pro_t != blank -%}
+    {%- capture cart_type -%}{{ cart_type }}{{ cart_pro_t }}{% unless forloop.last %},{% endunless %}{% endcapture %}
+    {%- endif -%}
+
+    {%- unless alredy_add contains item.product_id -%}
+      {%- assign cart_items = cart | line_items_for: item.product -%}
+      {%- assign cart_items_size = cart_items | size -%}
+      {%- if cart_items_size > 0 -%}
+        {%- liquid
+          if alredy_add == blank
+            assign alredy_add = item.product_id
+          else
+            assign alredy_add = alredy_add | append:',' | append: item.product_id
+          endif
+          if json_obj != blank
+            assign json_obj = json_obj | append: ','
+          endif
+        -%}
+        {%- capture json_obj -%}{{ json_obj }}{{ item.product.handle | json }}: { 
+          {%- for line in cart_items -%}
+            "{{ line.variant_id }}": {{ line.quantity }}{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}  }
+        {%- endcapture -%}
+        {% comment %} {% unless forloop.last %}{% assign json_obj = json_obj | append: ',' %}{% endunless %} {% endcomment %}
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endfor -%}
+  {%- assign cart_handle = cart_handle | strip | split:',' | uniq -%}
+  {%- assign cart_type_count = cart_type_count | strip | split:',' -%}				
+  {%- assign cart_type = cart_type | strip | split:',' | uniq -%}
+  
+  {% comment %} {%- for type in cart_handle -%}					
+    {%- assign type_count = 0 -%}
+    {%- assign t_handle = blank -%}
+    {%- for content in cart_type_count -%}						
+      {%- assign temp = content | split:'_' -%}						
+      {%- assign count_type = temp[0] | strip -%}
+      {%- if type == count_type -%}
+        {%- assign count_qty = temp[1] | strip | times: 1 -%}
+        {%- assign type_count = type_count | plus: count_qty -%}
+        {%- assign t_handle = temp[2] | strip -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- capture type_obj -%}{{ type_obj }}{{ type | json }}: [{{ t_handle | json }},{{ type_count }}]{%- unless forloop.last -%},{%- endunless -%}{%- endcapture -%}
+  {%- endfor -%} {% endcomment %}
+  {%- assign type_obj = type_obj | strip -%}
+  {%- if window -%}
+  window.qtyCondition.cart_type = { {{ json_obj }} };
+  window.qtyCondition.type_to_cart = {
+    {%- liquid
+      for type in cart_type
+        echo type | json | append:':' | append: true
+        unless forloop.last
+          echo ','
+        endunless
+      endfor
+    -%}
+  };  
+  {%- else -%}
+  <script type="application/json" class="json">
+  { 
+    "cart_type": { {{ json_obj }} },
+    "type_to_cart": {
+      {%- liquid
+        for type in cart_type
+          echo type | json | append:':' | append: true
+          unless forloop.last
+            echo ','
+          endunless
+        endfor
+      %}
+    }
+  }
+  </script>
+  {%- endif -%}
+{%- else -%}
+  {%- unless window -%}<script type="application/json" class="json"></script>{%- endunless -%}
+{%- endif -%}

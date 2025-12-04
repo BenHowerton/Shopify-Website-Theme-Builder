@@ -1,0 +1,524 @@
+{%- if settings.enable_aside_menu -%}
+  <div class="aside-menu">
+    <div
+      class="aside-menu__wrapper"
+      role="dialog"
+      aria-modal="true"
+      aria-label="{{ 'sections.header.aside_menu' | t }}"
+      tabindex="-1"
+    >
+      <div class="container">
+        <button
+          class="aside-menu__toggle aside-menu__toggle--close-btn modal-close-button focus-inset"
+        >
+          {% render 'icon-close' %}
+          {{ 'accessibility.close' | t }}
+        </button>
+
+        <div class="aside-menu__container">
+          {%- if settings.aside_menu_1.links != blank settings.aside_menu_2.links != blank or settings.aside_menu_show_social -%}
+            <div class="aside-menu__menus">
+              {%- if settings.aside_menu_1.links != blank -%}
+                <ul class="aside-menu__list list-menu" role="list">
+                  {%- for link in settings.aside_menu_1.links -%}
+                    <li>
+                      {%- if link.links != blank -%}
+                        <details>
+                          <summary class="aside-menu__item">
+                            <a
+                              href="{{ link.url }}"
+                              class="aside-menu__link {{ settings.aside_menu_heading_size }}"
+                              {% if childlink.current %}
+                                aria-current="page"
+                              {% endif %}
+                              aria-label="{{ link.title | escape }}"
+                            >
+                              {{ link.title | escape }}
+                            </a>
+                            {% render 'icon-arrow' %}
+                          </summary>
+                          <div
+                            id="link-{{ link.title | escape }}"
+                            class="aside-menu__submenu motion-reduce"
+                            tabindex="-1"
+                          >
+                            <div class="aside-menu__inner-submenu">
+                              <ul
+                                class="aside-menu__list list-menu"
+                                role="list"
+                                tabindex="-1"
+                              >
+                                {%- for childlink in link.links -%}
+                                  <li>
+                                    {%- if childlink.links == blank -%}
+                                      <a
+                                        href="{{ childlink.url }}"
+                                        class="aside-menu__item aside-menu__link 
+                                        {% case settings.aside_menu_heading_size %}
+                                          {% when 'h2' %}
+                                            h3
+                                          {% when 'h3' %}
+                                            h4
+                                          {% else %}
+                                            h5
+                                        {% endcase %}
+                                        "
+                                        {% if childlink.current %}
+                                          aria-current="page"
+                                        {% endif %}
+                                        aria-label="{{ childlink.title | escape }}"
+                                      >
+                                        {{ childlink.title | escape }}
+                                      </a>
+                                    {%- else -%}
+                                      <details>
+                                        <summary class="aside-menu__item">
+                                          <a
+                                            href="{{ childlink.url }}"
+                                            class="aside-menu__link
+                                              {% case settings.aside_menu_heading_size %}
+                                                {% when 'h2' %}
+                                                  h3
+                                                {% when 'h3' %}
+                                                  h4
+                                                {% else %}
+                                                  h5
+                                              {% endcase %}
+                                            "
+                                            {% if childlink.current %}
+                                              aria-current="page"
+                                            {% endif %}
+                                            aria-label="{{ childlink.title | escape }}"
+                                          >
+                                            {{ childlink.title | escape }}
+                                          </a>
+                                          {% render 'icon-arrow' %}
+                                        </summary>
+                                        <div
+                                          id="childlink-{{ childlink.title | escape }}"
+                                          class="aside-menu__submenu motion-reduce"
+                                        >
+                                          <div class="aside-menu__inner-submenu">
+                                            <ul
+                                              class="aside-menu__list list-menu"
+                                              role="list"
+                                              tabindex="-1"
+                                            >
+                                              {%- for grandchildlink in childlink.links -%}
+                                                <li>
+                                                  <a
+                                                    href="{{ grandchildlink.url }}"
+                                                    class="aside-menu__item aside-menu__link aside-menu__item--grandchild
+                                                      {% case settings.aside_menu_heading_size %}
+                                                        {% when 'h2' %}
+                                                          h4
+                                                        {% when 'h3' %}
+                                                          h5
+                                                        {% else %}
+                                                          h6
+                                                      {% endcase %}
+                                                    "
+                                                    {% if grandchildlink.current %}
+                                                      aria-current="page"
+                                                    {% endif %}
+                                                    aria-label="{{ grandchildlink.title | escape }}"
+                                                  >
+                                                    {{ grandchildlink.title | escape }}
+                                                  </a>
+                                                </li>
+                                              {%- endfor -%}
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </details>
+                                    {%- endif -%}
+                                  </li>
+                                {%- endfor -%}
+                              </ul>
+                            </div>
+                          </div>
+                        </details>
+                      {%- else -%}
+                        <a
+                          href="{{ link.url }}"
+                          {% if link.type == 'http_link' and settings.open_new_tab %}
+                            target="_blank"
+                          {% endif %}
+                          class="aside-menu__item aside-menu__link {{ settings.aside_menu_heading_size }}"
+                          aria-label="{{ link.title }}"
+                        >
+                          <span>{{ link.title }}</span>
+                        </a>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+
+              {%- if settings.aside_menu_2.links != blank or settings.aside_menu_show_social-%}
+                <div class="aside-menu__column">
+                  {%- if settings.aside_menu_2.links != blank -%}
+                    <ul class="aside-menu__list aside-menu__list_small list-menu" role="list">
+                      {%- for link in settings.aside_menu_2.links -%}
+                        <li>
+                          {%- if link.links != blank -%}
+                            <details>
+                              <summary class="aside-menu__item">
+                                <a
+                                  href="{{ link.url }}"
+                                  class="aside-menu__link"
+                                  {% if childlink.current %}
+                                    aria-current="page"
+                                  {% endif %}
+                                  aria-label="{{ link.title | escape }}"
+                                >
+                                  {{ link.title | escape }}
+                                </a>
+                                {% render 'icon-arrow' %}
+                              </summary>
+                              <div
+                                id="link-{{ link.title | escape }}"
+                                class="aside-menu__submenu motion-reduce"
+                                tabindex="-1"
+                              >
+                                <div class="aside-menu__inner-submenu">
+                                  <ul
+                                    class="aside-menu__list list-menu"
+                                    role="list"
+                                    tabindex="-1"
+                                  >
+                                    {%- for childlink in link.links -%}
+                                      <li>
+                                        {%- if childlink.links == blank -%}
+                                          <a
+                                            href="{{ childlink.url }}"
+                                            class="aside-menu__item aside-menu__link"
+                                            {% if childlink.current %}
+                                              aria-current="page"
+                                            {% endif %}
+                                            aria-label="{{ childlink.title | escape }}"
+                                          >
+                                            {{ childlink.title | escape }}
+                                          </a>
+                                        {%- else -%}
+                                          <details>
+                                            <summary class="aside-menu__item">
+                                              <a
+                                                href="{{ childlink.url }}"
+                                                class="aside-menu__link"
+                                                {% if childlink.current %}
+                                                  aria-current="page"
+                                                {% endif %}
+                                                aria-label="{{ childlink.title | escape }}"
+                                              >
+                                                {{ childlink.title | escape }}
+                                              </a>
+                                              {% render 'icon-arrow' %}
+                                            </summary>
+                                            <div
+                                              id="childlink-{{ childlink.title | escape }}"
+                                              class="aside-menu__submenu motion-reduce"
+                                            >
+                                              <div class="aside-menu__inner-submenu">
+                                                <ul
+                                                  class="aside-menu__list list-menu"
+                                                  role="list"
+                                                  tabindex="-1"
+                                                >
+                                                  {%- for grandchildlink in childlink.links -%}
+                                                    <li>
+                                                      <a
+                                                        href="{{ grandchildlink.url }}"
+                                                        class="aside-menu__item aside-menu__link aside-menu__item--grandchild"
+                                                        {% if grandchildlink.current %}
+                                                          aria-current="page"
+                                                        {% endif %}
+                                                        aria-label="{{ grandchildlink.title | escape }}"
+                                                      >
+                                                        {{ grandchildlink.title | escape }}
+                                                      </a>
+                                                    </li>
+                                                  {%- endfor -%}
+                                                </ul>
+                                              </div>
+                                            </div>
+                                          </details>
+                                        {%- endif -%}
+                                      </li>
+                                    {%- endfor -%}
+                                  </ul>
+                                </div>
+                              </div>
+                            </details>
+                          {%- else -%}
+                            <a
+                              href="{{ link.url }}"
+                              {% if link.type == 'http_link' and settings.open_new_tab %}
+                                target="_blank"
+                              {% endif %}
+                              class="aside-menu__item aside-menu__link"
+                              aria-label="{{ link.title }}"
+                            >
+                              <span>{{ link.title }}</span>
+                            </a>
+                          {%- endif -%}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+
+                  {%- if settings.aside_menu_show_social -%}
+                    <ul
+                      class="list list-social list-unstyled aside-menu__social"
+                      role="list"
+                    >
+                      {%- if settings.social_twitter_link != blank -%}
+                        <li class="list-social__item">
+                          <a
+                            href="{{ settings.social_twitter_link }}"
+                            class="link link--text list-social__link"
+                            aria-describedby="a11y-external-message"
+                            {% if settings.open_new_tab %}
+                              target="_blank"
+                            {% endif %}
+                          >
+                            {%- render 'icon-twitter' -%}
+                            <span class="visually-hidden">
+                              {{- 'general.social.links.twitter' | t -}}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_facebook_link != blank -%}
+                        <li class="list-social__item">
+                          <a
+                            href="{{ settings.social_facebook_link }}"
+                            class="link link--text list-social__link"
+                            aria-describedby="a11y-external-message"
+                            {% if settings.open_new_tab %}
+                              target="_blank"
+                            {% endif %}
+                          >
+                            {%- render 'icon-facebook' -%}
+                            <span class="visually-hidden">
+                              {{- 'general.social.links.facebook' | t -}}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_pinterest_link != blank -%}
+                        <li class="list-social__item">
+                          <a
+                            href="{{ settings.social_pinterest_link }}"
+                            class="link link--text list-social__link"
+                            aria-describedby="a11y-external-message"
+                            {% if settings.open_new_tab %}
+                              target="_blank"
+                            {% endif %}
+                          >
+                            {%- render 'icon-pinterest' -%}
+                            <span class="visually-hidden">
+                              {{- 'general.social.links.pinterest' | t -}}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_instagram_link != blank -%}
+                        <li class="list-social__item">
+                          <a
+                            href="{{ settings.social_instagram_link }}"
+                            class="link link--text list-social__link"
+                            aria-describedby="a11y-external-message"
+                            {% if settings.open_new_tab %}
+                              target="_blank"
+                            {% endif %}
+                          >
+                            {%- render 'icon-instagram' -%}
+                            <span class="visually-hidden">
+                              {{- 'general.social.links.instagram' | t -}}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_tiktok_link != blank -%}
+                        <li class="list-social__item">
+                          <a
+                            href="{{ settings.social_tiktok_link }}"
+                            {% if settings.new_tab %}
+                              target="_blank"
+                            {% endif %}
+                            class="link link--text list-social__link"
+                            aria-describedby="a11y-external-message"
+                          >
+                            {%- render 'icon-tiktok' -%}
+                            <span class="visually-hidden">
+                              {{- 'general.social.links.tiktok' | t -}}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_tumblr_link != blank -%}
+                        <li class="list-social__item">
+                          <a
+                            href="{{ settings.social_tumblr_link }}"
+                            class="link link--text list-social__link"
+                            aria-describedby="a11y-external-message"
+                            {% if settings.open_new_tab %}
+                              target="_blank"
+                            {% endif %}
+                          >
+                            {%- render 'icon-tumblr' -%}
+                            <span class="visually-hidden">
+                              {{- 'general.social.links.tumblr' | t -}}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_snapchat_link != blank -%}
+                        <li class="list-social__item">
+                          <a
+                            href="{{ settings.social_snapchat_link }}"
+                            class="link link--text list-social__link"
+                            aria-describedby="a11y-external-message"
+                            {% if settings.open_new_tab %}
+                              target="_blank"
+                            {% endif %}
+                          >
+                            {%- render 'icon-snapchat' -%}
+                            <span class="visually-hidden">
+                              {{- 'general.social.links.snapchat' | t -}}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_youtube_link != blank -%}
+                        <li class="list-social__item">
+                          <a
+                            href="{{ settings.social_youtube_link }}"
+                            class="link link--text list-social__link"
+                            aria-describedby="a11y-external-message"
+                            {% if settings.open_new_tab %}
+                              target="_blank"
+                            {% endif %}
+                          >
+                            {%- render 'icon-youtube' -%}
+                            <span class="visually-hidden">
+                              {{- 'general.social.links.youtube' | t -}}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_vimeo_link != blank -%}
+                        <li class="list-social__item">
+                          <a
+                            href="{{ settings.social_vimeo_link }}"
+                            class="link link--text list-social__link"
+                            aria-describedby="a11y-external-message"
+                            {% if settings.open_new_tab %}
+                              target="_blank"
+                            {% endif %}
+                          >
+                            {%- render 'icon-vimeo' -%}
+                            <span class="visually-hidden">
+                              {{- 'general.social.links.vimeo' | t -}}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                    </ul>
+                  {%- endif -%}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if settings.show_promo_block_1 or settings.show_promo_block_2 %}
+            <div class="aside-menu__promo-blocks">
+              {% if settings.show_promo_block_1 %}
+                <div class="aside-menu__promo-block color-{{ settings.color_scheme_1 }}"
+                  style=" --overlay-opacity: {{ settings.overlay_opacity_1 }}"
+                >
+                  {% if settings.image_1 != blank %}
+                    {%- capture sizes -%}
+                      (min-width: 1200px) 500px, calc(100vw - 30px)
+                    {%- endcapture -%}
+                    {{
+                      settings.image_1
+                      | image_url: width: settings.image_1.width
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: sizes,
+                        class: 'aside-menu__promo-image',
+                        widths: '360, 400, 500, 522, 800, 1044'
+                    }}
+                  {% endif %}
+                  <div class="aside-menu__promo-container {% if settings.image_1 != blank %} aside-menu__promo-container_image {% endif %}">
+                    {% if settings.heading_1 != blank %}
+                      <h3 class="aside-menu__promo-heading">
+                        {{ settings.heading_1 }}
+                      </h3>
+                    {%- endif -%}
+                    {% if settings.button_label_1 != blank %}
+                      <a
+                        {% if settings.button_link_1 %}
+                          href="{{ settings.button_link_1 }}"
+                        {% else %}
+                          disabled
+                        {% endif %}
+                        class="aside-menu__promo-button {% if settings.button_link_1 != blank and settings.overlay_link_1 == true %} aside-menu__promo-button_overlay {% endif %}"
+                      >
+                        {{ settings.button_label_1 }}
+                        {% render 'icon-caret' %}
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if settings.show_promo_block_2 %}
+                <div class="aside-menu__promo-block color-{{ settings.color_scheme_2 }}"
+                  style="--overlay-opacity: {{ settings.overlay_opacity_2 }}"
+                >
+                  {% if settings.image_2 != blank %}
+                    {%- capture sizes -%}
+                      (min-width: 1200px) 500px, calc(100vw - 30px)
+                    {%- endcapture -%}
+                    {{
+                      settings.image_2
+                      | image_url: width: settings.image_2.width
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: sizes,
+                        class: 'aside-menu__promo-image',
+                        widths: '360, 400, 500, 522, 800, 1044'
+                    }}
+                  {% endif %}
+                  <div class="aside-menu__promo-container {% if settings.image_2 != blank %} aside-menu__promo-container_image {% endif %}">
+                    {% if settings.heading_2 != blank %}
+                      <h3 class="aside-menu__promo-heading">
+                        {{ settings.heading_2 }}
+                      </h3>
+                    {%- endif -%}
+                    {% if settings.button_label_2 != blank %}
+                      <a
+                        {% if settings.button_link_2 %}
+                          href="{{ settings.button_link_2 }}"
+                        {% else %}
+                          disabled
+                        {% endif %}
+                        class="aside-menu__promo-button {% if settings.button_link_2 != blank and settings.overlay_link_2 == true %} aside-menu__promo-button_overlay {% endif %}"
+                      >
+                        {{ settings.button_label_2 }}
+                        {% render 'icon-caret' %}
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

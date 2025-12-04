@@ -1,0 +1,59 @@
+.section-{{ section.id }}-padding {
+{% if section.settings.padding_top == 'xs' %}
+	padding-top: 3.2rem;
+{% elsif section.settings.padding_top == 'xl' %}
+	padding-top: 10rem;
+{% elsif section.settings.padding_top == 'l' %}
+	padding-top: 5rem;
+{% elsif section.settings.padding_top == 'm' %}
+	padding-top: 6.4rem;
+{% elsif section.settings.padding_top == 's' %}
+	padding-top: 4rem;
+{% else %}
+	padding-top: 0;
+{% endif %}
+
+{% if section.settings.padding_bottom == 'xs' %}
+	padding-bottom: 3.2rem;
+{% elsif section.settings.padding_bottom == 'xl' %}
+	padding-bottom: 10rem;
+{% elsif section.settings.padding_bottom == 'l' %}
+	padding-bottom: 5rem;
+{% elsif section.settings.padding_bottom == 'm' %}
+	padding-bottom: 6.4rem;
+{% elsif section.settings.padding_bottom == 's' %}
+	padding-bottom: 4rem;
+{% else %}
+	padding-bottom: 0;
+{% endif %}
+}
+
+@media screen and (min-width: 750px) { .section-{{ section.id }}-padding {
+{% if section.settings.padding_top == 'xs' %}
+	padding-top: 4rem;
+{% elsif section.settings.padding_top == 'xl' %}
+	padding-top: 15rem;
+{% elsif section.settings.padding_top == 'l' %}
+	padding-top: 10rem;
+{% elsif section.settings.padding_top == 'm' %}
+	padding-top: 7rem;
+{% elsif section.settings.padding_top == 's' %}
+	padding-top: 4.8rem;
+{% else %}
+	padding-top: 0;
+{% endif %}
+
+{% if section.settings.padding_bottom == 'xs' %}
+	padding-bottom: 4rem;
+{% elsif section.settings.padding_bottom == 'xl' %}
+	padding-bottom: 15rem;
+{% elsif section.settings.padding_bottom == 'l' %}
+	padding-bottom: 10rem;
+{% elsif section.settings.padding_bottom == 'm' %}
+	padding-bottom: 7rem;
+{% elsif section.settings.padding_bottom == 's' %}
+	padding-bottom: 4.8rem;
+{% else %}
+	padding-bottom: 0;
+{% endif %}
+} }

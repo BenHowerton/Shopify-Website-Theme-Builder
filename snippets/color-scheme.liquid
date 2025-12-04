@@ -1,0 +1,13 @@
+{%- assign dark_mode_toggle = settings.dark_mode_toggle -%}
+{%- if dark_mode_toggle -%}
+  <div class="header__scheme no-js-hidden">
+    <button
+      class="header__toggle-scheme toggle-scheme-button focus-inset"
+      aria-label="{{ 'general.dark_mode.dark' | t }}"
+    >
+      <div class="header__toggle-scheme-item">
+        {% render 'icon-dark-mode' %}
+      </div>
+    </button>
+  </div>
+{%- endif -%}

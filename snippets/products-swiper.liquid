@@ -1,0 +1,117 @@
+{% liquid
+	assign slideshow_speed = slider_settings.slideshow_speed
+	assign slideshow_delay = slider_settings.slideshow_delay
+	assign autoplay = slider_settings.autoplay
+	assign stop_autoplay = slider_settings.stop_autoplay
+	assign show_arrows = show_arrows
+	assign products_limit = slider_settings.products_limit
+
+	assign media_size = slider_settings.image_ratio
+	assign media_fit = slider_settings.image_fit
+	assign show_secondary_image = slider_settings.show_secondary_image
+	assign show_vendor = slider_settings.show_vendor
+	assign show_desc = slider_settings.show_desc
+	assign show_color_swatch = slider_settings.show_color_swatch
+	assign show_collection_name = slider_settings.show_collection_name
+	assign show_sku = slider_settings.show_sku
+%}
+
+<div
+	class="products-slider"
+	data-id="{{ section_id }}"
+	data-speed="{{ slideshow_speed }}"
+	data-delay="{{ slideshow_delay }}"
+	data-autoplay="{{ autoplay }}"
+	data-stop-autoplay="{{ stop_autoplay }}"
+	data-show-arrows="{{ show_arrows }}"
+	data-per-row="{{ per_row }}"
+	data-product-limit="{{ products_limit }}" 
+	data-product-count="{{ product_count }}"
+	style="--slider-per-row : {{ per_row }}"
+>
+	<div class="products-slider__container">
+		{% if products_limit > 1 or pagination_on == true %}
+			<div class="swiper-pagination swiper-pagination-default"></div>
+		{% endif %}
+		<div class="swiper-carousel {% if products_limit <= 1 and pagination_on != true %} container{% endif %}">
+			<div class="products-slider__wrapper swiper-button-{{ slider_settings.button_style }}">
+				<div class="products-slider__swiper swiper">
+					<div class="products-slider__swiper-wrapper swiper-wrapper">
+						{% for product in product_list limit: products_limit %}
+							<div
+								data-type="{{ product.type }}"
+								class="products-slider__slide swiper-slide"
+							>
+								{% render 'product-card',
+									product_card_product: product,
+									media_size: media_size,
+									media_fit: media_fit,
+									show_secondary_image: show_secondary_image,
+									show_vendor: show_vendor,
+									show_desc: show_desc,
+									show_color_swatch: show_color_swatch,
+									show_collection_name: show_collection_name,
+									section_id: section_id,
+									show_sku: show_sku
+								%}
+							</div>
+						{%- else -%}
+							{%- for i in (1..per_row) -%}
+								<div class="products-slider__slide swiper-slide">
+									{% render 'product-card-placeholder', media_size: media_size %}
+								</div>
+							{% endfor %}
+						{% endfor %}
+					</div>
+				</div>
+				{% if show_arrows %}
+					<button class="swiper-button swiper-button-prev swiper-button-disabled">
+						<span>{% render 'icon-arrow' %}</span>
+					</button>
+					<button class="swiper-button swiper-button-next">
+						<span>{% render 'icon-arrow' %}</span>
+					</button>		
+					<script>
+						(function () {
+							function changePosition() {
+								if (window.innerWidth < 750) {
+									document
+									.querySelectorAll(`#{{ section_id }} .swiper-button`)
+									.forEach((button) => {
+											button.style.display = 'none';
+									}); 
+									return
+								};
+								const image1 = document.querySelectorAll(
+										`#{{ section_id }} .swiper .product-card .card`
+								)[0];
+								if (image1) {
+									document
+									.querySelectorAll(`#{{ section_id }} .swiper-button`)
+									.forEach((button) => {			
+											button.style.display = 'block';
+											button.style.top = (image1.offsetHeight / 2) - 15 + 'px';
+									});      
+								}         
+							}
+
+							
+							document.addEventListener('DOMContentLoaded', function () {
+								changePosition();
+								window.onload = function() {
+									changePosition();
+								};
+								document.addEventListener('shopify:section:load', function () {
+									changePosition();
+								});
+								window.addEventListener('resize', function () {
+									changePosition();
+								});
+							})
+						})();
+					</script>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>

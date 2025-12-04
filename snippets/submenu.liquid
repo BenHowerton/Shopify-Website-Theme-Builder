@@ -1,0 +1,66 @@
+<ul
+  class="header__submenu list-menu list-menu--disclosure motion-reduce color-background-1"
+  role="list"
+>
+  {%- for childlink in link.links -%}
+    <li class="header__submenu-li {% if forloop.index <= 4 %} active {% endif %}">
+      {%- if childlink.links == blank -%}
+        <a
+          href="{{ childlink.url }}"
+          class="header__menu-item header__submenu-item link focus-inset"
+          {% if childlink.current %}
+            aria-current="page"
+          {% endif %}
+          aria-label="{{ childlink.title | escape }}"
+        >
+          <span>
+            {{ childlink.title | escape }}
+          </span>
+        </a>
+      {%- else -%}
+        <a
+          href="{{ childlink.url }}"
+          class="header__menu-item header__submenu-item link focus-inset header__submenu-item_has-submenu"
+          {% if childlink.current %}
+            aria-current="page"
+          {% endif %}
+          aria-label="{{ childlink.title | escape }}"
+        >
+          <span>
+            {{ childlink.title | escape }}
+          </span>
+          {% render 'icon-caret' %}
+        </a>
+        <ul
+          class="header__submenu list-menu--disclosure list-menu motion-reduce color-background-1"
+          tabindex="0"
+        >
+          {%- for grandchildlink in childlink.links -%}
+            <li>
+              <a
+                href="{{ grandchildlink.url }}"
+                class="header__menu-item header__submenu-item header__submenu-item--grandchild link focus-inset"
+                {% if grandchildlink.current %}
+                  aria-current="page"
+                {% endif %}
+                aria-label="{{ grandchildlink.title | escape }}"
+              >
+                <span>
+                  {{ grandchildlink.title | escape }}
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+  {% if link.links.size > 4 %}
+    <li class="header__submenu-button">
+      <button class="button--arrow js-open-list-menu-item">
+        {{ 'sections.header.view_all' | t }}
+        {% render 'icon-caret' %}
+      </button>
+    </li>
+  {% endif %}
+</ul>

@@ -1,0 +1,142 @@
+{% comment %}
+		Renders an article card for a given blog with settings to either show the image or not.
+
+		Accepts:
+		- blog: {Object} Blog object
+		- article: {Object} Article object
+		- show_image: {String} The setting either show the article image or not. If it's not included it will show the image by default
+		- show_date: {String} The setting either show the article date or not. If it's not included it will not show the image by default
+		- show_author: {String} The setting either show the article author or not. If it's not included it will not show the author by default
+
+		Usage:
+	{% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image %}
+{% endcomment %}
+
+<article class='article-card' aria-labelledby='Article-{{ article.id }}'>
+	<a
+		class='article-card-link'
+		href='{{ article.url }}'
+		aria-label='{{ 'accessibility.article_link' | t }}'
+	></a>
+	{%- if show_image == true and article.image != blank -%}
+		<div class='article-card__image-wrapper'>
+			<a
+				href='{{ article.url }}'
+				class='article-card__image'
+				aria-label='{{ 'accessibility.article_link' | t }}'
+			>
+				{% if big_card == true %}
+					{% capture sizes %}
+						(min-width: 1200px) 50vw, (min-width: 990px) 66vw, 100vw
+					{% endcapture %}
+					{{
+						article.image
+						| image_url: width: article.image.width
+						| image_tag:
+							loading: 'lazy',
+							sizes: sizes,
+							widths: '165, 360, 535, 720, 940, 1066, 1200, 1360, 1500, 1700, 1800, 2000'
+					}}
+				{% else %}
+					{% capture sizes %}
+							(min-width: 990px) 940px, (min-width: 750px) calc((100vw - 40px) / 2), calc((100vw - 40px))
+						{% endcapture %}
+					{{
+						article.image
+						| image_url: width: 1066
+						| image_tag:
+							loading: 'lazy',
+							sizes: sizes,
+							widths: '165, 360, 535, 720, 940, 1066'
+					}}
+				{% endif %}
+			</a>
+		</div>
+	{%- endif -%}
+
+	<header class='article-card__header'>
+		{%- if show_date == true or show_tags == true or show_author == true -%}
+			<div class='article-card__meta subheading'>
+				{%- if show_date == true or show_author == true -%}
+					<div class='article-card__info'>
+						{%- if show_date == true -%}
+							<span class='article-card__date'>
+								{{- article.published_at | date: format: 'abbreviated_date' -}}
+							</span>
+						{%- endif -%}
+						{%- if show_author -%}
+							{%- if show_date == true -%}
+								{% render 'icon-bullet' %}
+							{%- endif -%}
+							<div class='article-card__author'>
+								<span>
+									{{- article.author -}}
+								</span>
+							</div>
+						{%- endif -%}
+					</div>
+				{%- endif -%}
+				{%- if show_tags == true and article.tags != blank -%}
+					{%- if show_author == true
+						or show_author == false
+						and show_date == true
+					-%}
+						{% render 'icon-bullet' %}
+					{%- endif -%}
+					<div class='article-card__tags'>
+						{% for tag in article.tags %}
+							<div class='article-card__tag'>
+								{% if blog.url != blank %}
+									<a
+										href='{{ blog.url }}/tagged/{{ tag | handle }}'
+										aria-label='{{ tag }}'
+									>
+										<span title='{{ tag }}'>
+											{{- tag }}
+										</span>
+									</a>
+								{% else %}
+									<span title='{{ tag }}'>
+										{{- tag }}
+									</span>
+								{% endif %}
+							</div>
+							{% if forloop.last == false %}
+								<span class='article-card__tags-separator'>|</span>
+							{% endif %}
+						{% endfor %}
+					</div>
+				{%- endif -%}
+			</div>
+		{%- endif -%}
+
+		<h4
+			class='article-card__title h4'
+			id='Article-{{ article.id }}'
+		>
+			<a
+				href='{{ article.url }}'
+				aria-label='{{ article.title | escape }}'
+			>
+				{{ article.title | escape }}
+			</a>
+		</h4>
+		{%- if show_excerpt and article.excerpt_or_content.size > 0 -%}
+			<p class='article-card__excerpt card-caption {% if template == 'search' %} article-card__excerpt_small {% endif %}'>
+				{{ article.excerpt_or_content | strip_html | truncate: 150 }}
+			</p>
+		{%- endif -%}
+
+		{%- if show_count_comments and blog.comments_enabled? -%}
+			<div class='article-card__meta'>
+				<span class='article-card__comments card__subtitle'>
+					{% if article.comments_count > 0 %}
+						{{- 'blogs.article.comments' | t: count: article.comments_count -}}
+					{% else %}
+						{{- 'blogs.article.comments' | t: count: 0 -}}
+					{% endif %}
+				</span>
+			</div>
+		{%- endif -%}
+	</header>
+</article>

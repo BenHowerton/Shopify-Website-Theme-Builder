@@ -1,0 +1,60 @@
+{% comment %} Font Family Variables {% endcomment %}
+--font-body-family: 'Swis721 BT', sans-serif;
+--font-heading-family: 'Swis721 BT', sans-serif;
+--font-subtitle-family: 'Swis721 BT', sans-serif;
+--font-button-family: 'Swis721 BT', sans-serif;
+--font-heading-card-family: 'Swis721 BT', sans-serif;
+--font-text-card-family: 'Swis721 BT', sans-serif;
+--font-header-menu-family: 'Swis721 BT', sans-serif;
+--font-footer-menu-family: 'Swis721 BT', sans-serif;
+--font-popups-heading-family: 'Swis721 BT', sans-serif;
+--font-popups-text-family: 'Swis721 BT', sans-serif;
+
+{% comment %} Font Style Variables {% endcomment %}
+--font-body-style: normal;
+--font-heading-style: normal;
+--font-subtitle-style: normal;
+--font-button-style: normal;
+--font-header-menu-style: normal;
+--font-footer-menu-style: normal;
+--font-popups-heading-style: normal;
+--font-popups-text-style: normal;
+
+{% comment %} Font Weight Variables {% endcomment %}
+--font-body-weight: 400;
+--font-heading-weight: 700;
+--font-subtitle-weight: 700;
+--font-heading-card-weight: 700;
+--font-text-card-weight: 400;
+--font-button-weight: 700;
+--font-button-weight-medium: 500;
+--font-header-menu-weight: 400;
+--font-footer-menu-weight: 400;
+--font-popups-heading-weight: 400;
+--font-popups-text-weight: 400;
+
+{% comment %} Alpha / Opacity Variables {% endcomment %}
+--alpha-link: 50%;
+--alpha-button-background: 100%;
+--alpha-button-border: 100%;
+--alpha-placeholder-input: 40%;
+
+{% comment %}Color Variables except of color schema {% endcomment %}
+--color-error: #E72A2A;
+--color-error-border: #E72A2A;
+--color-error-background: #FFF5F5;
+--color-placeholder-input: #BCBCBC;
+
+
+
+{% comment %} global changes notes
+
+1. Add | divided_by: 10.0 to all letter-spacing values to convert from percentage to em in theme.liquid and base.css.
+2. set font size of heading tags(h1 to h6) in base.css to use rem units instead of px.
+3. Remove * 0.1 from letter-spacing calculation in base.css.
+4 Add global.css file and move all global changes to this file.
+5. Add global.css file to theme.liquid after base.css.
+6. Add custom_fonts setting to settings_schema.json to enable/disable custom fonts.
+7. Change scale values in settings_schema.json to 100% for all text elements.
+
+{% endcomment %}

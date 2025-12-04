@@ -1,0 +1,59 @@
+{%- if request.page_type == 'index' -%}
+  <h1 class="header__heading">
+{%- endif -%}
+<a
+  href="{{ routes.root_url }}"
+  class="header__heading-link link link--text focus-inset"
+  aria-label="{{ shop.name }}"
+>
+  {%- if section.settings.logo != blank -%}
+    {%- assign image_size = section.settings.logo_width | append: 'x' -%}
+    {%- assign image_size_2x = section.settings.logo_width
+      | times: 2
+      | at_most: 5760
+    -%}
+    <img
+      srcset="{{ section.settings.logo | image_url: width: image_size }} 1x, {{ section.settings.logo | image_url: width: image_size_2x }} 2x"
+      src="{{ section.settings.logo | image_url: width: image_size }}"
+      class="header__heading-logo"
+      width="{{ section.settings.logo_width }}"
+      height="{{ section.settings.logo.height }}"
+      alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+      loading="lazy"
+    >
+    {%- if section.settings.logo_2 != blank -%}
+      <img
+        srcset="{{ section.settings.logo_2 | image_url: width: image_size }} 1x, {{ section.settings.logo_2 | image_url: width: image_size_2x }} 2x"
+        src="{{ section.settings.logo_2 | image_url: width: image_size }}"
+        class="header__heading-logo header__heading-logo--overlay"
+        width="{{ section.settings.logo_width }}"
+        height="{{ section.settings.logo_2.height }}"
+        alt="{{ section.settings.logo_2.alt | default: shop.name | escape }}"
+        loading="lazy"
+      >
+    {%- endif -%}
+  {%- elsif section.settings.logo_2 != blank -%}
+    {%- assign image_size = section.settings.logo_width | append: 'x' -%}
+    {%- assign image_size_2x = section.settings.logo_width
+      | times: 2
+      | at_most: 5760
+    -%}
+    {% if section.settings.logo == blank %}
+      <span class="h5 header__heading-logo">{{ shop.name }}</span>
+    {% endif %}
+    <img
+      srcset="{{ section.settings.logo_2 | image_url: width: image_size }} 1x, {{ section.settings.logo_2 | image_url: width: image_size_2x }} 2x"
+      src="{{ section.settings.logo_2 | image_url: width: image_size }}"
+      class="header__heading-logo header__heading-logo--overlay"
+      width="{{ section.settings.logo_width }}"
+      height="{{ section.settings.logo_2.height }}"
+      alt="{{ section.settings.logo_2.alt | default: shop.name | escape }}"
+      loading="lazy"
+    >
+  {%- else -%}
+    <span class="h5">{{ shop.name }}</span>
+  {%- endif -%}
+</a>
+{%- if request.page_type == 'index' -%}
+  </h1>
+{%- endif -%}

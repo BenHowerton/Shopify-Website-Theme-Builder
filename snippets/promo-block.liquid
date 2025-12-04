@@ -1,0 +1,37 @@
+<div
+  class="promo-block color-{{ color_scheme }} {% if image != blank %} promo-block_after {% endif %}"
+  style="--opacity: {{ overlay_opacity }};"
+>
+  <span class="promo-block__overlay {% if match_color %} promo-block__overlay_light {% endif %}"></span>
+  {% if image != blank %}
+    <div class="promo-block__image">
+      {%- capture sizes -%}
+        (min-width: 1200px) 500px, calc(100vw - 30px)
+      {%- endcapture -%}
+      {{
+        image
+        | image_url: width: image.width
+        | image_tag:
+          loading: 'lazy',
+          sizes: sizes,
+          widths: '360, 400, 500, 522, 800, 1044'
+      }}
+    </div>
+  {% endif %}
+  <div class="promo-block__content {% if match_color %} promo-block__content_light {% endif %}">
+    {% if heading != blank %}
+      <h4 class="promo-block__heading {% if button_link != blank %} hover-effect{% endif %}">
+        <span> 
+          {{ heading }}
+        </span>
+      </h4>
+    {%- endif -%}
+  </div>
+  {% if button_link != blank %}
+    <a
+      href="{{ button_link }}"
+      class="promo-block__link-overlay"
+      aria-label="{{ heading }}"
+    ></a>
+  {% endif %}
+</div>

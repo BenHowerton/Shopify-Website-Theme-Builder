@@ -1,0 +1,30 @@
+{% comment %}
+	Usage:
+	{% render 'section-header',
+	  section_heading: section.settings.section_heading,
+		section_subheading: section.settings.subheading,
+		dot: section.settings.dot,
+		line: section.settings.line,
+		section_heading_size: section.settings.section_heading_size, (optional)
+		secton_subheading_size: section.settings.section_subheading_size, (optional)
+	 %}
+{% endcomment %}
+
+{% if section_heading != blank or section_subheading != blank %}
+	<div
+		class='section-header {% if line == true and section_subheading != blank or section_heading != blank %}section-header__border{% endif %}'
+	>
+		<div class='section-header__wrapper {% if section_heading == blank %}section-header__wrapper--end{% endif %}'>
+			{%- if section_subheading != blank -%}
+				<span class='section-header__subtitle {{ section.settings.section_subheading_size }} {%- if dot -%}section-header__subtitle_dot {% endif %} subheading'>
+					{{ section_subheading }}
+				</span>
+			{% endif %}
+			{%- if section_heading != blank -%}
+				<h2 class='section-header__title {{ section_heading_size }}'>
+					{{ section_heading }}
+				</h2>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

@@ -1,0 +1,95 @@
+<article class='article-card-big' aria-labelledby='Article-{{ article.id }}'>
+	<a
+		class='article-card-big-link'
+		href='{{ article.url }}'
+		aria-label='{{ 'accessibility.article_link' | t }}'
+	></a>
+	{%- if show_image == true -%}
+    {%- if article.image != blank -%}
+		  <div class='article-card-big__image-wrapper'>
+        {% capture sizes %}
+          (min-width: 1440px) calc(1440px/2), (min-width: 750px) 50vw, calc((100vw - 40px))
+        {% endcapture %}
+        {{
+          article.image
+          | image_url: width: article.image.width
+          | image_tag:
+            loading: 'lazy',
+            class: 'article-card-big__image',
+            sizes: sizes,
+            widths: '165, 360, 535, 720, 940, 1066, 1200, 1324, 1400, 1500'
+        }}
+		  </div>
+    {%- endif -%}
+	{%- endif -%}
+
+	<div class="article-card-big__content {% if article.image == blank %} article-card-big__content_noimage {%- endif -%}">
+    <header class='article-card-big__header'>
+      {%- if show_tags == true and article.tags != blank -%}
+        <div class='article-card-big__tags'>
+          {% for tag in article.tags %}
+            <a
+              href='{{ blog.url }}/tagged/{{ tag | handle }}'
+              class="article-card-big__tag button button--primary"
+            >
+              {{- tag }}
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <h3
+        class='article-card-big__title h2'
+        id='Article-{{ article.id }}'
+      >
+        <a
+          href='{{ article.url }}'
+          aria-label='{{ article.title | escape }}'
+        >
+          {{ article.title | escape }}
+        </a>
+      </h3>
+      {%- if show_excerpt and article.excerpt_or_content.size > 0 -%}
+        <p class='article-card-big__excerpt'>
+          {{ article.excerpt_or_content | strip_html | truncate: 135 }}
+        </p>
+      {%- endif -%}
+
+      {%- if show_date == true or show_author == true -%}
+        <div class='article-card-big__meta subheading'>
+          {%- if show_date == true or show_author == true -%}
+            <div class='article-card-big__info'>
+              {%- if show_date == true -%}
+                <span class='article-card-big__date'>
+                  {{- article.published_at | date: format: 'abbreviated_date' -}}
+                </span>
+              {%- endif -%}
+              {%- if show_author -%}
+                {%- if show_date == true -%}
+                  {% render 'icon-bullet' %}
+                {%- endif -%}
+                <div class='article-card-big__author'>
+                  <span>
+                    {{- article.author -}}
+                  </span>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if show_count_comments and blog.comments_enabled? -%}
+        <div class='article-card-big__meta'>
+          <span class='article-card-big__comments card__subtitle'>
+            {% if article.comments_count > 0 %}
+              {{- 'blogs.article.comments' | t: count: article.comments_count -}}
+            {% else %}
+              {{- 'blogs.article.comments' | t: count: 0 -}}
+            {% endif %}
+          </span>
+        </div>
+      {%- endif -%}
+    </header>
+  </div>
+</article>

@@ -1,0 +1,97 @@
+{% for block in blocks %}
+  {% assign mega_menu_trigger = block.settings.mega_menu_trigger
+    | handle
+    | strip
+  %}
+  {% if link.handle == mega_menu_trigger %}
+    {% if block.settings.menu_1 != blank
+      or block.settings.menu_2 != blank
+      or block.settings.show_promo_block_1
+      or block.settings.show_promo_block_2
+      or block.settings.show_promo_block_3
+    %}
+      <div class="mega-menu__items {% if section.settings.full_menu %} container {% endif %}">
+        {% if block.settings.menu_1 != blank %}
+          {%
+            render 'promo-menu',
+            heading: block.settings.menu_1_heading,
+            menu: block.settings.menu_1,
+          %}
+        {% endif %}
+
+        {% if block.settings.menu_2 != blank %}
+          {%
+            render 'promo-menu',
+            heading: block.settings.menu_2_heading,
+            menu: block.settings.menu_2,
+          %}
+        {% endif %}
+
+        <div class="mega-menu__promo-blocks">
+          {% if block.settings.show_promo_block_1 %}
+            {% render 'promo-block',
+              color_scheme: block.settings.color_scheme_1,
+              overlay_opacity: block.settings.overlay_opacity_1,
+              image: block.settings.image_1,
+              heading: block.settings.heading_1,
+              button_link: block.settings.button_link_1,
+              match_color: block.settings.match_color_1
+            %}
+          {% endif %}
+
+          {% if block.settings.show_promo_block_2 %}
+            {%
+              render 'promo-block',
+              color_scheme: block.settings.color_scheme_2,
+              overlay_opacity: block.settings.overlay_opacity_2,
+              image: block.settings.image_2,
+              heading: block.settings.heading_2,
+              button_link: block.settings.button_link_2,
+              match_color: block.settings.match_color_2
+            %}
+          {% endif %}
+
+          {% if block.settings.show_promo_block_3 %}
+            {%
+              render 'promo-block',
+              color_scheme: block.settings.color_scheme_3,
+              overlay_opacity: block.settings.overlay_opacity_3,
+              image: block.settings.image_3,
+              heading: block.settings.heading_3,
+              button_link: block.settings.button_link_3,
+              match_color: block.settings.match_color_3
+            %}
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    {% if block.settings.bottom_text != blank or block.settings.bottom_button_label != blank or block.settings.bottom_button_link != blank %}
+      <div class="mega-menu__bottom">
+        {% if section.settings.full_menu %}
+          <div class="container">
+        {% endif %}
+          {% if block.settings.bottom_text %}
+            <p class="mega-menu__bottom-text">
+              {{ block.settings.bottom_text }}
+            </p>
+          {% endif %}
+          {% if block.settings.bottom_button_label != blank %}
+            <a
+              {% if block.settings.bottom_button_link != blank %}
+                href="{{ block.settings.bottom_button_link }}"
+              {% else %}
+                disabled
+              {% endif %}
+              class="mega-menu__bottom-button button--arrow"
+            >
+              {{ block.settings.bottom_button_label }}
+              {% render 'icon-arrow-right' %}
+            </a>
+          {% endif %}
+        {% if section.settings.full_menu %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endif %}
+{% endfor %}

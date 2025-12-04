@@ -1,0 +1,260 @@
+{% style %}
+  {% for scheme in settings.color_schemes -%}
+  {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
+  [data-scheme=dark] .color-{{ scheme.id }} {
+  	--color-background: 31, 31, 31;
+  	--color-overlay: 0, 0, 0;
+  	--gradient-background: rgb(31, 31, 31);
+  	--color-foreground: 229, 229, 229;
+  	--color-foreground-secondary: 169, 169, 169;
+  	--color-foreground-tertiary: 169, 169, 169;
+  	--color-foreground-title: 229, 229, 229;
+  	--color-border-input: 53, 53, 53;
+  	--color-border-input-hover: 63, 63, 63;
+  	--color-background-input: 40, 40, 40;
+  	--color-background-input-hover: 10, 10, 10;
+  	--color-border: 53, 53, 53;
+  	--color-announcement-bar: 0, 0, 0;
+  	--color-announcement-bar-background-1: 0, 0, 0;
+  	--alpha-link: 0.5;
+  	--color-button: 53, 53, 53;
+  	--color-button-hover: 33, 33, 33;
+  	--color-button-text: 229, 229, 229;
+  	--color-button-text-hover: 229, 229, 229;
+  	--color-button-secondary-background: 53, 53, 53;
+  	--color-button-secondary-background-hover: 63, 63, 63;
+  	--color-button-secondary-text: 229, 229, 229;
+  	--color-button-secondary-text-hover: 229, 229, 229;
+		--color-button-tertiary-background:  229, 229, 229;
+		--color-button-tertiary-background-hover: 255, 255, 255;
+		--color-button-tertiary-border: 229, 229, 229;
+		--color-button-tertiary-border-hover: 53, 53, 53;
+  	--color-button-tertiary-text: 63, 63, 63;
+  	--color-button-tertiary-text-hover: 63, 63, 63;
+		--color-card-price-new: 255, 255, 255;
+      --color-card-price-old: 229, 229, 229;
+  	--alpha-button-background: 1;
+  	--alpha-button-border: 1;
+  	--color-placeholder-input: 229, 229, 229;
+  	--color-error-background: 0, 0, 0;
+  	--color-title-text: 229, 229, 229;
+		--color-accent: 229, 229, 229;
+
+		.slideshow-slide__title {
+			--color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+		}
+
+		.slideshow-slide__desc {
+			--color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+		}
+
+		.promo-block__overlay_light {
+			--color-overlay: {{ scheme.settings.colors_background_overlay.red }}, {{ scheme.settings.colors_background_overlay.green }}, {{ scheme.settings.colors_background_overlay.blue }};
+		}
+
+		.promo-block__content_light, .aside-menu__promo-container_image {
+			--color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+			--color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+		}
+
+		.product-grid__content_title, .product-grid__content_wrapper, .product-grid__content_vendor,
+		.product-grid__content .price, .product-grid__content .price--on-sale .price-item--regular,
+		.product-grid__content_description, .product-grid__content_collection-title {
+			--color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+			--color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+			--color-card-price-new: {{ scheme.settings.card_new_price_color.red }}, {{ scheme.settings.card_new_price_color.green }}, {{ scheme.settings.card_new_price_color.blue }};
+			--color-card-price-old: {{ scheme.settings.card_old_price_color.red }}, {{ scheme.settings.card_old_price_color.green }}, {{ scheme.settings.card_old_price_color.blue }};
+			--color-foreground-secondary: {{ scheme.settings.colors_secondary_text.red }}, {{ scheme.settings.colors_secondary_text.green }}, {{ scheme.settings.colors_secondary_text.blue }};
+		}
+
+		.collection-hero__inner_image, .slideshow-column__text-slider__wrapper_image {
+			--color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+			--color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+		}
+  }
+
+  @media (prefers-color-scheme: dark) {
+  	[data-scheme=auto] .color-{{ scheme.id }} {
+  		--color-background: 31, 31, 31;
+  		--gradient-background: rgb(31, 31, 31);
+  		--color-overlay: 0, 0, 0;
+  		--color-foreground: 229, 229, 229;
+  		--color-foreground-secondary: 169, 169, 169;
+  		--color-foreground-tertiary: 169, 169, 169;
+  		--color-foreground-title: 229, 229, 229;
+  		--color-border-input: 53, 53, 53;
+  		--color-border-input-hover: 63, 63, 63;
+  		--color-background-input: 40, 40, 40;
+  		--color-background-input-hover: 10, 10, 10;
+  		--color-border: 53, 53, 53;
+  		--color-announcement-bar: 0, 0, 0;
+  		--color-announcement-bar-background-1: 0, 0, 0;
+  		--alpha-link: 0.5;
+  		--color-button: 53, 53, 53;
+  		--color-button-hover: 33, 33, 33;
+  		--color-button-text: 229, 229, 229;
+  		--color-button-text-hover: 229, 229, 229;
+  		--color-button-secondary-background: 53, 53, 53;
+  		--color-button-secondary-background-hover: 63, 63, 63;
+  		--color-button-secondary-text: 229, 229, 229;
+  		--color-button-secondary-text-hover: 229, 229, 229;
+  		--color-button-tertiary-background:  229, 229, 229;
+			--color-button-tertiary-background-hover: 255, 255, 255;
+			--color-button-tertiary-border: 229, 229, 229;
+			--color-button-tertiary-border-hover: 53, 53, 53;
+  		--color-button-tertiary-text: 63, 63, 63;
+  		--color-button-tertiary-text-hover: 63, 63, 63;
+			--color-card-price-new: 255, 255, 255;
+      --color-card-price-old: 229, 229, 229;
+  		--alpha-button-background: 1;
+  		--alpha-button-border: 1;
+  		--color-placeholder-input: 229, 229, 229;
+  		--color-error-background: 0, 0, 0;
+  		--color-title-text: 229, 229, 229;
+			--color-accent: 229, 229, 229;
+
+			.slideshow-slide__title {
+				--color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+			}
+
+			.slideshow-slide__desc {
+				--color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+			}
+
+			.promo-block__content_light, .aside-menu__promo-container_image {
+				--color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+				--color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+			}
+
+			.product-grid__content_title, .product-grid__content_wrapper, .product-grid__content_vendor,
+			.product-grid__content .price, .product-grid__content .price--on-sale .price-item--regular,
+			.product-grid__content_description, .product-grid__content_collection-title {
+				--color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+				--color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+				--color-card-price-new: {{ scheme.settings.card_new_price_color.red }}, {{ scheme.settings.card_new_price_color.green }}, {{ scheme.settings.card_new_price_color.blue }};
+				--color-card-price-old: {{ scheme.settings.card_old_price_color.red }}, {{ scheme.settings.card_old_price_color.green }}, {{ scheme.settings.card_old_price_color.blue }};
+				--color-foreground-secondary: {{ scheme.settings.colors_secondary_text.red }}, {{ scheme.settings.colors_secondary_text.green }}, {{ scheme.settings.colors_secondary_text.blue }};
+			}
+
+			.collection-hero__inner_image, .slideshow-column__text-slider__wrapper_image {
+				--color-foreground: {{ scheme.settings.colors_text.red }}, {{ scheme.settings.colors_text.green }}, {{ scheme.settings.colors_text.blue }};
+				--color-foreground-title: {{ scheme.settings.colors_text_title.red }}, {{ scheme.settings.colors_text_title.green }}, {{ scheme.settings.colors_text_title.blue }};
+			}
+  	}
+  }
+  {% endfor %}
+  [data-scheme=dark] {
+  	--color-background: 31, 31, 31;
+  	--color-background-secondary: 35, 35, 35;
+  	--color-background-tertiary: 51, 51, 51;
+  	--gradient-background: rgb(31, 31, 31);
+  	--color-overlay: 0, 0, 0;
+  	--color-foreground: 229, 229, 229;
+  	--color-foreground-secondary: 169, 169, 169;
+  	--color-foreground-tertiary: 169, 169, 169;
+  	--color-foreground-title: 229, 229, 229;
+  	--color-border-input: 53, 53, 53;
+		--color-border-input-hover: 63, 63, 63;
+		--color-background-input: 40, 40, 40;
+		--color-background-input-hover: 10, 10, 10;
+  	--color-border: 53, 53, 53;
+  	--color-announcement-bar: 0, 0, 0;
+  	--color-announcement-bar-background-1: 0, 0, 0;
+  	--alpha-link: 0.5;
+  	--color-button: 53, 53, 53;
+  	--color-button-hover: 33, 33, 33;
+  	--color-button-text: 229, 229, 229;
+  	--color-button-text-hover: 229, 229, 229;
+  	--color-button-secondary-background: 53, 53, 53;
+  	--color-button-secondary-background-hover: 63, 63, 63;
+  	--color-button-secondary-text: 229, 229, 229;
+  	--color-button-secondary-text-hover: 229, 229, 229;
+  	--color-button-tertiary-background:  229, 229, 229;
+		--color-button-tertiary-background-hover: 255, 255, 255;
+		--color-button-tertiary-border: 229, 229, 229;
+		--color-button-tertiary-border-hover: 53, 53, 53;
+  	--color-button-tertiary-text: 63, 63, 63;
+  	--color-button-tertiary-text-hover: 63, 63, 63;
+		--color-card-price-new: 255, 255, 255;
+      --color-card-price-old: 229, 229, 229;
+  	--alpha-button-background: 1;
+  	--alpha-button-border: 1;
+  	--color-placeholder-input: 229, 229, 229;
+  	--color-error-background: 0, 0, 0;
+  	--color-title-text: 229, 229, 229;
+		--color-accent: 229, 229, 229;
+
+  	.color-background-1 {
+			--color-background: 31, 31, 31;
+			--color-background-secondary: 35, 35, 35;
+		}
+		.color-background-2 {
+			--color-background: 40, 40, 40;
+			--color-background-secondary: 45, 45, 45;
+			--gradient-background: rgb(40, 40, 40);
+		}
+		.color-background-3 {
+			--color-background: 50, 50, 50;
+			--color-background-secondary: 55, 55, 55;
+			--gradient-background: rgb(50, 50, 50);
+		}
+  }
+  @media (prefers-color-scheme: dark) {
+  	[data-scheme=auto] {
+  		--color-background: 31, 31, 31;
+  		--color-background-secondary: 35, 35, 35;
+			--color-background-tertiary: 51, 51, 51;
+  		--gradient-background: rgb(31, 31, 31);
+  		--color-overlay: 0, 0, 0;
+  		--color-foreground: 229, 229, 229;
+  		--color-foreground-secondary: 169, 169, 169;
+  		--color-foreground-tertiary: 169, 169, 169;
+  		--color-foreground-title: 229, 229, 229;
+  		--color-border-input: 53, 53, 53;
+  		--color-border-input-hover: 63, 63, 63;
+  		--color-background-input: 40, 40, 40;
+  		--color-background-input-hover: 10, 10, 10;
+  		--color-border: 53, 53, 53;
+  		--color-announcement-bar: 0, 0, 0;
+  		--color-announcement-bar-background-1: 0, 0, 0;
+  		--alpha-link: 0.5;
+  		--color-button: 53, 53, 53;
+  		--color-button-hover: 33, 33, 33;
+  		--color-button-text: 229, 229, 229;
+  		--color-button-text-hover: 229, 229, 229;
+  		--color-button-secondary-background: 53, 53, 53;
+  		--color-button-secondary-background-hover: 63, 63, 63;
+  		--color-button-secondary-text: 229, 229, 229;
+  		--color-button-secondary-text-hover: 229, 229, 229;
+  		--color-button-tertiary-background:  229, 229, 229;
+			--color-button-tertiary-background-hover: 255, 255, 255;
+			--color-button-tertiary-border: 229, 229, 229;
+			--color-button-tertiary-border-hover: 53, 53, 53;
+  		--color-button-tertiary-text: 63, 63, 63;
+  		--color-button-tertiary-text-hover: 63, 63, 63;
+			--color-card-price-new: 255, 255, 255;
+      --color-card-price-old: 229, 229, 229;
+  		--alpha-button-background: 1;
+  		--alpha-button-border: 1;
+  		--color-placeholder-input: 229, 229, 229;
+  		--color-error-background: 0, 0, 0;
+  		--color-title-text: 229, 229, 229;
+			--color-accent: 229, 229, 229;
+
+  		.color-background-1 {
+				--color-background: 31, 31, 31;
+				--color-background-secondary: 35, 35, 35;
+			}
+			.color-background-2 {
+				--color-background: 40, 40, 40;
+				--color-background-secondary: 45, 45, 45;
+				--gradient-background: rgb(40, 40, 40);
+			}
+			.color-background-3 {
+				--color-background: 50, 50, 50;
+				--color-background-secondary: 55, 55, 55;
+				--gradient-background: rgb(50, 50, 50);
+			}
+  	}
+  }
+{% endstyle %}
