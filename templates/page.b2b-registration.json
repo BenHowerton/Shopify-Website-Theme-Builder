@@ -1,0 +1,44 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "b2b-registration-form": {
+      "type": "page-form",
+      "settings": {
+        "form_link": "https://hooks.zapier.com/hooks/catch/4272718/u8ghv7e/",
+        "title": "Wholesale Application",
+        "des": "Interested in becoming a wholesale customer? Please fill out the application form below and we will get back to your shortly.",
+        "btn-text": "Submit",
+        "checkbox_agree_url": "shopify://pages/terms-of-service"
+      }
+    },
+    "newsletter_r6KTVp": {
+      "type": "newsletter",
+      "name": "t:sections.newsletter.name",
+      "settings": {
+        "color_scheme": "",
+        "v_align": "column",
+        "heading": "Heading for subscribe form",
+        "heading_size": "h1",
+        "newsletter_text": "",
+        "section_button_style": "primary",
+        "button_dot": false,
+        "margin_top": "l",
+        "margin_bottom": "l",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent"
+      }
+    }
+  },
+  "order": [
+    "b2b-registration-form",
+    "newsletter_r6KTVp"
+  ]
+}

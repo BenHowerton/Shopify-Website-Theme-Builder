@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "main-list-collections": {
+      "type": "main-list-collections",
+      "settings": {
+        "margin_top": "no-indent",
+        "margin_bottom": "xl"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "color_scheme": "background-1",
+        "margin_top": "m",
+        "margin_bottom": "m"
+      }
+    }
+  },
+  "order": [
+    "main-list-collections",
+    "newsletter"
+  ]
+}

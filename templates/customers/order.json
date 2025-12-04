@@ -1,0 +1,15 @@
+{
+	"sections": {
+		"main": {
+			"type": "main-order",
+			"settings": {}
+		},
+		"newsletter": {
+			"type": "newsletter",
+			"settings": {
+				"color_scheme": "background-1"
+			}
+		}
+	},
+	"order": ["main", "newsletter"]
+}

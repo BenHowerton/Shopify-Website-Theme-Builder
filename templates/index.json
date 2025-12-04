@@ -1,0 +1,368 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_HXHbtm": {
+      "type": "slideshow",
+      "blocks": {
+        "slideshow_item_Dj7yai": {
+          "type": "slideshow_item",
+          "settings": {
+            "desktop_image": "shopify://shop_images/slideshow.png",
+            "mobile_image": "shopify://shop_images/slideshow-mobile.png",
+            "color_scheme": "background-3",
+            "heading": "Slide Heading",
+            "text": "<p>Text from here describes your slide</p>",
+            "text_width": "small",
+            "button_label": "Shop Now",
+            "button_link": "#",
+            "button_dot": false,
+            "button_style": "primary",
+            "overlay_enable": true,
+            "overlay_opacity": 15,
+            "overlay_opacity_mobile": 15
+          }
+        },
+        "slideshow_item_6mLdx3": {
+          "type": "slideshow_item",
+          "settings": {
+            "color_scheme": "background-1",
+            "heading": "Slide heading",
+            "text": "<p>Text from here describes your slide</p>",
+            "text_width": "small",
+            "button_label": "Shop Now",
+            "button_link": "",
+            "button_dot": true,
+            "button_style": "primary",
+            "overlay_enable": true,
+            "overlay_opacity": 0,
+            "overlay_opacity_mobile": 0
+          }
+        },
+        "slideshow_item_azXRXJ": {
+          "type": "slideshow_item",
+          "settings": {
+            "color_scheme": "background-1",
+            "heading": "Slide heading",
+            "text": "<p>Text from here describes your slide</p>",
+            "text_width": "small",
+            "button_label": "Shop Now",
+            "button_link": "",
+            "button_dot": true,
+            "button_style": "primary",
+            "overlay_enable": true,
+            "overlay_opacity": 0,
+            "overlay_opacity_mobile": 0
+          }
+        }
+      },
+      "block_order": [
+        "slideshow_item_Dj7yai",
+        "slideshow_item_6mLdx3",
+        "slideshow_item_azXRXJ"
+      ],
+      "settings": {
+        "header_overlay": true,
+        "header_transparent": true,
+        "color_scheme_header": "background-3",
+        "light_logo": true,
+        "section_layout": "full",
+        "text_position": "left",
+        "pagination_position": "bottom",
+        "image_size": "21/9",
+        "image_size_mobile": "3/4",
+        "text_position_mobile": "bottom-left",
+        "is_autoplay": true,
+        "is_hover_stop_autoplay": false,
+        "slideshow_speed": 1.1,
+        "slideshow_delay": 3,
+        "slide_effects": "slide",
+        "text_animation": true,
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "blockquote_rwtxJE": {
+      "type": "blockquote",
+      "settings": {
+        "section_subheading": "About us",
+        "dot": true,
+        "blockquote": "Some block quote for this section Somequote for this section Some block quote for this section Some block quote for this section",
+        "section_blockquote_size": "h1",
+        "author_name": "",
+        "author_position": "",
+        "section_button_label": "Read about us",
+        "section_button_link": "#",
+        "button_dot": false,
+        "section_button_style": "primary",
+        "margin_top": "l",
+        "margin_bottom": "l"
+      }
+    },
+    "collections_list_3mCD7h": {
+      "type": "collections-list",
+      "blocks": {
+        "collection_item_EqwyPA": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "beanies",
+            "color_scheme": "background-2",
+            "image_has_container": false,
+            "collection_heading_size": "h2",
+            "overlay_enable": true,
+            "overlay_opacity": 0
+          }
+        },
+        "collection_item_GpQkkc": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "hats",
+            "color_scheme": "background-3",
+            "image_has_container": false,
+            "collection_heading_size": "h2",
+            "overlay_enable": true,
+            "overlay_opacity": 0
+          }
+        },
+        "collection_item_XfciaE": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "patches",
+            "color_scheme": "background-2",
+            "image_has_container": false,
+            "collection_heading_size": "h2",
+            "overlay_enable": true,
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_EqwyPA",
+        "collection_item_GpQkkc",
+        "collection_item_XfciaE"
+      ],
+      "name": "t:sections.collections-list.presets.name",
+      "settings": {
+        "section_heading": "",
+        "section_heading_size": "h2",
+        "subheading": "",
+        "dot": false,
+        "content-align": "align-left",
+        "columns_per_row": 3,
+        "swipe_on_mobile": false,
+        "image_ratio": "1/1",
+        "margin_top": "no-indent",
+        "margin_bottom": "no-indent"
+      }
+    },
+    "card-list": {
+      "type": "card-list",
+      "blocks": {
+        "product_1": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/card-list-1.png",
+            "badge": "Badge",
+            "badge_style": "primary",
+            "text": "Some description about this card"
+          }
+        },
+        "product_2": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/card-list-2.png",
+            "badge": "Badge",
+            "badge_style": "primary",
+            "text": "Some description about this card"
+          }
+        },
+        "product_3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/card-list-3.png",
+            "badge": "Badge",
+            "badge_style": "primary",
+            "text": "Some description about this card"
+          }
+        }
+      },
+      "block_order": [
+        "product_1",
+        "product_2",
+        "product_3"
+      ],
+      "settings": {
+        "section_heading": "Some heading for this section",
+        "section_heading_size": "h2",
+        "subheading": "Some Subheading",
+        "dot": false,
+        "line": false,
+        "columns_per_row": 3,
+        "image_ratio": "3/4",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "margin_top": "l",
+        "margin_bottom": "l"
+      }
+    },
+    "image_with_text_MQqk9Y": {
+      "type": "image-with-text",
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "color_scheme": "background-1",
+        "image_position": "image_left",
+        "content_alignment": "left",
+        "image": "shopify://shop_images/card-list-2.png",
+        "image_size": "1/1",
+        "subheading": "Some Subheading",
+        "dot": false,
+        "heading": "Some heading for this section",
+        "heading_size": "h2",
+        "text": "<p>Description of your company, products, collections, and so on. There may be several paragraphs here.</p>",
+        "button_label": "Button Label",
+        "button_link": "#",
+        "button_style": "primary",
+        "button_dot": false,
+        "margin_top": "l",
+        "margin_bottom": "l"
+      }
+    },
+    "collapsible_content_VRdJUD": {
+      "type": "collapsible-content",
+      "blocks": {
+        "accordion_qNpMNe": {
+          "type": "accordion",
+          "settings": {
+            "question": "Some title",
+            "answer": "Yes, it is compatible with most devices, including laptops and desktops. Itconnects via USB and works with major operating systems like Windows,macOS, and Linux. Please check the product page for specific requirements.",
+            "default_open": false
+          }
+        },
+        "accordion_jJwiGM": {
+          "type": "accordion",
+          "settings": {
+            "question": "Some title",
+            "answer": "Some description",
+            "default_open": false
+          }
+        },
+        "accordion_4bXptC": {
+          "type": "accordion",
+          "settings": {
+            "question": "Some title",
+            "answer": "Some description",
+            "default_open": false
+          }
+        },
+        "accordion_4fDqPE": {
+          "type": "accordion",
+          "settings": {
+            "question": "Some title",
+            "answer": "Some description",
+            "default_open": false
+          }
+        }
+      },
+      "block_order": [
+        "accordion_qNpMNe",
+        "accordion_jJwiGM",
+        "accordion_4bXptC",
+        "accordion_4fDqPE"
+      ],
+      "settings": {
+        "section_layout": "row",
+        "icon_style": "secondary",
+        "section_heading": "Frequently Asked Questions",
+        "section_heading_size": "h2",
+        "section_subheading": "",
+        "dot": false,
+        "section_button_label": "Button label",
+        "section_button_link": "#",
+        "button_dot": false,
+        "section_button_style": "primary",
+        "margin_top": "l",
+        "margin_bottom": "l"
+      }
+    },
+    "image_collage_fRN3wG": {
+      "type": "image-collage",
+      "blocks": {
+        "image_pJaWtH": {
+          "type": "image",
+          "settings": {
+            "slide_img": "shopify://shop_images/gallery-1.png"
+          }
+        },
+        "image_j8ACQ9": {
+          "type": "image",
+          "settings": {}
+        },
+        "image_AaYFin": {
+          "type": "image",
+          "settings": {
+            "slide_img": "shopify://shop_images/gallery-2.png"
+          }
+        },
+        "image_BDqb6M": {
+          "type": "image",
+          "settings": {
+            "slide_img": "shopify://shop_images/gallery-3.png"
+          }
+        },
+        "image_DedYp8": {
+          "type": "image",
+          "settings": {
+            "slide_img": "shopify://shop_images/gallery-4.png"
+          }
+        },
+        "image_gVnzbU": {
+          "type": "image",
+          "settings": {
+            "slide_img": "shopify://shop_images/gallery-5.png"
+          }
+        }
+      },
+      "block_order": [
+        "image_pJaWtH",
+        "image_j8ACQ9",
+        "image_AaYFin",
+        "image_BDqb6M",
+        "image_DedYp8",
+        "image_gVnzbU"
+      ],
+      "name": "t:sections.image-collage.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "image-collage_heading": "Follow us in Instagram",
+        "text": "Description of your company, products, collections, and so on.",
+        "image": "shopify://shop_images/Rectangle_1.png",
+        "image_ratio": "1/1",
+        "author_name": "@arcadianoutfitters",
+        "followers": "",
+        "button_label": "Follow Us",
+        "button_link": "#",
+        "button_dot": false,
+        "button_style": "primary",
+        "slideshow_speed": 6,
+        "margin_top": "s",
+        "margin_bottom": "s"
+      }
+    }
+  },
+  "order": [
+    "slideshow_HXHbtm",
+    "blockquote_rwtxJE",
+    "collections_list_3mCD7h",
+    "card-list",
+    "image_with_text_MQqk9Y",
+    "collapsible_content_VRdJUD",
+    "image_collage_fRN3wG"
+  ]
+}

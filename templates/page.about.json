@@ -1,0 +1,205 @@
+{
+	"sections": {
+		"main": {
+			"type": "main-page",
+			"disabled": true,
+			"settings": {
+				"heading_size": "h3",
+				"margin_top": "no-indent",
+				"margin_bottom": "no-indent"
+			}
+		},
+		"image_banner_cqTVez": {
+			"type": "image-banner",
+			"settings": {
+				"section_heading": "Some heading",
+				"section_heading_size": "h2",
+				"subheading": "",
+				"dot": true,
+				"image_ratio": "21/9",
+				"overlay_enable": true,
+				"overlay_opacity": 0.2,
+				"margin_top": "xl",
+				"margin_bottom": "no-indent"
+			}
+		},
+		"rich-text": {
+			"type": "rich-text",
+			"settings": {
+				"section_layout": "row",
+				"subheading": "Some Subheading",
+				"heading": "Some Heading",
+				"heading_size": "h2",
+				"dot": true,
+				"text": "<p>Enter a brief description or message for this section. This text will help convey important information to your users.</p>",
+				"margin_top": "xl",
+				"margin_bottom": "no-indent"
+			}
+		},
+		"gallery_carousel_QUkeeh": {
+			"type": "gallery-carousel",
+			"blocks": {
+				"carousel_slide_DPN3nH": {
+					"type": "carousel_slide",
+					"settings": {}
+				},
+				"carousel_slide_UQQwKV": {
+					"type": "carousel_slide",
+					"settings": {}
+				},
+				"carousel_slide_qgKE6R": {
+					"type": "carousel_slide",
+					"settings": {}
+				}
+			},
+			"block_order": [
+				"carousel_slide_DPN3nH",
+				"carousel_slide_UQQwKV",
+				"carousel_slide_qgKE6R"
+			],
+			"settings": {
+				"section_heading": "",
+				"section_heading_size": "h3",
+				"subheading": "",
+				"dot": true,
+				"line": false,
+				"image_ratio": "3/2",
+				"slideshow_speed": 6,
+				"stop_btn": true,
+				"margin_top": "xl",
+				"margin_bottom": "no-indent"
+			}
+		},
+		"numbered_list_ighUVj": {
+			"type": "numbered-list",
+			"blocks": {
+				"numbered_item_kWnGAL": {
+					"type": "numbered_item",
+					"settings": {
+						"heading": "Heading for Numbered Item",
+						"text": "Text for Numbered Item"
+					}
+				},
+				"numbered_item_48NQq9": {
+					"type": "numbered_item",
+					"settings": {
+						"heading": "Heading for Numbered Item",
+						"text": "Text for Numbered Item"
+					}
+				},
+				"numbered_item_9PXgjz": {
+					"type": "numbered_item",
+					"settings": {
+						"heading": "Heading for Numbered Item",
+						"text": "Text for Numbered Item"
+					}
+				},
+				"numbered_item_FHWKX6": {
+					"type": "numbered_item",
+					"settings": {
+						"heading": "Heading for Numbered Item",
+						"text": "Text for Numbered Item"
+					}
+				}
+			},
+			"block_order": [
+				"numbered_item_kWnGAL",
+				"numbered_item_48NQq9",
+				"numbered_item_9PXgjz",
+				"numbered_item_FHWKX6"
+			],
+			"settings": {
+				"section_heading": "",
+				"section_heading_size": "h2",
+				"subheading": "Subheading",
+				"dot": true,
+				"columns_per_row": 2,
+				"swipe_on_mobile": false,
+				"card_heading_size": "h3",
+				"margin_top": "xl",
+				"margin_bottom": "no-indent"
+			}
+		},
+		"brand_image_9aRipG": {
+			"type": "brand-image",
+			"blocks": {
+				"column_nkQH4k": {
+					"type": "column",
+					"settings": {
+						"image_width": 140
+					}
+				},
+				"column_pCUx7D": {
+					"type": "column",
+					"settings": {
+						"image_width": 140
+					}
+				},
+				"column_T9HDGy": {
+					"type": "column",
+					"settings": {
+						"image_width": 140
+					}
+				},
+				"column_ieYBAj": {
+					"type": "column",
+					"settings": {
+						"image_width": 140
+					}
+				},
+				"column_dhKVFm": {
+					"type": "column",
+					"settings": {
+						"image_width": 140
+					}
+				},
+				"column_6xJXDQ": {
+					"type": "column",
+					"settings": {
+						"image_width": 140
+					}
+				}
+			},
+			"block_order": [
+				"column_nkQH4k",
+				"column_pCUx7D",
+				"column_T9HDGy",
+				"column_ieYBAj",
+				"column_dhKVFm",
+				"column_6xJXDQ"
+			],
+			"settings": {
+				"section_heading": "",
+				"section_heading_size": "h3",
+				"subheading": "Some Subheading",
+				"dot": true,
+				"line": true,
+				"margin_top": "xl",
+				"margin_bottom": "xl"
+			}
+		},
+		"newsletter": {
+			"type": "newsletter",
+			"settings": {
+				"color_scheme": "background-1",
+				"v_align": "column",
+				"heading": "Heading for subscribe form",
+				"heading_size": "h1",
+				"newsletter_text": "",
+				"section_button_style": "primary",
+				"button_dot": true,
+				"margin_top": "m",
+				"margin_bottom": "m"
+			}
+		}
+	},
+	"order": [
+		"main",
+		"image_banner_cqTVez",
+		"rich-text",
+		"gallery_carousel_QUkeeh",
+		"numbered_list_ighUVj",
+		"brand_image_9aRipG",
+		"newsletter"
+	]
+}
